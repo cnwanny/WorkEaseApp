@@ -1,11 +1,16 @@
 package com.wanny.workease.system.framework_net.retrofit;
+import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.workease_business.customer.main_mvp.WorkResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.RegisterResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
+import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInfo;
 import com.wanny.workease.system.workease_business.login_mvp.LoginResult;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -55,7 +60,21 @@ public interface ApiStores {
 
 
 
+    //u/userInfomation
+    //获取用户信息
+    @GET("u/userInfomation")
+    Observable<CustomerInfo> getUserInfo(@Query("userId") String userId, @Query("userName") String userName);
 
+    //userId
+   // userName
+         //   mobile
+   // areaId
+    //        jobTypeId
+    //senior
+
+    @FormUrlEncoded
+    @POST("u/modify")
+    Observable<OrdinalResultEntity> modifyUserInfo(@Field("userId") String userId, @Field("userName") String userName,@Field("mobile") String mobile, @Field("userState") String userState,@Field("areaId") String areaId,@Field("jobTypeId") String jobTypeId,@Field("senior") String senior);
     //注册
 //     //获取列表
 //    @GET("Project/GetBackPriceList")

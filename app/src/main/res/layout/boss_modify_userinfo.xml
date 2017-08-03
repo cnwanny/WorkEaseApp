@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_theme_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_view" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24_dp"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/register_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:background="@null"
+            android:hint="请输入手机号"
+            android:inputType="phone|number"
+            android:padding="@dimen/margin_10_dp"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/font_size_16" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/register_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:background="@null"
+            android:hint="姓名"
+            android:padding="@dimen/margin_10_dp"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/font_size_16" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/register_area_provice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:drawableEnd="@mipmap/icon_body_upper"
+            android:drawablePadding="@dimen/margin_5_dp"
+            android:drawableRight="@mipmap/icon_body_upper"
+            android:padding="@dimen/margin_10_dp"
+            android:text="请选择省/市："
+            android:textSize="@dimen/font_size_16" />
+
+        <TextView
+            android:id="@+id/register_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:drawableEnd="@mipmap/icon_body_upper"
+            android:drawablePadding="@dimen/margin_5_dp"
+            android:drawableRight="@mipmap/icon_body_upper"
+            android:padding="@dimen/margin_10_dp"
+            android:text="请选择市/区："
+            android:textSize="@dimen/font_size_16" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/boss_register_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:background="@null"
+            android:text="修改密码"
+            android:drawableEnd="@mipmap/icon_right_arrow"
+            android:drawableRight="@mipmap/icon_right_arrow"
+            android:padding="@dimen/margin_10_dp"
+            android:textSize="@dimen/font_size_16" />
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+

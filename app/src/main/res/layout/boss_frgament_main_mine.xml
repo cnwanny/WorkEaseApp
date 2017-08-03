@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:background="#52C4FF">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/icon_avatar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_7_dp"
+                        android:text="昵称"
+                        android:textColor="@color/color_232323"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="#22000000"
+                    android:paddingBottom="@dimen/margin_6_dp"
+                    android:paddingLeft="@dimen/margin_10_dp"
+                    android:paddingTop="@dimen/margin_6_dp"
+                    android:text="个人资料"
+                    android:visibility="gone"
+                    android:textColor="@color/color_232323"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_tab_frame"
+                android:layout_marginLeft="@dimen/margin_5_dp"
+                android:layout_marginRight="@dimen/margin_5_dp"
+                android:layout_marginTop="@dimen/margin_5_dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_moblie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/color_232323"
+                    android:text="联系电话"/>
+                <TextView
+                    android:id="@+id/tv_moblie_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:text="13220286012"
+                    android:textColor="@color/color_232323"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_tab_frame"
+                android:layout_marginLeft="@dimen/margin_5_dp"
+                android:layout_marginRight="@dimen/margin_5_dp"
+                android:layout_marginTop="@dimen/margin_5_dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/color_232323"
+                    android:text="所在地"/>
+                <TextView
+                    android:id="@+id/tv_area_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:text="重庆"
+                    android:textColor="@color/color_232323"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_tab_frame"
+                android:gravity="center"
+                android:text="点击修改资料"
+                android:layout_marginTop="@dimen/margin_30_dp"
+                android:layout_marginLeft="@dimen/margin_5_dp"
+                android:layout_marginRight="@dimen/margin_5_dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

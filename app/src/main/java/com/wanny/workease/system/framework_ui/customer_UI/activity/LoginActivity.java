@@ -81,6 +81,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginI
             if (loginResult.getData() != null) {
                 PreferenceUtil.getInstance(mContext).saveString("mobile", loginResult.getData().getMobile());
                 PreferenceUtil.getInstance(mContext).saveString("name", loginResult.getData().getUserName());
+                PreferenceUtil.getInstance(mContext).saveString("userId", loginResult.getData().getUserId());
                 Intent intent = new Intent(LoginActivity.this, HomeManagerActivity.class);
                 startActivity(intent);
                 ActivityStackManager.getInstance().exitActivity(mActivity);
