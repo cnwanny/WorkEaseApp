@@ -37,7 +37,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WorkVi
     }
 
     @Override
-    public void onBindViewHolder(WorkViewHolder holder, int position) {
+    public void onBindViewHolder(WorkViewHolder holder, final int position) {
         if (position != -1) {
             WorkInfoEntity entity = dataList.get(position);
             if (!TextUtils.isEmpty(entity.getPrice())) {
@@ -70,7 +70,14 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WorkVi
                 holder.workItemArea.setText("区域：");
             }
         }
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(workClickListener != null){
+                    workClickListener.click(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -95,5 +102,17 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WorkVi
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+
+    private WorkClickListener workClickListener;
+
+
+    public void setWorkClickListener(WorkClickListener workClickListener) {
+        this.workClickListener = workClickListener;
+    }
+
+    public interface  WorkClickListener{
+        void click(int position);
     }
 }

@@ -1,4 +1,4 @@
-package com.wanny.workease.system.workease_business.login_mvp;
+package com.wanny.workease.system.workease_business.customer.login_mvp;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -10,7 +10,6 @@ import android.os.Parcelable;
  * 时间： 14:38 2017/5/5
  */
 public class LoginEntity implements Parcelable {
-
 
    private String userId;//": "07e13ec8-0d30-4470-8ec4-d9eba53c496c",
     private String otherBundId;//": "tangdexiang",

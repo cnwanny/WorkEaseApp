@@ -1,4 +1,4 @@
-package com.wanny.workease.system.workease_business.login_mvp;
+package com.wanny.workease.system.workease_business.customer.login_mvp;
 
 
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;

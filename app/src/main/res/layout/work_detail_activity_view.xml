@@ -1,12 +1,269 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
-    <include layout="@layout/title_view"/>
+    <include
+        android:id="@+id/work_detail_title"
+        layout="@layout/title_view" />
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/work_detail_bottom_rel"
+        android:layout_below="@+id/work_detail_title">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.bigkoo.convenientbanner.ConvenientBanner
+                android:id="@+id/work_detail_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/work_detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_10_dp"
+                android:text="项目名称"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/font_size_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_10_dp"
+                android:background="@color/grey_helf" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/margin_15_dp"
+                        android:text="区域"
+                        android:textColor="@color/text_guy"
+                        android:textSize="@dimen/font_size_15" />
+
+                    <TextView
+                        android:id="@+id/work_detail_area"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/margin_15_dp"
+                        android:layout_marginTop="@dimen/margin_5_dp"
+                        android:text="渝北区"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/font_size_17" />
+                </LinearLayout>
+                <View
+                    android:layout_width="@dimen/margin_0.5_dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/half_white" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/margin_15_dp"
+                        android:text="工种"
+                        android:textColor="@color/text_guy"
+                        android:textSize="@dimen/font_size_15" />
+
+                    <TextView
+                        android:id="@+id/work_detail_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/margin_15_dp"
+                        android:layout_marginTop="@dimen/margin_5_dp"
+                        android:text="木工"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/font_size_17" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/margin_0.5_dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/half_white" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/margin_15_dp"
+                        android:text="用工数量"
+                        android:textColor="@color/text_guy"
+                        android:textSize="@dimen/font_size_15" />
+
+                    <TextView
+                        android:id="@+id/work_detail_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/margin_15_dp"
+                        android:layout_marginTop="@dimen/margin_5_dp"
+                        android:text="10人"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/font_size_17" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/margin_0.5_dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/half_white" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/margin_15_dp"
+                        android:text="价格"
+                        android:textColor="@color/text_guy"
+                        android:textSize="@dimen/font_size_15" />
+
+                    <TextView
+                        android:id="@+id/work_detail_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/margin_15_dp"
+                        android:layout_marginTop="@dimen/margin_5_dp"
+                        android:text="300/天"
+                        android:textColor="@color/orange"
+                        android:textSize="@dimen/font_size_17" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1_dp"
+                android:layout_margin="@dimen/margin_10_dp"
+                android:background="@color/half_white" />
+
+            <TextView
+                android:id="@+id/work_project_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_10_dp"
+                android:textColor="@color/grey_helf"
+                android:textSize="@dimen/font_size_14" />
+
+            <TextView
+                android:id="@+id/work_detail_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_10_dp"
+                android:layout_marginLeft="@dimen/margin_10_dp"
+                android:layout_marginRight="@dimen/margin_10_dp"
+                android:layout_marginStart="@dimen/margin_10_dp"
+                android:drawableEnd="@mipmap/icon_right_arrow"
+                android:drawableRight="@mipmap/icon_right_arrow"
+                android:text="项目位置"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/font_size_18" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/work_detail_bottom_rel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/trans_bg2"
+            android:padding="@dimen/margin_5_dp"
+            android:orientation="vertical">
+           <TextView
+               android:id="@+id/workd_contact_name"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="颜值才"
+               android:textSize="@dimen/font_size_12"
+               android:textColor="@color/text_half_black"/>
+            <TextView
+                android:id="@+id/work_contact_phone"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="15218154564"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_14"
+                android:layout_marginTop="@dimen/margin_5_dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange1"
+            android:padding="@dimen/margin_5_dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/margin_24_dp"
+                android:layout_height="@dimen/margin_24_dp"
+                android:src="@mipmap/icon_main_selected"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="center"
+                />
+
+            <TextView
+                android:id="@+id/work_detail_callwork"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="电话"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_12"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

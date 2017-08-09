@@ -16,6 +16,7 @@ import com.wanny.workease.system.R;
 import com.wanny.workease.system.framework_care.AppContent;
 import com.wanny.workease.system.framework_mvpbasic.MvpFragment;
 import com.wanny.workease.system.framework_ui.customer_UI.activity.SearchWorkActivity;
+import com.wanny.workease.system.framework_ui.customer_UI.activity.WorkInfoDetailActivity;
 import com.wanny.workease.system.framework_uikite.dialog.HiFoToast;
 import com.wanny.workease.system.framework_uikite.recycler.ListViewItemDecotion;
 import com.wanny.workease.system.workease_business.customer.main_mvp.MainImpl;
@@ -90,10 +91,20 @@ public class MainFragment extends MvpFragment<MainPresenter> implements MainImpl
         if (adapter != null) {
             ordinalRecycler.setAdapter(adapter);
         }
-//        adapter.setPriceListeListener(this);
+        adapter.setWorkClickListener(workClickListener);
         ordinalRecycler.addOnScrollListener(onScrollListener);
         ordinalRecycler.addItemDecoration(new ListViewItemDecotion(mContext, ListViewItemDecotion.ORIVATION_VERCAL, R.drawable.listview_itemdec_drawable));
     }
+
+
+    private WordListAdapter.WorkClickListener workClickListener = new WordListAdapter.WorkClickListener() {
+        @Override
+        public void click(int position) {
+            Intent intent = new Intent(getActivity(), WorkInfoDetailActivity.class);
+            intent.putExtra("entity",dataList.get(position));
+            startActivity(intent);
+        }
+    };
 
     private boolean hasRunnin = false;
     //滚动监听

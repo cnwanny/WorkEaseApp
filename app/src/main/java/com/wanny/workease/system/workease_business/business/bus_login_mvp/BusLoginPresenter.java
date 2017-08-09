@@ -1,4 +1,4 @@
-package com.wanny.workease.system.workease_business.customer.main_mvp;
+package com.wanny.workease.system.workease_business.business.bus_login_mvp;
 
 import android.text.TextUtils;
 
@@ -8,26 +8,26 @@ import com.wanny.workease.system.framework_net.rxjava.SubscribCallBack;
 import com.wanny.workease.system.workease_business.customer.login_mvp.LoginResult;
 
 /**
- * 文件名： MainPresenter
- * 功能：  首页列表
+ * 文件名： BusLoginPresenter
+ * 功能：
  * 作者： wanny
- * 时间： 17:25 2017/7/10
+ * 时间： 20:02 2017/8/9
  */
-public class MainPresenter extends BasePresenter<MainImpl> {
+public class BusLoginPresenter extends BasePresenter<BusLoginImpl> {
 
 
-    public MainPresenter(MainImpl view){
-        attachView(view);
+
+    public BusLoginPresenter(BusLoginImpl veiw){
+        attachView(veiw);
     }
-
-    public void getWorkData(int pageNumber , final String loading) {
+    public void login(String phone , String password , final String loading) {
         //执行网络请求的回调
         if(!TextUtils.isEmpty(loading)){
             mvpView.loadIng(loading);
         }
-        addSubscription(apiStores.getWorkResult(pageNumber),new SubscribCallBack<>(new ApiCallback<WorkResult>() {
+        addSubscription(apiStores.login(phone,password),new SubscribCallBack<>(new ApiCallback<LoginResult>() {
             @Override
-            public void onSuccess(WorkResult model) {
+            public void onSuccess(LoginResult model) {
                 if(!TextUtils.isEmpty(loading)){
                     mvpView.hide();
                 }

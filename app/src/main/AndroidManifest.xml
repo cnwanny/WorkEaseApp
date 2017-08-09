@@ -63,7 +63,7 @@
         android:supportsRtl="true"
         android:theme="@style/ImageTranslucentTheme">
         <activity
-            android:name=".framework_ui.customer_UI.activity.LoginActivity"
+            android:name=".framework_ui.SplashActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -73,15 +73,26 @@
         </activity>
 
 
-        <activity android:name=".framework_ui.customer_UI.activity.HomeManagerActivity"
-            android:theme="@style/ImageTranslucentTheme"/>
+        <activity
+            android:name=".framework_ui.customer_UI.activity.HomeManagerActivity"
+            android:theme="@style/ImageTranslucentTheme" />
 
-        <activity android:name=".framework_ui.customer_UI.activity.RegisterActivity"
-            android:theme="@style/ImageTranslucentTheme"/>
+        <activity
+            android:name=".framework_ui.customer_UI.activity.RegisterActivity"
+            android:theme="@style/ImageTranslucentTheme" />
 
-        <activity android:name=".framework_ui.customer_UI.activity.SearchWorkActivity"
-            android:theme="@style/ImageTranslucentTheme"/>
+        <activity
+            android:name=".framework_ui.customer_UI.activity.SearchWorkActivity"
+            android:theme="@style/ImageTranslucentTheme" />
 
+        <activity
+            android:name=".framework_ui.customer_UI.activity.WorkInfoDetailActivity"
+            android:theme="@style/ImageTranslucentTheme" />
+
+
+        <activity
+            android:name=".framework_ui.business_UI.activity.BusLoginActivity"
+            android:theme="@style/ImageTranslucentTheme" />
 
     </application>
 

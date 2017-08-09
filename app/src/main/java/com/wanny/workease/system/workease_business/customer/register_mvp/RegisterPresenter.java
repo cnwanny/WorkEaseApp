@@ -1,10 +1,9 @@
 package com.wanny.workease.system.workease_business.customer.register_mvp;
 
-import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.BasePresenter;
 import com.wanny.workease.system.framework_net.rxjava.ApiCallback;
 import com.wanny.workease.system.framework_net.rxjava.SubscribCallBack;
-import com.wanny.workease.system.workease_business.login_mvp.LoginResult;
+import com.wanny.workease.system.workease_business.customer.login_mvp.LoginResult;
 
 
 /**

@@ -6,7 +6,9 @@ import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.BasePresenter;
 import com.wanny.workease.system.framework_net.rxjava.ApiCallback;
 import com.wanny.workease.system.framework_net.rxjava.SubscribCallBack;
-import com.wanny.workease.system.workease_business.login_mvp.LoginResult;
+import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
+import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
+import com.wanny.workease.system.workease_business.customer.login_mvp.LoginResult;
 
 /**
  * 文件名： CustomerUserPresenter
@@ -25,9 +27,9 @@ public class CustomerUserPresenter extends BasePresenter<CustomerUserImpl> {
         if (!TextUtils.isEmpty(loading)) {
             mvpView.loadIng(loading);
         }
-        addSubscription(apiStores.getUserInfo(userId, username), new SubscribCallBack<>(new ApiCallback<CustomerInfo>() {
+        addSubscription(apiStores.getUserInfo(userId, username), new SubscribCallBack<>(new ApiCallback<CustomerInofResult>() {
             @Override
-            public void onSuccess(CustomerInfo model) {
+            public void onSuccess(CustomerInofResult model) {
                 if (!TextUtils.isEmpty(loading)) {
                     mvpView.hide();
                 }
@@ -72,6 +74,53 @@ public class CustomerUserPresenter extends BasePresenter<CustomerUserImpl> {
             }
         }));
     }
+    public void getWorkType() {
+        //执行网络请求的回调
+        addSubscription(apiStores.getWorkType(), new SubscribCallBack<>(new ApiCallback<WorkTypeResult>() {
+            @Override
+            public void onSuccess(WorkTypeResult model) {
+                mvpView.workType(model);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                if (code == 103) {
+                    mvpView.fail("103");
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+        }));
+    }
+
+
+
+
+    public void getCityValue() {
+        //执行网络请求的回调
+        addSubscription(apiStores.getCity(), new SubscribCallBack<>(new ApiCallback<CityResult>() {
+            @Override
+            public void onSuccess(CityResult model) {
+                mvpView.getCityValue(model);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                if (code == 103) {
+                    mvpView.fail("103");
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+        }));
+    }
+
 
 
 }

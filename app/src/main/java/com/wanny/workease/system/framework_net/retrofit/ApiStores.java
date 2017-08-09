@@ -4,8 +4,8 @@ import com.wanny.workease.system.workease_business.customer.main_mvp.WorkResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.RegisterResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
-import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInfo;
-import com.wanny.workease.system.workease_business.login_mvp.LoginResult;
+import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInofResult;
+import com.wanny.workease.system.workease_business.customer.login_mvp.LoginResult;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -62,8 +62,8 @@ public interface ApiStores {
 
     //u/userInfomation
     //获取用户信息
-    @GET("u/userInfomation")
-    Observable<CustomerInfo> getUserInfo(@Query("userId") String userId, @Query("userName") String userName);
+    @GET("u/userInformation")
+    Observable<CustomerInofResult> getUserInfo(@Query("userId") String userId, @Query("userName") String userName);
 
     //userId
    // userName

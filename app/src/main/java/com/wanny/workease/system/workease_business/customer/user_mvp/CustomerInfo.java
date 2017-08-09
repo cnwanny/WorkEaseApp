@@ -21,6 +21,26 @@ public class CustomerInfo implements Parcelable {
     private String jobTypeId;//": "stype",
     private String senior;//": "",
     private String areaId;//": ""
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    //    "userId": "cf0bf5d1-9fbf-42ed-ac59-5c38f2080829",
+//            "otherBundId": "",
+//            "userName": "王鹏飞",
+//            "password": "0",
+//            "userState": 0,
+//            "createTime": "2017-07-21 14:55:42.0",
+//            "type": 0,
+//            "mobile": "18223103860",
+//            "jobTypeId": "101",
+//            "senior": "一般",
+//            "areaId": "500100"
 
 
     public String getUserId() {
@@ -103,6 +123,9 @@ public class CustomerInfo implements Parcelable {
         this.areaId = areaId;
     }
 
+    public CustomerInfo() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -120,9 +143,7 @@ public class CustomerInfo implements Parcelable {
         dest.writeString(this.jobTypeId);
         dest.writeString(this.senior);
         dest.writeString(this.areaId);
-    }
-
-    public CustomerInfo() {
+        dest.writeString(this.userName);
     }
 
     protected CustomerInfo(Parcel in) {
@@ -136,9 +157,10 @@ public class CustomerInfo implements Parcelable {
         this.jobTypeId = in.readString();
         this.senior = in.readString();
         this.areaId = in.readString();
+        this.userName = in.readString();
     }
 
-    public static final Parcelable.Creator<CustomerInfo> CREATOR = new Parcelable.Creator<CustomerInfo>() {
+    public static final Creator<CustomerInfo> CREATOR = new Creator<CustomerInfo>() {
         @Override
         public CustomerInfo createFromParcel(Parcel source) {
             return new CustomerInfo(source);

@@ -1,6 +1,7 @@
 package com.wanny.workease.system.framework_ui.customer_UI.fragment;
 
 import android.os.Bundle;
+import android.os.CpuUsageInfo;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -11,10 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wanny.workease.system.R;
+import com.wanny.workease.system.framework_basicutils.AppUtils;
 import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpFragment;
+import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
+import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
 import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInfo;
+import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInofResult;
 import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerUserImpl;
 import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerUserPresenter;
 
@@ -30,24 +35,22 @@ import butterknife.Unbinder;
  */
 public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> implements CustomerUserImpl {
 
-
+    //选择省份
     @BindView(R.id.register_area_provice)
     TextView registerAreaProvice;
+    //选择地域
     @BindView(R.id.register_area)
     TextView registerArea;
+    //类型选择
     @BindView(R.id.register_typeselect)
     TextView registerTypeselect;
-    @BindView(R.id.register_workertime_index)
-    TextView registerWorkertimeIndex;
+    //工作时长
     @BindView(R.id.register_workertime)
     EditText registerWorkertime;
+    //工作技能熟练程度选择
     @BindView(R.id.register_skilllevelselect)
     TextView registerSkilllevelselect;
     Unbinder unbinder;
-    @BindView(R.id.register_type)
-    TextView registerType;
-    @BindView(R.id.register_skilllevel)
-    TextView registerSkilllevel;
     //返回操作
     @BindView(R.id.title_left)
     TextView titleLeft;
@@ -60,15 +63,12 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     //用工状态选择
     @BindView(R.id.user_center_state_select)
     TextView userCenterStateSelect;
-    //
-    @BindView(R.id.register_workertime_lab)
-    TextView registerWorkertimeLab;
-
-
     //修改个人信息
     @BindView(R.id.user_info_modify)
     TextView userInfoModify;
-
+    //电话号码
+    @BindView(R.id.user_center_phone_edit)
+    EditText userCenterPhoneEdit;
 
 
     private String mobile = "";
@@ -79,10 +79,10 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mobile = PreferenceUtil.getInstance(mContext).getString("mobile","");
-        userId = PreferenceUtil.getInstance(mContext).getString("userId","");
-        name = PreferenceUtil.getInstance(mContext).getString("name","");
-        if(TextUtils.isEmpty(name)){
+        mobile = PreferenceUtil.getInstance(mContext).getString("mobile", "");
+        userId = PreferenceUtil.getInstance(mContext).getString("userId", "");
+        name = PreferenceUtil.getInstance(mContext).getString("name", "");
+        if (TextUtils.isEmpty(name)) {
             name = mobile;
         }
     }
@@ -98,9 +98,33 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(mvpPresenter != null){
-            mvpPresenter.getUserInfo(userId, name,"正在加载");
+        if (titleLeft != null) {
+            AppUtils.notShowView(titleLeft);
         }
+        if(mvpPresenter != null){
+            mvpPresenter.getWorkType();
+        }
+        if(mvpPresenter != null){
+            mvpPresenter.getCityValue();
+        }
+        if (titleTitle != null) {
+            titleTitle.setText("个人资料");
+        }
+        if (mvpPresenter != null) {
+            mvpPresenter.getUserInfo(userId, "", "正在加载");
+        }
+        setInitView();
+    }
+
+    private void setInitView() {
+        registerAreaProvice.setEnabled(false);
+        registerArea.setEnabled(false);
+        userCenterNameEdit.setEnabled(false);
+        userCenterStateSelect.setEnabled(false);
+        userCenterPhoneEdit.setEnabled(false);
+        registerSkilllevelselect.setEnabled(false);
+        registerWorkertime.setEnabled(false);
+        registerTypeselect.setEnabled(false);
 
     }
 
@@ -111,8 +135,42 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     }
 
     @Override
-    public void success(CustomerInfo customerInfo) {
+    public void success(CustomerInofResult customerInfo) {
+        if (customerInfo.isSuccess()) {
+            if (customerInfo.getData() != null) {
+                setData(customerInfo.getData());
+            }
+        }
+    }
 
+
+    private void setData(CustomerInfo info) {
+        if (info != null) {
+            if (!TextUtils.isEmpty(info.getUserName())) {
+                userCenterNameEdit.setText(info.getUserName());
+            }
+
+            if (!TextUtils.isEmpty(info.getMobile())) {
+                userCenterPhoneEdit.setText(info.getMobile());
+            }
+            if (info.getUserState() == 0) {
+                userCenterStateSelect.setText("空闲");
+            }else{
+                userCenterStateSelect.setText("忙碌");
+            }
+            if (!TextUtils.isEmpty(info.getSenior())) {
+                registerSkilllevelselect.setText(info.getSenior());
+            }
+            if (!TextUtils.isEmpty(info.getUserName())) {
+                userCenterNameEdit.setText(info.getUserName());
+            }
+            if (!TextUtils.isEmpty(info.getUserName())) {
+                userCenterNameEdit.setText(info.getUserName());
+            }
+            if (!TextUtils.isEmpty(info.getUserName())) {
+                userCenterNameEdit.setText(info.getUserName());
+            }
+        }
     }
 
     @Override
@@ -138,5 +196,15 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Override
     protected CustomerUserPresenter createPresenter() {
         return new CustomerUserPresenter(this);
+    }
+
+    @Override
+    public void workType(WorkTypeResult entity) {
+
+    }
+
+    @Override
+    public void getCityValue(CityResult cityResult) {
+
     }
 }

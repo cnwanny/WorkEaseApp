@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.wanny.workease.system.workease_business.customer.register_mvp.City;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityEntity;
 import com.wanny.workease.system.workease_business.customer.register_mvp.WoryTypeEntity;
-import com.wanny.workease.system.workease_business.login_mvp.LoginEntity;
+import com.wanny.workease.system.workease_business.customer.login_mvp.LoginEntity;
 
 import java.util.ArrayList;
 

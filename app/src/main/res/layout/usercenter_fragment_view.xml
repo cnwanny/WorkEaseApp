@@ -26,7 +26,6 @@
             android:text="昵称："
             android:textSize="@dimen/font_size_16"
             />
-
         <EditText
             android:id="@+id/user_center_name_edit"
             android:layout_width="wrap_content"
@@ -45,6 +44,45 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_1_dp"
         android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_20_dp"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:layout_marginBottom="@dimen/margin_10_dp"
+            android:text="电话号码："
+            android:textSize="@dimen/font_size_16"
+            />
+        <EditText
+            android:id="@+id/user_center_phone_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10_dp"
+            android:padding="@dimen/margin_10_dp"
+            android:layout_marginEnd="@dimen/margin_10_dp"
+            android:background="@color/white"
+            />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"

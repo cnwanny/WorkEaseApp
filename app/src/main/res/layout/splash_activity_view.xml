@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white_white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/splash_linear"
+        android:layout_marginTop="@dimen/margin_164_dp"
+        android:orientation="horizontal">
+
+
+        <com.thinkcool.circletextimageview.CircleTextImageView
+            android:id="@+id/customer"
+            android:layout_width="@dimen/margin_128_dp"
+            android:layout_height="@dimen/margin_128_dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            app:citv_border_color="#acafb0"
+            app:citv_border_width="0.3dp"
+            app:citv_fill_color="@color/orange"
+            app:citv_text_color="#fefefe"
+            app:citv_text_size="@dimen/font_size_28"
+            app:citv_text_text="工人" />
+
+        <com.thinkcool.circletextimageview.CircleTextImageView
+            android:id="@+id/business"
+            android:layout_width="@dimen/margin_128_dp"
+            android:layout_height="@dimen/margin_128_dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            app:citv_border_color="#acafb0"
+            app:citv_border_width="0.3dp"
+            app:citv_fill_color="@color/btn_green_pressed"
+            app:citv_text_color="#fefefe"
+            app:citv_text_size="@dimen/font_size_28"
+            app:citv_text_text="包工头" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/splash_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_24_dp"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_24"
+        android:textColor="@color/gray_normal"
+        android:text="请选择角色"
+        android:layout_below="@+id/splash_linear"/>
+</RelativeLayout>
