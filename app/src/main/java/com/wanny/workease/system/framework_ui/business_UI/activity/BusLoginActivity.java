@@ -53,9 +53,9 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_view);
         ButterKnife.bind(this);
-        String mobile = PreferenceUtil.getInstance(mContext).getString("mobile", "");
+        String mobile = PreferenceUtil.getInstance(mContext).getString("busmobile", "");
         if (!TextUtils.isEmpty(mobile)) {
-            Intent intent = new Intent(BusLoginActivity.this,HomeManagerActivity.class);
+            Intent intent = new Intent(BusLoginActivity.this,BusHomeManagerActivity.class);
             startActivity(intent);
         }
     }
@@ -80,10 +80,10 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
     public void success(LoginResult loginResult) {
         if (loginResult.isSuccess()) {
             if (loginResult.getData() != null) {
-                PreferenceUtil.getInstance(mContext).saveString("mobile", loginResult.getData().getMobile());
-                PreferenceUtil.getInstance(mContext).saveString("name", loginResult.getData().getUserName());
-                PreferenceUtil.getInstance(mContext).saveString("userId", loginResult.getData().getUserId());
-                Intent intent = new Intent(BusLoginActivity.this, HomeManagerActivity.class);
+                PreferenceUtil.getInstance(mContext).saveString("busmobile", loginResult.getData().getMobile());
+                PreferenceUtil.getInstance(mContext).saveString("busname", loginResult.getData().getUserName());
+                PreferenceUtil.getInstance(mContext).saveString("bususerId", loginResult.getData().getUserId());
+                Intent intent = new Intent(BusLoginActivity.this, BusHomeManagerActivity.class);
                 startActivity(intent);
                 ActivityStackManager.getInstance().exitActivity(mActivity);
             }
@@ -92,16 +92,27 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
                 new HiFoToast(mContext, loginResult.getMsg());
             }
         }
-
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0x0001 && resultCode == 0x0003){
+            if(data != null){
+                if(data.hasExtra("phone")){
+                    loginUsername.setText(data.getStringExtra("phone"));
+                    loginUsername.setSelection(data.getStringExtra("phone").length());
+                }
+            }
+        }
+    }
 
     @OnClick(R.id.start_register)
     void startRegiseter(View view) {
         Intent intent = new Intent(BusLoginActivity.this, BusRegisterActivity.class);
         startActivityForResult(intent, 0x0001);
     }
-
 
     @Override
     public void fail(String errorMessage) {

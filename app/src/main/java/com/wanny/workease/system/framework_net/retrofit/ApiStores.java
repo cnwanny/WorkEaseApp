@@ -1,5 +1,6 @@
 package com.wanny.workease.system.framework_net.retrofit;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
+import com.wanny.workease.system.workease_business.business.bus_main_mvp.WordPeopleResult;
 import com.wanny.workease.system.workease_business.customer.main_mvp.WorkResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.RegisterResult;
@@ -79,6 +80,12 @@ public interface ApiStores {
 //     //获取列表
 //    @GET("Project/GetBackPriceList")
 //    Observable<String> getBackPriceList(@Query("page") int page, @Query("pageSize") int pageSize, @Query("type") int type, @Query("key") String key);
+
+
+
+
+    @GET("u/getUsePeoples")
+    Observable<WordPeopleResult> getWorkInfo(@Query("pageNum") int pageNum);
 
 //    //获取孩子
 //    @FormUrlEncoded

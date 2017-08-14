@@ -9,7 +9,7 @@ import com.wanny.workease.system.framework_mvpbasic.BaseOperateImp;
  * 作者： wanny
  * 时间： 20:11 2017/8/9
  */
-public interface BusMainImpl extends BaseOperateImp<OrdinalResultEntity> {
+public interface BusMainImpl extends BaseOperateImp<WordPeopleResult> {
 
 
 }

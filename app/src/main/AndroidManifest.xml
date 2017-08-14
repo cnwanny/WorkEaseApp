@@ -67,11 +67,9 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name=".framework_ui.customer_UI.activity.HomeManagerActivity"
@@ -93,6 +91,21 @@
         <activity
             android:name=".framework_ui.business_UI.activity.BusLoginActivity"
             android:theme="@style/ImageTranslucentTheme" />
+
+
+        <activity
+            android:name=".framework_ui.business_UI.activity.BusRegisterActivity"
+            android:theme="@style/ImageTranslucentTheme" />
+
+
+        <activity
+            android:name=".framework_ui.business_UI.activity.BusHomeManagerActivity"
+            android:theme="@style/ImageTranslucentTheme" />
+
+        <activity
+            android:name=".framework_ui.business_UI.activity.ModifyInfoActivity"
+            android:theme="@style/ImageTranslucentTheme" />
+
 
     </application>
 

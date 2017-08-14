@@ -348,12 +348,14 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
 
     private ArrayList<String> currentList = new ArrayList<>();
-
     private WaitDialog waitDialog;
 
     private void waitDialog(String loading) {
         waitDialog = new WaitDialog(mActivity, R.style.wait_dialog, loading);
-        waitDialog.show();
+        if(!mActivity.isFinishing()){
+            waitDialog.show();
+        }
+
     }
 
     @Override

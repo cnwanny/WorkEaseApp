@@ -51,7 +51,7 @@ public class SplashActivity extends MvpActivity<BasePresenter> implements BaseOp
 
     @OnClick(R.id.business)
     void startBusiness(View view) {
-        String  busUser = PreferenceUtil.getInstance(mContext).getString("bususernmae","");
+        String  busUser = PreferenceUtil.getInstance(mContext).getString("busmobile","");
         if(!TextUtils.isEmpty(busUser)) {
             Intent intent = new Intent(SplashActivity.this , BusHomeManagerActivity.class);
             startActivity(intent);
