@@ -27,7 +27,7 @@
             android:textSize="@dimen/font_size_16"
             />
         <EditText
-            android:id="@+id/user_center_name_edit"
+            android:id="@+id/cus_modify_name_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -37,6 +37,8 @@
             android:padding="@dimen/margin_10_dp"
             android:layout_marginEnd="@dimen/margin_10_dp"
             android:background="@color/white"
+            android:textSize="@dimen/font_size_16"
+            android:textColor="@color/text_half_black"
             />
 
     </RelativeLayout>
@@ -51,7 +53,6 @@
         android:background="@color/white"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/user_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -65,7 +66,7 @@
             android:textSize="@dimen/font_size_16"
             />
         <EditText
-            android:id="@+id/user_center_phone_edit"
+            android:id="@+id/cus_modify_phone_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -89,7 +90,7 @@
         android:background="@color/white"
         android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/user_work_state"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -103,7 +104,7 @@
             android:textSize="@dimen/font_size_16"
             />
         <TextView
-            android:id="@+id/user_center_state_select"
+            android:id="@+id/cus_modify_state_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -130,7 +131,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/register_area_provice"
+            android:id="@+id/cus_modify_provice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -146,7 +147,7 @@
             android:textSize="@dimen/font_size_16" />
 
         <TextView
-            android:id="@+id/register_area"
+            android:id="@+id/cus_modify_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -176,7 +177,7 @@
 
 
         <TextView
-            android:id="@+id/register_type"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -190,7 +191,7 @@
 
 
         <TextView
-            android:id="@+id/register_typeselect"
+            android:id="@+id/cus_modify_typeselect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -220,7 +221,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/register_workertime_index"
+            android:id="@+id/cus_modify_workertime_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -234,7 +235,7 @@
 
 
         <TextView
-            android:id="@+id/register_workertime_lab"
+            android:id="@+id/cus_modify_workertime_lab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -252,10 +253,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10_dp"
             android:layout_marginStart="@dimen/margin_10_dp"
-            android:layout_toEndOf="@+id/register_workertime_lab"
-            android:layout_toLeftOf="@+id/register_workertime_index"
-            android:layout_toRightOf="@+id/register_workertime_lab"
-            android:layout_toStartOf="@+id/register_workertime_index"
+            android:layout_toEndOf="@+id/cus_modify_workertime_lab"
+            android:layout_toLeftOf="@+id/cus_modify_workertime_index"
+            android:layout_toRightOf="@+id/cus_modify_workertime_lab"
+            android:layout_toStartOf="@+id/cus_modify_workertime_index"
+            android:gravity="end"
             android:background="@null"
             android:hint="请输入工龄"
             android:padding="@dimen/margin_10_dp"
@@ -277,7 +279,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/register_skilllevel"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -290,7 +292,7 @@
             android:textSize="@dimen/font_size_16" />
 
         <TextView
-            android:id="@+id/register_skilllevelselect"
+            android:id="@+id/cus_modify_skilllevelselect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -310,8 +312,8 @@
 
 
     <TextView
-        android:id="@+id/user_info_modify"
-        android:layout_width="wrap_content"
+        android:id="@+id/cus_modify_save"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginEnd="@dimen/margin_24_dp"
@@ -325,7 +327,7 @@
         android:paddingTop="@dimen/margin_5_dp"
         android:paddingLeft="@dimen/margin_36_dp"
         android:paddingRight="@dimen/margin_36_dp"
-        android:text="修改"
+        android:text="保存"
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_18" />
 

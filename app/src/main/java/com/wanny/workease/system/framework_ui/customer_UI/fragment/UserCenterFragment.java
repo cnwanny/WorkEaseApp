@@ -1,9 +1,8 @@
 package com.wanny.workease.system.framework_ui.customer_UI.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.CpuUsageInfo;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,11 @@ import android.widget.TextView;
 import com.wanny.workease.system.R;
 import com.wanny.workease.system.framework_basicutils.AppUtils;
 import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
+import com.wanny.workease.system.framework_care.ActivityStackManager;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpFragment;
+import com.wanny.workease.system.framework_ui.customer_UI.activity.LoginActivity;
+import com.wanny.workease.system.framework_ui.customer_UI.activity.ModifyUserActivity;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
 import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInfo;
@@ -25,6 +27,7 @@ import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerUse
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -35,42 +38,39 @@ import butterknife.Unbinder;
  */
 public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> implements CustomerUserImpl {
 
-    //选择省份
-    @BindView(R.id.register_area_provice)
-    TextView registerAreaProvice;
-    //选择地域
-    @BindView(R.id.register_area)
-    TextView registerArea;
-    //类型选择
-    @BindView(R.id.register_typeselect)
-    TextView registerTypeselect;
-    //工作时长
-    @BindView(R.id.register_workertime)
-    EditText registerWorkertime;
-    //工作技能熟练程度选择
-    @BindView(R.id.register_skilllevelselect)
-    TextView registerSkilllevelselect;
-    Unbinder unbinder;
-    //返回操作
+
     @BindView(R.id.title_left)
     TextView titleLeft;
-    //标题
     @BindView(R.id.title_title)
     TextView titleTitle;
-    //昵称编辑
-    @BindView(R.id.user_center_name_edit)
-    EditText userCenterNameEdit;
-    //用工状态选择
-    @BindView(R.id.user_center_state_select)
-    TextView userCenterStateSelect;
+    //昵称
+    @BindView(R.id.user_center_name)
+    TextView userCenterName;
+    //电话号码
+    @BindView(R.id.user_center_phone)
+    TextView userCenterPhone;
+    //用工状态
+    @BindView(R.id.user_center_state)
+    TextView userCenterState;
+    //城市
+    @BindView(R.id.user_center_city)
+    TextView userCenterCity;
+    //工种类型
+    @BindView(R.id.user_center_worktype)
+    TextView userCenterWorktype;
+    //工作年限
+    @BindView(R.id.user_center_workyear)
+    TextView userCenterWorkyear;
+    //技能熟练程度
+    @BindView(R.id.user_center_skill)
+    TextView userCenterSkill;
     //修改个人信息
     @BindView(R.id.user_info_modify)
     TextView userInfoModify;
-    //电话号码
-    @BindView(R.id.user_center_phone_edit)
-    EditText userCenterPhoneEdit;
-
-
+    //退出登录
+    @BindView(R.id.user_info_logout)
+    TextView userInfoLogout;
+    Unbinder unbinder;
     private String mobile = "";
     private String userId = "";
     private String name = "";
@@ -90,7 +90,7 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.usercenter_fragment_view, container, false);
+        View view = inflater.inflate(R.layout.cus_usercenter_fragment_view, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -101,31 +101,18 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
         if (titleLeft != null) {
             AppUtils.notShowView(titleLeft);
         }
-        if(mvpPresenter != null){
-            mvpPresenter.getWorkType();
-        }
-        if(mvpPresenter != null){
-            mvpPresenter.getCityValue();
-        }
+//        if (mvpPresenter != null) {
+//            mvpPresenter.getWorkType();
+//        }
+//        if (mvpPresenter != null) {
+//            mvpPresenter.getCityValue();
+//        }
         if (titleTitle != null) {
-            titleTitle.setText("个人资料");
+            titleTitle.setText("我的");
         }
         if (mvpPresenter != null) {
             mvpPresenter.getUserInfo(userId, "", "正在加载");
         }
-        setInitView();
-    }
-
-    private void setInitView() {
-        registerAreaProvice.setEnabled(false);
-        registerArea.setEnabled(false);
-        userCenterNameEdit.setEnabled(false);
-        userCenterStateSelect.setEnabled(false);
-        userCenterPhoneEdit.setEnabled(false);
-        registerSkilllevelselect.setEnabled(false);
-        registerWorkertime.setEnabled(false);
-        registerTypeselect.setEnabled(false);
-
     }
 
     @Override
@@ -138,37 +125,36 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     public void success(CustomerInofResult customerInfo) {
         if (customerInfo.isSuccess()) {
             if (customerInfo.getData() != null) {
-                setData(customerInfo.getData());
+                entity = customerInfo.getData();
+                setData();
             }
         }
     }
-
-
-    private void setData(CustomerInfo info) {
-        if (info != null) {
-            if (!TextUtils.isEmpty(info.getUserName())) {
-                userCenterNameEdit.setText(info.getUserName());
+    private CustomerInfo entity ;
+    private void setData() {
+        if (entity != null) {
+            if (!TextUtils.isEmpty(entity.getUserName())) {
+                userCenterName.setText(entity.getUserName());
             }
-
-            if (!TextUtils.isEmpty(info.getMobile())) {
-                userCenterPhoneEdit.setText(info.getMobile());
+            if (!TextUtils.isEmpty(entity.getMobile())) {
+                userCenterPhone.setText(entity.getMobile());
             }
-            if (info.getUserState() == 0) {
-                userCenterStateSelect.setText("空闲");
-            }else{
-                userCenterStateSelect.setText("忙碌");
+            if (entity.getUserState() == 0) {
+                userCenterState.setText("空闲");
+            } else {
+                userCenterState.setText("忙碌");
             }
-            if (!TextUtils.isEmpty(info.getSenior())) {
-                registerSkilllevelselect.setText(info.getSenior());
+            if (!TextUtils.isEmpty(entity.getSenior())) {
+                userCenterSkill.setText(entity.getSenior());
             }
-            if (!TextUtils.isEmpty(info.getUserName())) {
-                userCenterNameEdit.setText(info.getUserName());
+            if (!TextUtils.isEmpty(entity.getJobTypeName())) {
+                userCenterWorktype.setText(entity.getJobTypeName());
             }
-            if (!TextUtils.isEmpty(info.getUserName())) {
-                userCenterNameEdit.setText(info.getUserName());
+            if (!TextUtils.isEmpty(entity.getCityName())) {
+                userCenterCity.setText(entity.getCityName());
             }
-            if (!TextUtils.isEmpty(info.getUserName())) {
-                userCenterNameEdit.setText(info.getUserName());
+            if (!TextUtils.isEmpty(entity.getWorkyear())) {
+                userCenterWorkyear.setText(entity.getWorkyear() + "年");
             }
         }
     }
@@ -191,6 +177,7 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Override
     public void modifySuccess(OrdinalResultEntity ordinalResultEntity) {
 
+
     }
 
     @Override
@@ -206,5 +193,23 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Override
     public void getCityValue(CityResult cityResult) {
 
+    }
+
+    @OnClick(R.id.user_info_modify)
+    void startSave(View view) {
+        Intent intent = new Intent(getActivity(), ModifyUserActivity.class);
+        intent.putExtra("entity", entity);
+        startActivityForResult(intent , 0x0002);
+    }
+
+
+    @OnClick(R.id.user_info_logout)
+    void logout(View view) {
+        PreferenceUtil.getInstance(mContext).saveString("mobile", "");
+        PreferenceUtil.getInstance(mContext).saveString("name","");
+        PreferenceUtil.getInstance(mContext).saveString("userId", "");
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        ActivityStackManager.getInstance().exitActivity(mActivity);
     }
 }

@@ -13,15 +13,40 @@ public class CustomerInfo implements Parcelable {
 
     private String userId;//": "07e13ec8-0d30-4470-8ec4-d9eba53c496c",
     private String otherBundId;//": "weixinId",
-    private String password;//": "123444",
     private int userState;//": 0,
     private String createTime;//": "2017-03-15 15:11:33.0",
     private int type;//": 1,
     private String mobile;//": "15978946250",
-    private String jobTypeId;//": "stype",
     private String senior;//": "",
     private String areaId;//": ""
     private String userName;
+    private String jobTypeName;
+    private String cityName;
+    private String workyear;
+
+    public String getJobTypeName() {
+        return jobTypeName;
+    }
+
+    public void setJobTypeName(String jobTypeName) {
+        this.jobTypeName = jobTypeName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getWorkyear() {
+        return workyear;
+    }
+
+    public void setWorkyear(String workyear) {
+        this.workyear = workyear;
+    }
 
     public String getUserName() {
         return userName;
@@ -59,13 +84,7 @@ public class CustomerInfo implements Parcelable {
         this.otherBundId = otherBundId;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public int getUserState() {
         return userState;
@@ -99,13 +118,7 @@ public class CustomerInfo implements Parcelable {
         this.mobile = mobile;
     }
 
-    public String getJobTypeId() {
-        return jobTypeId;
-    }
 
-    public void setJobTypeId(String jobTypeId) {
-        this.jobTypeId = jobTypeId;
-    }
 
     public String getSenior() {
         return senior;
@@ -135,29 +148,31 @@ public class CustomerInfo implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.userId);
         dest.writeString(this.otherBundId);
-        dest.writeString(this.password);
         dest.writeInt(this.userState);
         dest.writeString(this.createTime);
         dest.writeInt(this.type);
         dest.writeString(this.mobile);
-        dest.writeString(this.jobTypeId);
         dest.writeString(this.senior);
         dest.writeString(this.areaId);
         dest.writeString(this.userName);
+        dest.writeString(this.jobTypeName);
+        dest.writeString(this.cityName);
+        dest.writeString(this.workyear);
     }
 
     protected CustomerInfo(Parcel in) {
         this.userId = in.readString();
         this.otherBundId = in.readString();
-        this.password = in.readString();
         this.userState = in.readInt();
         this.createTime = in.readString();
         this.type = in.readInt();
         this.mobile = in.readString();
-        this.jobTypeId = in.readString();
         this.senior = in.readString();
         this.areaId = in.readString();
         this.userName = in.readString();
+        this.jobTypeName = in.readString();
+        this.cityName = in.readString();
+        this.workyear = in.readString();
     }
 
     public static final Creator<CustomerInfo> CREATOR = new Creator<CustomerInfo>() {

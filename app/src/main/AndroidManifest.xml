@@ -105,7 +105,13 @@
         <activity
             android:name=".framework_ui.business_UI.activity.ModifyInfoActivity"
             android:theme="@style/ImageTranslucentTheme" />
+        <activity
+            android:name=".framework_ui.customer_UI.activity.LoginActivity"
+            android:theme="@style/ImageTranslucentTheme" />
 
+        <activity
+            android:name=".framework_ui.customer_UI.activity.ModifyUserActivity"
+            android:theme="@style/ImageTranslucentTheme" />
 
     </application>
 

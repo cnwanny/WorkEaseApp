@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+
+    <include layout="@layout/title_view"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_20_dp"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:layout_marginBottom="@dimen/margin_10_dp"
+            android:text="姓名："
+            android:textSize="@dimen/font_size_16"
+            />
+        <TextView
+            android:id="@+id/user_center_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10_dp"
+            android:padding="@dimen/margin_10_dp"
+            android:textSize="@dimen/font_size_17"
+            android:layout_marginEnd="@dimen/margin_10_dp"
+            />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_20_dp"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:layout_marginBottom="@dimen/margin_10_dp"
+            android:text="电话号码："
+            android:textSize="@dimen/font_size_16"
+            />
+        <TextView
+            android:id="@+id/user_center_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10_dp"
+            android:padding="@dimen/margin_10_dp"
+            android:textColor="@color/text_half_black"
+            android:layout_marginEnd="@dimen/margin_10_dp"
+            android:textSize="@dimen/font_size_17"
+            android:background="@color/white"
+            />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_20_dp"
+            android:layout_marginTop="@dimen/margin_10_dp"
+            android:layout_marginBottom="@dimen/margin_10_dp"
+            android:text="用工状态："
+            android:textSize="@dimen/font_size_16"
+            />
+        <TextView
+            android:id="@+id/user_center_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10_dp"
+            android:layout_marginEnd="@dimen/margin_10_dp"
+            android:padding="@dimen/margin_10_dp"
+            android:textSize="@dimen/font_size_17"
+            android:textColor="@color/text_half_black"
+            />
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:padding="@dimen/margin_10_dp"
+            android:text="城市："
+            android:textSize="@dimen/font_size_16" />
+
+        <TextView
+            android:id="@+id/user_center_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:textColor="@color/text_half_black"
+            android:textSize="@dimen/font_size_17"
+            android:padding="@dimen/margin_10_dp"
+            />
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_20_dp"
+            android:text="工种"
+            android:textColor="@color/text_half_black"
+            android:textSize="@dimen/font_size_16" />
+
+
+        <TextView
+            android:id="@+id/user_center_worktype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:padding="@dimen/margin_10_dp"
+            android:textColor="@color/text_half_black"
+            android:textSize="@dimen/font_size_17"/>
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_20_dp"
+            android:text="工龄："
+            android:textColor="@color/text_half_black"
+            android:textSize="@dimen/font_size_16" />
+
+
+        <TextView
+            android:id="@+id/user_center_workyear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:padding="@dimen/margin_10_dp"
+            android:text="年"
+            android:textColor="@color/text_half_black"
+            android:textSize="@dimen/font_size_17"/>
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_20_dp"
+            android:text="技能熟练度："
+            android:textColor="@color/text_half_black"
+            android:textSize="@dimen/font_size_16" />
+
+        <TextView
+            android:id="@+id/user_center_skill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:hint="熟练"
+            android:padding="@dimen/margin_10_dp"
+            android:textSize="@dimen/font_size_17" />
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/user_info_modify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/margin_24_dp"
+        android:layout_marginLeft="@dimen/margin_24_dp"
+        android:layout_marginRight="@dimen/margin_24_dp"
+        android:layout_marginStart="@dimen/margin_24_dp"
+        android:layout_marginTop="@dimen/margin_72_dp"
+        android:background="@drawable/but_selected_drawable"
+        android:gravity="center"
+        android:paddingBottom="@dimen/margin_5_dp"
+        android:paddingTop="@dimen/margin_5_dp"
+        android:paddingLeft="@dimen/margin_36_dp"
+        android:paddingRight="@dimen/margin_36_dp"
+        android:text="修改个人信息"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_18" />
+
+    <TextView
+        android:id="@+id/user_info_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/margin_24_dp"
+        android:layout_marginLeft="@dimen/margin_24_dp"
+        android:layout_marginRight="@dimen/margin_24_dp"
+        android:layout_marginStart="@dimen/margin_24_dp"
+        android:layout_marginTop="@dimen/margin_24_dp"
+        android:background="@drawable/but_notselect_drawable"
+        android:gravity="center"
+        android:paddingBottom="@dimen/margin_5_dp"
+        android:paddingTop="@dimen/margin_5_dp"
+        android:paddingLeft="@dimen/margin_36_dp"
+        android:paddingRight="@dimen/margin_36_dp"
+        android:text="退出账号"
+        android:textColor="@color/low_blue"
+        android:textSize="@dimen/font_size_18" />
+
+</LinearLayout>

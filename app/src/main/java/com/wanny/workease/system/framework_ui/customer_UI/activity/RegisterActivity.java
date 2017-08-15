@@ -75,14 +75,10 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
     @BindView(R.id.start_register)
     TextView startRegister;
-
    //注册
     @BindView(R.id.register_username)
     TextView registerUsername;
-
-
     private String code = "";
-
 
 //    @Override
 //    public void success(OrdinalResultEntity s) {

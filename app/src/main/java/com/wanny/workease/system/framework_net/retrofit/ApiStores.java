@@ -73,9 +73,8 @@ public interface ApiStores {
     //        jobTypeId
     //senior
 
-    @FormUrlEncoded
-    @POST("u/modify")
-    Observable<OrdinalResultEntity> modifyUserInfo(@Field("userId") String userId, @Field("userName") String userName,@Field("mobile") String mobile, @Field("userState") String userState,@Field("areaId") String areaId,@Field("jobTypeId") String jobTypeId,@Field("senior") String senior);
+    @GET("u/modify")
+    Observable<CustomerInofResult> modifyUserInfo(@Query("userId") String userId, @Query("userName") String userName,@Query("mobile") String mobile, @Query("userState") String userState,@Query("areaId") String areaId,@Query("jobTypeId") String jobTypeId,@Query("senior") String senior,@Query("workyear") String workyear);
     //注册
 //     //获取列表
 //    @GET("Project/GetBackPriceList")

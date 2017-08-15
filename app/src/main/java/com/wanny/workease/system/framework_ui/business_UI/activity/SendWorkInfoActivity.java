@@ -1,8 +1,6 @@
 package com.wanny.workease.system.framework_ui.business_UI.activity;
 
 import android.os.Bundle;
-
-import com.wanny.workease.system.R;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
 import com.wanny.workease.system.workease_business.business.send_work_mvp.SendWorkImpl;

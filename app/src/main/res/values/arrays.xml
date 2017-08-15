@@ -7,6 +7,12 @@
     </string-array>
 
 
+    <string-array name="stateList">
+        <item>空闲</item>
+        <item>忙碌</item>
+    </string-array>
+
+
     <string-array name="work_type">
         <item>抹灰工</item>
         <item>钢筋工</item>
