@@ -4,10 +4,349 @@
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent">
+    <include layout="@layout/title_view"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                >
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/text_half_black"
+                    android:text="项目名称："
+                    android:layout_marginLeft="@dimen/margin_20_dp"
+                    android:layout_marginStart="@dimen/margin_20_dp"
+                    />
+
+
+                <EditText
+                    android:id="@+id/send_work_projectname_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_10_dp"
+                    android:layout_marginLeft="@dimen/margin_10_dp"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="@dimen/margin_5_dp"
+                    android:paddingTop="@dimen/margin_5_dp"
+                    android:paddingLeft="@dimen/margin_10_dp"
+                    android:paddingStart="@dimen/margin_10_dp"
+                    android:textSize="@dimen/font_size_14"
+                    android:background="@null"
+                    android:hint="输入项目名称"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/title_line"/>
 
 
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
 
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/text_half_black"
+                    android:text="区域："
+                    android:layout_marginLeft="@dimen/margin_20_dp"
+                    android:layout_marginStart="@dimen/margin_20_dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/send_work_areaselect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_10_dp"
+                    android:layout_marginStart="@dimen/margin_10_dp"
+                    android:hint="请选择城市"
+                    android:padding="@dimen/margin_10_dp"
+                    android:drawableRight="@mipmap/icon_body_upper"
+                    android:drawableEnd="@mipmap/icon_body_upper"
+                    android:drawablePadding="@dimen/margin_5_dp"
+                    android:textSize="@dimen/font_size_16" />
+
+            </RelativeLayout>
+
+
+            <include layout="@layout/title_line"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/text_half_black"
+                    android:text="工种："
+                    android:layout_marginLeft="@dimen/margin_20_dp"
+                    android:layout_marginStart="@dimen/margin_20_dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/send_work_worktypeselect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_10_dp"
+                    android:layout_marginStart="@dimen/margin_10_dp"
+                    android:hint="请选择工种"
+                    android:padding="@dimen/margin_10_dp"
+                    android:drawableRight="@mipmap/icon_body_upper"
+                    android:drawableEnd="@mipmap/icon_body_upper"
+                    android:drawablePadding="@dimen/margin_5_dp"
+                    android:textSize="@dimen/font_size_16" />
+
+            </RelativeLayout>
+
+            <include layout="@layout/title_line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/text_half_black"
+                    android:text="需求人数："
+                    android:layout_marginLeft="@dimen/margin_20_dp"
+                    android:layout_marginStart="@dimen/margin_20_dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/send_work_neednumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_10_dp"
+                    android:layout_marginLeft="@dimen/margin_10_dp"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="@dimen/margin_5_dp"
+                    android:paddingTop="@dimen/margin_5_dp"
+                    android:paddingLeft="@dimen/margin_10_dp"
+                    android:paddingStart="@dimen/margin_10_dp"
+                    android:textSize="@dimen/font_size_14"
+                    android:background="@null"
+                    android:hint="请输入需求人数" />
+
+            </LinearLayout>
+            <include layout="@layout/title_line"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/text_half_black"
+                    android:text="价格："
+                    android:layout_marginLeft="@dimen/margin_20_dp"
+                    android:layout_marginStart="@dimen/margin_20_dp"
+                    />
+
+
+                <EditText
+                    android:id="@+id/send_work_price_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_10_dp"
+                    android:layout_marginLeft="@dimen/margin_10_dp"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="@dimen/margin_5_dp"
+                    android:paddingTop="@dimen/margin_5_dp"
+                    android:paddingLeft="@dimen/margin_10_dp"
+                    android:paddingStart="@dimen/margin_10_dp"
+                    android:textSize="@dimen/font_size_14"
+                    android:background="@null"
+                    android:hint="价格请加入单位，如200元/天，30元/平米" />
+            </LinearLayout>
+            <include layout="@layout/title_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/text_half_black"
+                    android:text="描述："
+                    android:layout_marginLeft="@dimen/margin_20_dp"
+                    android:layout_marginStart="@dimen/margin_20_dp"
+                    />
+
+
+                <EditText
+                    android:id="@+id/send_work_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_120_dp"
+                    android:layout_marginRight="@dimen/margin_10_dp"
+                    android:layout_marginLeft="@dimen/margin_10_dp"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="@dimen/margin_5_dp"
+                    android:paddingTop="@dimen/margin_5_dp"
+                    android:paddingLeft="@dimen/margin_10_dp"
+                    android:paddingStart="@dimen/margin_10_dp"
+                    android:gravity="start"
+                    android:padding="@dimen/margin_10_dp"
+                    android:textSize="@dimen/font_size_14"
+                    android:maxEms="200"
+                    android:background="@drawable/search_drawable"
+                    android:hint="请输入项目详情描述" />
+            </LinearLayout>
+            <include layout="@layout/title_line"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                >
+                <TextView
+                    android:id="@+id/send_work_location_left"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10_dp"
+                    android:layout_marginBottom="@dimen/margin_10_dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textSize="@dimen/font_size_16"
+                    android:textColor="@color/text_half_black"
+                    android:text="位置："
+                    android:layout_marginLeft="@dimen/margin_20_dp"
+                    android:layout_marginStart="@dimen/margin_20_dp"
+                    />
+
+
+
+                <EditText
+                    android:id="@+id/send_work_location_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/send_work_location_left"
+                    android:layout_toEndOf="@+id/send_work_location_left"
+                    android:layout_toLeftOf="@+id/send_work_location_map"
+                    android:layout_toStartOf="@+id/send_work_location_map"
+                    android:layout_margin="@dimen/margin_5_dp"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:hint="当前位置"
+                    />
+
+                <TextView
+                    android:id="@+id/send_work_location_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_14"
+                    android:textColor="@color/grey_helf"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin_10_dp"
+                    android:background="@drawable/but_notselect_drawable"
+                    android:paddingTop="@dimen/margin_3_dp"
+                    android:paddingBottom="@dimen/margin_3_dp"
+                    android:paddingLeft="@dimen/margin_15_dp"
+                    android:paddingRight="@dimen/margin_15_dp"
+                    android:text="查看地图"
+                    />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/send_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_48_dp"
+                android:layout_marginRight="@dimen/margin_24_dp"
+                android:layout_marginLeft="@dimen/margin_24_dp"
+                android:paddingBottom="@dimen/margin_10_dp"
+                android:paddingTop="@dimen/margin_10_dp"
+                android:background="@drawable/but_selected_drawable"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_18"
+                android:text="发布"
+                android:gravity="center"
+                />
+
+
+            <TextView
+                android:id="@+id/send_work_hascomplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24_dp"
+                android:layout_marginRight="@dimen/margin_24_dp"
+                android:layout_marginLeft="@dimen/margin_24_dp"
+                android:paddingBottom="@dimen/margin_10_dp"
+                android:paddingTop="@dimen/margin_10_dp"
+                android:background="@drawable/but_notselect_drawable"
+                android:textColor="@color/low_blue"
+                android:textSize="@dimen/font_size_18"
+                android:text="已发布"
+                android:gravity="center"
+                />
+            </LinearLayout>
+     </ScrollView>
 
 </LinearLayout>

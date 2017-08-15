@@ -82,9 +82,9 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
         mobile = PreferenceUtil.getInstance(mContext).getString("mobile", "");
         userId = PreferenceUtil.getInstance(mContext).getString("userId", "");
         name = PreferenceUtil.getInstance(mContext).getString("name", "");
-        if (TextUtils.isEmpty(name)) {
-            name = mobile;
-        }
+//        if (!TextUtils.isEmpty(userId)) {
+//            name = mobile;
+//        }
     }
 
     @Nullable

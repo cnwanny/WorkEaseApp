@@ -35,6 +35,6 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
 
     @Override
     protected BusSendinfoPresenter createPresenter() {
-        return null;
+        return new BusSendinfoPresenter(this);
     }
 }

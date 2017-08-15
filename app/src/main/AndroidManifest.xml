@@ -91,7 +91,9 @@
         <activity
             android:name=".framework_ui.business_UI.activity.BusLoginActivity"
             android:theme="@style/ImageTranslucentTheme" />
-
+        <activity
+            android:name=".framework_ui.customer_UI.activity.LoginActivity"
+            android:theme="@style/ImageTranslucentTheme" />
 
         <activity
             android:name=".framework_ui.business_UI.activity.BusRegisterActivity"
