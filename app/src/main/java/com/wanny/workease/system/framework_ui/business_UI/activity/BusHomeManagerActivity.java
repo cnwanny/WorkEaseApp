@@ -161,7 +161,10 @@ public class BusHomeManagerActivity extends MvpActivity<HomePresenter> implement
     @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         super.onActivityResult(arg0, arg1, arg2);
-
+        if (tabhost.getCurrentTabTag().equals("信息发布")) {
+            BusSendInfoFragment currFagment = (BusSendInfoFragment) getSupportFragmentManager().findFragmentByTag(tabhost.getCurrentTabTag());
+            currFagment.onActivityResult(arg0, arg1, arg2);
+        }
     }
 
     @Override

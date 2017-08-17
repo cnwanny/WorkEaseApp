@@ -1,4 +1,5 @@
-package com.wanny.workease.system.workease_business.business.bus_sendinfo_mvp;
+package com.wanny.workease.system.workease_business.business.modify_work_mvp;
+
 
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.BasePresenter;
@@ -8,20 +9,21 @@ import com.wanny.workease.system.workease_business.customer.register_mvp.CityRes
 import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
 
 /**
- * 文件名： BusSendinfoPresenter
+ * 文件名： ModifyWorkPresenter
  * 功能：
  * 作者： wanny
- * 时间： 20:04 2017/8/9
+ * 时间： 15:40 2017/8/17
  */
-public class BusSendinfoPresenter extends BasePresenter<BusSendinfoImpl> {
+public class ModifyWorkPresenter extends BasePresenter<ModifyWokrImpl> {
 
-    public BusSendinfoPresenter(BusSendinfoImpl view){
+    public ModifyWorkPresenter(ModifyWokrImpl view){
         attachView(view);
     }
 
-    public void relaseWork(String userId,String areaId , String jobTypeId , int returmeNmber ,String price,String name , String desc ,String detaillAddress ,String imgs , double lat , double lon,String laoding ) {
+
+    public void modifyWork(String taskId , String userId,String areaId , String jobTypeId , int returmeNmber ,String price,String name , String desc ,String detaillAddress ,String imgs , double lat , double lon,String laoding ) {
         //执行网络请求的回调
-        addSubscription(apiStores.releaseTask(userId,areaId,jobTypeId,returmeNmber,price,name,desc,detaillAddress,imgs,lat,lon), new SubscribCallBack<>(new ApiCallback<OrdinalResultEntity>() {
+        addSubscription(apiStores.modifyTask(taskId,userId,areaId,jobTypeId,returmeNmber,price,name,desc,detaillAddress,imgs,lat,lon), new SubscribCallBack<>(new ApiCallback<OrdinalResultEntity>() {
             @Override
             public void onSuccess(OrdinalResultEntity model) {
                 mvpView.success(model);
@@ -51,7 +53,7 @@ public class BusSendinfoPresenter extends BasePresenter<BusSendinfoImpl> {
 
             @Override
             public void onFailure(int code, String msg) {
-               mvpView.fail(msg);
+                mvpView.fail(msg);
             }
 
             @Override
@@ -84,6 +86,30 @@ public class BusSendinfoPresenter extends BasePresenter<BusSendinfoImpl> {
             }
         }));
     }
+
+
+    public void deleteWorkByid(String taskId) {
+        //执行网络请求的回调
+        addSubscription(apiStores.deleteTaskById(taskId), new SubscribCallBack<>(new ApiCallback<OrdinalResultEntity>() {
+            @Override
+            public void onSuccess(OrdinalResultEntity model) {
+                mvpView.deleteById(model);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                if (code == 103) {
+                    mvpView.fail("103");
+                }
+            }
+            @Override
+            public void onCompleted() {
+
+            }
+        }));
+    }
+
+
 
 
 

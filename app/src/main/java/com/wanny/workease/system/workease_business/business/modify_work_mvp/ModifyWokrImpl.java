@@ -1,4 +1,4 @@
-package com.wanny.workease.system.workease_business.business.bus_sendinfo_mvp;
+package com.wanny.workease.system.workease_business.business.modify_work_mvp;
 
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.BaseOperateImp;
@@ -6,16 +6,19 @@ import com.wanny.workease.system.workease_business.customer.register_mvp.CityRes
 import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
 
 /**
- * 文件名： BusSendinfoImpl
+ * 文件名： ModifyWokrImpl
  * 功能：
  * 作者： wanny
- * 时间： 20:05 2017/8/9
+ * 时间： 16:00 2017/8/17
  */
-public interface BusSendinfoImpl extends BaseOperateImp<OrdinalResultEntity>{
-    //获取工作类型
+public interface ModifyWokrImpl extends BaseOperateImp<OrdinalResultEntity> {
+
+
+
     void workType(WorkTypeResult entity);
-    //获取城市数据
-    void getCityValue(CityResult cityResult);
+
+
+    void getCityValue(CityResult entity);
+
+    void deleteById(OrdinalResultEntity entity);
 }
-
-

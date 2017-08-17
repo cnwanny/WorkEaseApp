@@ -20,7 +20,6 @@
                 android:background="@color/white"
                 >
 
-
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10_dp"
@@ -158,7 +157,7 @@
                     />
 
 
-                <TextView
+                <EditText
                     android:id="@+id/send_work_neednumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -168,6 +167,7 @@
                     android:paddingBottom="@dimen/margin_5_dp"
                     android:paddingTop="@dimen/margin_5_dp"
                     android:paddingLeft="@dimen/margin_10_dp"
+                    android:inputType="number"
                     android:paddingStart="@dimen/margin_10_dp"
                     android:textSize="@dimen/font_size_14"
                     android:background="@null"

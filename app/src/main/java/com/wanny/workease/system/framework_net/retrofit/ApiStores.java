@@ -52,6 +52,12 @@ public interface ApiStores {
 
 
 
+    //获取城市
+    @GET("  task/deleteTaskById")
+    Observable<OrdinalResultEntity> deleteTaskById(@Query("taskId") String taskId);
+
+
+
     @GET("task/getTaskes")
     Observable<WorkResult> getWorkResult(@Query("pageNum") int pageNum);
 
@@ -85,6 +91,22 @@ public interface ApiStores {
 
     @GET("u/getUsePeoples")
     Observable<WordPeopleResult> getWorkInfo(@Query("pageNum") int pageNum);
+
+
+
+    @GET("task/releaseTask")
+    Observable<OrdinalResultEntity> releaseTask(@Query("userId") String userId ,@Query("areaId") String areaId ,@Query("jobTypeId") String jobTypeId ,@Query("recruitNum") int recruitNum ,@Query("price") String price ,@Query("name") String name ,@Query("desc") String desc ,@Query("detailAddress") String detailAddress ,@Query("imgs") String imgs ,@Query("pointLat") double pointLat, @Query("pointLon") double pointLon );
+
+
+    @GET("task/editTask")
+    Observable<OrdinalResultEntity> modifyTask(@Query("taskId") String taskId ,@Query("userId") String userId ,@Query("areaId") String areaId ,@Query("jobTypeId") String jobTypeId ,@Query("recruitNum") int recruitNum ,@Query("price") String price ,@Query("name") String name ,@Query("desc") String desc ,@Query("detailAddress") String detailAddress ,@Query("imgs") String imgs ,@Query("pointLat") double pointLat, @Query("pointLon") double pointLon );
+
+
+
+    //获取自己发布的职位
+    @GET("task/getTaskesByUser")
+    Observable<WorkResult> getMyWorkResult(@Query("userId") String userId,@Query("pageNum") int pageNum);
+
 
 //    //获取孩子
 //    @FormUrlEncoded

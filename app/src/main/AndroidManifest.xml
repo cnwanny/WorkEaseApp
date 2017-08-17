@@ -59,6 +59,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".framework_care.YiPingApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ImageTranslucentTheme">
@@ -107,14 +108,33 @@
         <activity
             android:name=".framework_ui.business_UI.activity.ModifyInfoActivity"
             android:theme="@style/ImageTranslucentTheme" />
-        <activity
-            android:name=".framework_ui.customer_UI.activity.LoginActivity"
-            android:theme="@style/ImageTranslucentTheme" />
+
 
         <activity
             android:name=".framework_ui.customer_UI.activity.ModifyUserActivity"
             android:theme="@style/ImageTranslucentTheme" />
 
+
+        <activity
+            android:name=".framework_ui.business_UI.activity.LocationActivity"
+            android:theme="@style/ImageTranslucentTheme" />
+
+
+        <activity
+            android:name=".framework_ui.business_UI.activity.MySendWorkListActivity"
+            android:theme="@style/ImageTranslucentTheme" />
+
+
+        <activity
+            android:name=".framework_ui.business_UI.activity.ModifyWorkActivity"
+            android:theme="@style/ImageTranslucentTheme" />
+
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="sTsANGvogiVQ7olV7Ta3gZWcDlx3w4ET" />
+
+        ///
     </application>
 
 </manifest>

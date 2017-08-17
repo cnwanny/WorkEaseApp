@@ -172,7 +172,6 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
 
 
-
     @OnClick(R.id.register_area_provice)
     void startSelectProvice(View view){
         mode = MODE_PROVICE;

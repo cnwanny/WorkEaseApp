@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wanny.workease.system.R;
@@ -38,11 +39,19 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
     TextView tvMoblieValue;
     @BindView(R.id.tv_area)
     TextView tvArea;
+    @BindView(R.id.center_mysendwork_rel)
+    RelativeLayout center_mysendwork_rel;
+
+
     @BindView(R.id.tv_area_value)
     TextView tvAreaValue;
 
+
     @BindView(R.id.bus_usercenter_name)
     TextView busUsercenterName;
+
+
+
 
 
     @BindView(R.id.bus_usercenter_modifyinfo)
@@ -116,6 +125,14 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
     public void hide() {
 
     }
+
+
+    @OnClick(R.id.center_mysendwork_rel)
+    void startMySend(View view){
+        Intent intent = new Intent();
+
+    }
+
 
     @Override
     public void modifySuccess(OrdinalResultEntity ordinalResultEntity) {

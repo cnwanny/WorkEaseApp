@@ -120,6 +120,37 @@
                     android:textSize="16sp" />
             </RelativeLayout>
 
+
+            <RelativeLayout
+                 android:id="@+id/center_mysendwork_rel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10_dp"
+                android:layout_marginRight="@dimen/margin_10_dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
+                android:background="@drawable/layout_tab_frame"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/margin_10_dp"
+                android:paddingTop="@dimen/margin_10_dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="我发布的用工"
+                    android:textColor="@color/color_232323"
+                    android:textSize="@dimen/font_size_16" />
+
+                <TextView
+                    android:id="@+id/center_mysendwork"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:textColor="@color/color_232323"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/bus_usercenter_modifyinfo"
                 android:layout_width="match_parent"

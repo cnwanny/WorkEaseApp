@@ -1,30 +1,19 @@
-package com.wanny.workease.system.framework_ui.business_UI.fragment;
+package com.wanny.workease.system.framework_ui.business_UI.activity;
+
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.Text;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
@@ -33,19 +22,19 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.wanny.workease.system.R;
-import com.wanny.workease.system.framework_basicutils.AppUtils;
 import com.wanny.workease.system.framework_basicutils.NewPremissionUtils;
 import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
+import com.wanny.workease.system.framework_care.ActivityStackManager;
 import com.wanny.workease.system.framework_care.AppContent;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
-import com.wanny.workease.system.framework_mvpbasic.MvpFragment;
-import com.wanny.workease.system.framework_ui.business_UI.activity.LocationActivity;
-import com.wanny.workease.system.framework_ui.business_UI.activity.MySendWorkListActivity;
+import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
+import com.wanny.workease.system.framework_ui.business_UI.fragment.BusSendInfoFragment;
 import com.wanny.workease.system.framework_uikite.WaitDialog;
 import com.wanny.workease.system.framework_uikite.dialog.HiFoToast;
 import com.wanny.workease.system.framework_uikite.dialog.IOSDialogView;
-import com.wanny.workease.system.workease_business.business.bus_sendinfo_mvp.BusSendinfoImpl;
-import com.wanny.workease.system.workease_business.business.bus_sendinfo_mvp.BusSendinfoPresenter;
+import com.wanny.workease.system.workease_business.business.modify_work_mvp.ModifyWokrImpl;
+import com.wanny.workease.system.workease_business.business.modify_work_mvp.ModifyWorkPresenter;
+import com.wanny.workease.system.workease_business.customer.main_mvp.WorkInfoEntity;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityEntity;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
@@ -56,85 +45,97 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
+
 
 /**
- * 文件名： BusSendInfoFragment
+ * 文件名： ModifyWorkActivity
  * 功能：
  * 作者： wanny
- * 时间： 17:49 2017/8/8
+ * 时间： 15:29 2017/8/17
  */
-public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> implements BusSendinfoImpl {
-
+public class ModifyWorkActivity extends MvpActivity<ModifyWorkPresenter> implements ModifyWokrImpl {
 
     @BindView(R.id.title_left)
     TextView titleLeft;
-
     @BindView(R.id.title_title)
     TextView titleTitle;
-
-    @BindView(R.id.title_right_image)
-    ImageView titleRightImage;
-
     @BindView(R.id.send_work_projectname_edit)
-    TextView sendWorkProjectNameEdit;
-
+    EditText sendWorkProjectnameEdit;
     @BindView(R.id.send_work_areaselect)
     TextView sendWorkAreaselect;
-
     @BindView(R.id.send_work_worktypeselect)
     TextView sendWorkWorktypeselect;
-
     @BindView(R.id.send_work_neednumber)
-    TextView sendWorkNeednumber;
-
+    EditText sendWorkNeednumber;
     @BindView(R.id.send_work_price_edit)
     EditText sendWorkPriceEdit;
-
     @BindView(R.id.send_work_detail)
     EditText sendWorkDetail;
-
-    @BindView(R.id.send_work_location_left)
-    TextView sendWorkLocationLeft;
-
     @BindView(R.id.send_work_location_edit)
     EditText sendWorkLocationEdit;
-
     @BindView(R.id.send_work_location_map)
     TextView sendWorkLocationMap;
-
     @BindView(R.id.send_work)
     TextView sendWork;
-
     @BindView(R.id.send_work_hascomplete)
     TextView sendWorkHascomplete;
-    Unbinder unbinder;
     private GeoCoder geoCoder;
 
+    private WorkInfoEntity entity;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.send_workinfo_activity_view, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.send_workinfo_activity_view);
+        ButterKnife.bind(this);
         geoCoder = GeoCoder.newInstance();
+        if (mvpPresenter != null) {
+            mvpPresenter.getCityValue();
+            mvpPresenter.getWorkType();
+        }
+        if (getIntent() != null) {
+            entity = getIntent().getParcelableExtra("entity");
+        }
         initView();
-        return view;
     }
 
 
     private void initView() {
-        if (titleLeft != null) {
-            AppUtils.notShowView(titleLeft);
+        if (sendWorkHascomplete != null) {
+            sendWorkHascomplete.setText("删除");
         }
-        titleTitle.setText("用工信息发布");
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        requesetLocation();
-        if (mvpPresenter != null) {
-            mvpPresenter.getCityValue();
-            mvpPresenter.getWorkType();
+        if (sendWork != null) {
+            sendWork.setText("修改");
+        }
+        if (entity != null) {
+            if (!TextUtils.isEmpty(entity.getName())) {
+                sendWorkProjectnameEdit.setText(entity.getName());
+            }
+            if (!TextUtils.isEmpty(entity.getRecruitNum())) {
+                sendWorkNeednumber.setText(entity.getRecruitNum());
+            }
+            if (!TextUtils.isEmpty(entity.getPrice())) {
+              sendWorkPriceEdit.setText(entity.getPrice());
+            }
+            if (!TextUtils.isEmpty(entity.getDetailAddress())) {
+                   sendWorkLocationEdit.setText(entity.getDetailAddress());
+            }
+            if (entity.getCity() != null) {
+                if(!TextUtils.isEmpty(entity.getCity().getName())){
+                    sendWorkAreaselect.setText(entity.getCity().getName());
+                    selectAreaId = entity.getCity().getId();
+                }
+            }
+            if (entity.getJobType() != null) {
+                if(!TextUtils.isEmpty(entity.getJobType().getName())){
+                        sendWorkAreaselect.setText(entity.getJobType().getName());
+                    selectWorkTypeId = entity.getJobType().getId();
+                }
+            }
+            if (!TextUtils.isEmpty(entity.getDesc())) {
+                  sendWorkDetail.setText(entity.getDesc());
+            }
+            curretnLocation = new  LatLng(entity.getPointLat(),entity.getPointLon());
         }
     }
 
@@ -163,7 +164,7 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
     LatLng curretnLocation = null;
 
     private void startAction() {
-        mLocationClient = new LocationClient(getActivity());     //声明LocationClient类
+        mLocationClient = new LocationClient(mContext);     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
         mLocationClient.start();
@@ -254,54 +255,6 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
             mLocationClient.stop();
 //            new HiFoToast(getActivity(), sb.toString());
         }
-    }
-
-
-    @Override
-    public void success(OrdinalResultEntity ordinalResultEntity) {
-        if (waitDialog != null) {
-            if (waitDialog.isShowing()) {
-                waitDialog.hide();
-                waitDialog = null;
-            }
-        }
-        if (ordinalResultEntity.isSuccess()) {
-            //跳转到对应的
-            Intent intent = new Intent(getActivity(),MySendWorkListActivity.class);
-            startActivity(intent);
-        } else {
-            if (!TextUtils.isEmpty(ordinalResultEntity.getMsg())) {
-                new HiFoToast(mContext, ordinalResultEntity.getMsg());
-            }
-        }
-
-    }
-
-    @Override
-    public void fail(String errorMessage) {
-        if (waitDialog != null) {
-            if (waitDialog.isShowing()) {
-                waitDialog.hide();
-                waitDialog = null;
-            }
-        }
-    }
-
-    @Override
-    public void loadIng(String title) {
-        waitDialog(title);
-    }
-
-
-    @Override
-    protected BusSendinfoPresenter createPresenter() {
-        return new BusSendinfoPresenter(this);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     //工种
@@ -447,40 +400,49 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
         }
     }
 
+
     //发布
     @OnClick(R.id.send_work)
     void startSend(View view) {
         //启动发布
         if (mvpPresenter != null) {
+            if(TextUtils.isEmpty(sendWorkLocationEdit.getText().toString())){
+                new HiFoToast(mContext,"请输入位置或者地址");
+                return;
+            }
+            if(TextUtils.isEmpty(selectWorkTypeId)){
+                new HiFoToast(mContext,"请选择工钟");
+                return;
+            }
             String userId = PreferenceUtil.getInstance(mContext).getString("bususerId", "");
             int number = 0;
             if (!TextUtils.isEmpty(sendWorkNeednumber.getText().toString())) {
                 number = Integer.valueOf(sendWorkNeednumber.getText().toString());
             }
-            mvpPresenter.relaseWork(userId, selectAreaId, selectWorkTypeId, number, sendWorkPriceEdit.getText().toString(), sendWorkProjectNameEdit.getText().toString(), sendWorkDetail.getText().toString(), sendWorkLocationEdit.getText().toString(), "", curretnLocation.latitude, curretnLocation.longitude, "正在提交");
+            mvpPresenter.modifyWork(entity.getId() ,userId,selectAreaId,selectWorkTypeId,number,sendWorkPriceEdit.getText().toString(),sendWorkProjectnameEdit.getText().toString(),sendWorkDetail.getText().toString(),sendWorkLocationEdit.getText().toString(),"",curretnLocation.latitude,curretnLocation.longitude,"正在提交");
         }
     }
 
 
     //已经完成发布的
     @OnClick(R.id.send_work_hascomplete)
-    void complete(View view) {
+    void deleteTask(View view) {
         //返回已经回价的列表
-        Intent intent = new Intent(getActivity(), MySendWorkListActivity.class);
-        startActivity(intent);
+        if (mvpPresenter != null) {
+            mvpPresenter.deleteWorkByid(entity.getId());
+        }
     }
 
 
     //已经完成发布的
     @OnClick(R.id.send_work_location_map)
     void lookMap(View view) {
-        Intent intent = new Intent(getActivity(), LocationActivity.class);
+        Intent intent = new Intent(ModifyWorkActivity.this, LocationActivity.class);
         if (curretnLocation != null) {
             intent.putExtra("location", curretnLocation);
         }
         startActivityForResult(intent, 0x0002);
     }
-
 
     private WaitDialog waitDialog;
 
@@ -489,7 +451,6 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
         if (!mActivity.isFinishing()) {
             waitDialog.show();
         }
-
     }
 
 
@@ -501,6 +462,59 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
                 waitDialog = null;
             }
         }
+    }
+
+
+    @Override
+    public void success(OrdinalResultEntity ordinalResultEntity) {
+        if (waitDialog != null) {
+            if (waitDialog.isShowing()) {
+                waitDialog.hide();
+                waitDialog = null;
+            }
+        }
+        if(ordinalResultEntity.isSuccess()){
+            ActivityStackManager.getInstance().exitActivity(mActivity);
+        }else{
+           if(!TextUtils.isEmpty(ordinalResultEntity.getMsg())){
+               new HiFoToast(mContext,"修改失败");
+           }
+        }
+    }
+
+    @Override
+    public void fail(String errorMessage) {
+        if (waitDialog != null) {
+            if (waitDialog.isShowing()) {
+                waitDialog.hide();
+                waitDialog = null;
+            }
+        }
+    }
+
+    @Override
+    public void loadIng(String title) {
+        waitDialog(title);
+    }
+
+
+    @Override
+    public void deleteById(OrdinalResultEntity entity) {
+        if (entity.isSuccess()) {
+            ActivityStackManager.getInstance().exitActivity(mActivity);
+        } else {
+            if (!TextUtils.isEmpty(entity.getMsg())) {
+                new HiFoToast(mContext, entity.getMsg());
+            } else {
+                new HiFoToast(mContext, "删除失败，请重新删除");
+            }
+        }
+
+    }
+
+    @Override
+    protected ModifyWorkPresenter createPresenter() {
+        return new ModifyWorkPresenter(this);
     }
 
 }

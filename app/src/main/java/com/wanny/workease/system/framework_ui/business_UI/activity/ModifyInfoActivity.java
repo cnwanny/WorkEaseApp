@@ -9,6 +9,7 @@ import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
 import com.wanny.workease.system.workease_business.business.modify_mvp.ModifyInfoImpl;
 import com.wanny.workease.system.workease_business.business.modify_mvp.ModifyInfoPresenter;
+import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInofResult;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,20 +24,9 @@ import butterknife.ButterKnife;
 public class ModifyInfoActivity extends MvpActivity<ModifyInfoPresenter> implements ModifyInfoImpl {
 
 
-    @BindView(R.id.title_left)
-    TextView titleLeft;
-    @BindView(R.id.title_title)
-    TextView titleTitle;
-    @BindView(R.id.register_phone)
-    EditText registerPhone;
-    @BindView(R.id.register_username)
-    EditText registerUsername;
-    @BindView(R.id.register_area_provice)
-    TextView registerAreaProvice;
-    @BindView(R.id.register_area)
-    TextView registerArea;
-    @BindView(R.id.boss_register_username)
-    TextView bossRegisterUsername;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +36,8 @@ public class ModifyInfoActivity extends MvpActivity<ModifyInfoPresenter> impleme
     }
 
     @Override
-    public void success(OrdinalResultEntity ordinalResultEntity) {
+    public void success(CustomerInofResult customerInofResult){
+
 
     }
 

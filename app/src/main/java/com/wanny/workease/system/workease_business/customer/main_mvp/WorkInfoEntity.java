@@ -30,7 +30,24 @@ public class WorkInfoEntity implements Parcelable {
     private ArrayList<String> imgs;
     private WoryTypeEntity jobType;
     private LoginEntity user;
+    private double pointLat;
+    private double pointLon;
 
+    public double getPointLat() {
+        return pointLat;
+    }
+
+    public void setPointLat(double pointLat) {
+        this.pointLat = pointLat;
+    }
+
+    public double getPointLon() {
+        return pointLon;
+    }
+
+    public void setPointLon(double pointLon) {
+        this.pointLon = pointLon;
+    }
 
     public String getId() {
         return id;
@@ -141,11 +158,13 @@ public class WorkInfoEntity implements Parcelable {
         dest.writeStringList(this.imgs);
         dest.writeParcelable(this.jobType, flags);
         dest.writeParcelable(this.user, flags);
+        dest.writeDouble(this.pointLat);
+        dest.writeDouble(this.pointLon);
     }
 
     protected WorkInfoEntity(Parcel in) {
         this.id = in.readString();
-        this.city = in.readParcelable(CityEntity.class.getClassLoader());
+        this.city = in.readParcelable(City.class.getClassLoader());
         this.recruitNum = in.readString();
         this.price = in.readString();
         this.name = in.readString();
@@ -155,6 +174,8 @@ public class WorkInfoEntity implements Parcelable {
         this.imgs = in.createStringArrayList();
         this.jobType = in.readParcelable(WoryTypeEntity.class.getClassLoader());
         this.user = in.readParcelable(LoginEntity.class.getClassLoader());
+        this.pointLat = in.readDouble();
+        this.pointLon = in.readDouble();
     }
 
     public static final Creator<WorkInfoEntity> CREATOR = new Creator<WorkInfoEntity>() {

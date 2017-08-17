@@ -3,6 +3,8 @@ package com.wanny.workease.system.framework_care;
 import android.app.Application;
 import android.content.Context;
 
+import com.baidu.mapapi.SDKInitializer;
+
 /**
  * 文件名： YiPingApplication
  * 功能：
@@ -19,6 +21,7 @@ public class YiPingApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        SDKInitializer.initialize(getApplicationContext());
     }
 
 
