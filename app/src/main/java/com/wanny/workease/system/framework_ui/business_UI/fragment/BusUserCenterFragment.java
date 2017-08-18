@@ -12,9 +12,12 @@ import android.widget.TextView;
 import com.wanny.workease.system.R;
 import com.wanny.workease.system.framework_basicutils.AppUtils;
 import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
+import com.wanny.workease.system.framework_care.ActivityStackManager;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpFragment;
+import com.wanny.workease.system.framework_ui.business_UI.activity.BusLoginActivity;
 import com.wanny.workease.system.framework_ui.business_UI.activity.ModifyInfoActivity;
+import com.wanny.workease.system.framework_ui.business_UI.activity.MySendWorkListActivity;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
 import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInofResult;
@@ -41,31 +44,23 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
     TextView tvArea;
     @BindView(R.id.center_mysendwork_rel)
     RelativeLayout center_mysendwork_rel;
-
-
     @BindView(R.id.tv_area_value)
     TextView tvAreaValue;
-
-
     @BindView(R.id.bus_usercenter_name)
     TextView busUsercenterName;
-
-
-
-
-
     @BindView(R.id.bus_usercenter_modifyinfo)
     TextView busUsercenterModifyinfo;
 
+
+
+    @BindView(R.id.bus_usercenter_logout)
+    TextView busUsercenterLogout;
+
+
     Unbinder unbinder;
-
-
     private String mobile = "";
     private String userId = "";
     private String name = "";
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -129,10 +124,20 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
 
     @OnClick(R.id.center_mysendwork_rel)
     void startMySend(View view){
-        Intent intent = new Intent();
-
+        Intent intent = new Intent(getActivity(), MySendWorkListActivity.class);
+        startActivity(intent);
     }
 
+
+    @OnClick(R.id.bus_usercenter_logout)
+    void startLogout(View view){
+        PreferenceUtil.getInstance(mContext).saveString("busmobile", "");
+        PreferenceUtil.getInstance(mContext).saveString("busname", "");
+        PreferenceUtil.getInstance(mContext).saveString("bususerId", "");
+        Intent intent  = new Intent(getActivity(),BusLoginActivity.class);
+        startActivity(intent);
+        ActivityStackManager.getInstance().exitActivity(mActivity);
+    }
 
     @Override
     public void modifySuccess(OrdinalResultEntity ordinalResultEntity) {

@@ -248,7 +248,9 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
                 loc = new LatLng(28.564151, 106.580207);
             }
             if (!TextUtils.isEmpty(location.getAddrStr())) {
-                sendWorkLocationEdit.setText(location.getAddrStr().toString());
+                if(sendWorkLocationEdit != null ){
+                    sendWorkLocationEdit.setText(location.getAddrStr().toString());
+                }
             }
             curretnLocation = loc;
             mLocationClient.stop();

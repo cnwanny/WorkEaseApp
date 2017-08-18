@@ -91,11 +91,17 @@ public class MySendWorkListActivity extends MvpActivity<MySendWorkPresenter> imp
     private WordListAdapter.WorkClickListener workClickListener = new WordListAdapter.WorkClickListener() {
         @Override
         public void click(int position) {
-            Intent intent = new Intent(MySendWorkListActivity.this, WorkInfoDetailActivity.class);
+            Intent intent = new Intent(MySendWorkListActivity.this, ModifyWorkActivity.class);
             intent.putExtra("entity",dataList.get(position));
             startActivity(intent);
         }
     };
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     private boolean hasRunnin = false;
     //滚动监听

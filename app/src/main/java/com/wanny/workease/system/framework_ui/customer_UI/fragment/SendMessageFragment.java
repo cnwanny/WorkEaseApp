@@ -26,38 +26,12 @@ import butterknife.Unbinder;
 public class SendMessageFragment extends MvpFragment<SendWorkInfoPresenter> implements SendWorkImpl {
 
 
-    @BindView(R.id.title_left)
-    TextView titleLeft;
-    @BindView(R.id.title_title)
-    TextView titleTitle;
-    @BindView(R.id.send_work_projectname_edit)
-    EditText sendWorkProjectnameEdit;
-    @BindView(R.id.send_work_areaselect)
-    TextView sendWorkAreaselect;
-    @BindView(R.id.send_work_worktypeselect)
-    TextView sendWorkWorktypeselect;
-    @BindView(R.id.send_work_neednumber)
-    TextView sendWorkNeednumber;
-    @BindView(R.id.send_work_price_edit)
-    EditText sendWorkPriceEdit;
-    @BindView(R.id.send_work_detail)
-    EditText sendWorkDetail;
-    @BindView(R.id.send_work_location_edit)
-    EditText sendWorkLocationEdit;
-    @BindView(R.id.send_work_location_map)
-    TextView sendWorkLocationMap;
-    @BindView(R.id.send_work)
-    TextView sendWork;
-    @BindView(R.id.send_work_hascomplete)
-    TextView sendWorkHascomplete;
-    Unbinder unbinder;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.send_workinfo_activity_view, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.send_workinfo_activity_view, container, false);
+//        return view;
+//    }
 
     @Override
     public void success(OrdinalResultEntity ordinalResultEntity) {
@@ -87,6 +61,5 @@ public class SendMessageFragment extends MvpFragment<SendWorkInfoPresenter> impl
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 }

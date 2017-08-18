@@ -23,6 +23,7 @@ import com.wanny.workease.system.workease_business.business.bus_main_mvp.WorkPeo
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -118,6 +119,11 @@ public class BusMainFragment extends MvpFragment<BusMainPresenter> implements Bu
         }
     }
 
+
+    @OnClick(R.id.city_name)
+    void citySelect(View view){
+        new HiFoToast(mContext,"目前只开放当前城市");
+    }
 
 //    //
 //    @Override

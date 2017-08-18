@@ -129,7 +129,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
                     .icon(bitmap);
             //在地图上添加Marker，并显示
             mBaiduMap.addOverlay(ooption);
-            titleRightText.setText("重新定位");
+            titleRightText.setText("重新选定");
         }
     }
 
@@ -320,7 +320,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
             } else {
                 new HiFoToast(getApplicationContext(), "请先等待定位或者手动修改定位。");
             }
-        } else if ("重新定位".equals(titleRightText.getText().toString())) {
+        } else if ("重新选定".equals(titleRightText.getText().toString())) {
             titleRightText.setText("定位");
             //setMapStatusChangeListener();
             //清除当前maker

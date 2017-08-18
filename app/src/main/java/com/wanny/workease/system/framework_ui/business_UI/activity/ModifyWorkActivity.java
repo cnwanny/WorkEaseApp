@@ -101,6 +101,9 @@ public class ModifyWorkActivity extends MvpActivity<ModifyWorkPresenter> impleme
 
 
     private void initView() {
+        if(titleTitle != null){
+            titleTitle.setText("编辑发布信息");
+        }
         if (sendWorkHascomplete != null) {
             sendWorkHascomplete.setText("删除");
         }
@@ -128,7 +131,7 @@ public class ModifyWorkActivity extends MvpActivity<ModifyWorkPresenter> impleme
             }
             if (entity.getJobType() != null) {
                 if(!TextUtils.isEmpty(entity.getJobType().getName())){
-                        sendWorkAreaselect.setText(entity.getJobType().getName());
+                        sendWorkWorktypeselect.setText(entity.getJobType().getName());
                     selectWorkTypeId = entity.getJobType().getId();
                 }
             }
@@ -137,6 +140,12 @@ public class ModifyWorkActivity extends MvpActivity<ModifyWorkPresenter> impleme
             }
             curretnLocation = new  LatLng(entity.getPointLat(),entity.getPointLon());
         }
+    }
+
+
+    @OnClick(R.id.title_left)
+    void backActivity(View view){
+        ActivityStackManager.getInstance().exitActivity(mActivity);
     }
 
     private NewPremissionUtils newPremissionUtils;

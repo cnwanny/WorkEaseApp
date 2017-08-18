@@ -27,7 +27,6 @@ public class ModifyInfoActivity extends MvpActivity<ModifyInfoPresenter> impleme
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
