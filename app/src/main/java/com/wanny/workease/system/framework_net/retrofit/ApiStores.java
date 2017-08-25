@@ -1,5 +1,7 @@
 package com.wanny.workease.system.framework_net.retrofit;
+
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
+import com.wanny.workease.system.workease_business.business.bus_login_mvp.ServicePhoneResult;
 import com.wanny.workease.system.workease_business.business.bus_main_mvp.WordPeopleResult;
 import com.wanny.workease.system.workease_business.customer.main_mvp.WorkResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
@@ -30,16 +32,25 @@ public interface ApiStores {
     //登录
 //
     @GET("u/login")
-    Observable<LoginResult> login(@Query("mobile") String mobile , @Query("password") String password);
+    Observable<LoginResult> login(@Query("mobile") String mobile, @Query("password") String password, @Query("type") String type);
+
+    //获取客服热线
+    @GET("comm/getCustomers")
+    Observable<ServicePhoneResult> getServicePhone();
+
+
+    //修改密码
+    @GET("u/modifyPwd")
+    Observable<OrdinalResultEntity> modifyPsd(@Query("userId") String userId, @Query("oldpwd") String oldpwd, @Query("newpwd") String newpwd);
 
 
     @GET("u/register")
-    Observable<RegisterResult> register(@Query("mobile") String mobile , @Query("password") String password, @Query("type") String type , @Query("userName") String userName, @Query("areaId") String areaId, @Query("jobTypeId") String jobTypeId, @Query("senior") String senior);
+    Observable<RegisterResult> register(@Query("mobile") String mobile, @Query("password") String password, @Query("type") String type, @Query("userName") String userName, @Query("areaId") String areaId, @Query("jobTypeId") String jobTypeId, @Query("workyear") String workyear, @Query("senior") String senior);
 //
 
 
     @GET("task/getTaskes")
-    Observable<LoginResult> getTaskes(@Query("mobile") String mobile , @Query("password") String password);
+    Observable<LoginResult> getTaskes(@Query("mobile") String mobile, @Query("password") String password);
 
 
     @GET("comm/getJobTypes")
@@ -51,20 +62,16 @@ public interface ApiStores {
     Observable<CityResult> getCity();
 
 
-
     //获取城市
     @GET("  task/deleteTaskById")
     Observable<OrdinalResultEntity> deleteTaskById(@Query("taskId") String taskId);
-
 
 
     @GET("task/getTaskes")
     Observable<WorkResult> getWorkResult(@Query("pageNum") int pageNum);
 
     @GET("task/getTasksByAreaOrJobtype")
-    Observable<WorkResult> getWorkByAreaId(@Query("areaId") String areaId , @Query("jobTypeId") String jobTypeId ,@Query("pageNum") int pageNum);
-
-
+    Observable<WorkResult> getWorkByAreaId(@Query("areaId") String areaId, @Query("jobTypeId") String jobTypeId, @Query("pageNum") int pageNum);
 
 
     //u/userInfomation
@@ -73,39 +80,35 @@ public interface ApiStores {
     Observable<CustomerInofResult> getUserInfo(@Query("userId") String userId, @Query("userName") String userName);
 
     //userId
-   // userName
-         //   mobile
-   // areaId
+    // userName
+    //   mobile
+    // areaId
     //        jobTypeId
     //senior
 
     @GET("u/modify")
-    Observable<CustomerInofResult> modifyUserInfo(@Query("userId") String userId, @Query("userName") String userName,@Query("mobile") String mobile, @Query("userState") String userState,@Query("areaId") String areaId,@Query("jobTypeId") String jobTypeId,@Query("senior") String senior,@Query("workyear") String workyear);
+    Observable<CustomerInofResult> modifyUserInfo(@Query("userId") String userId, @Query("userName") String userName, @Query("mobile") String mobile, @Query("userState") String userState, @Query("areaId") String areaId, @Query("jobTypeId") String jobTypeId, @Query("senior") String senior, @Query("workyear") String workyear);
     //注册
 //     //获取列表
 //    @GET("Project/GetBackPriceList")
 //    Observable<String> getBackPriceList(@Query("page") int page, @Query("pageSize") int pageSize, @Query("type") int type, @Query("key") String key);
 
 
-
-
-    @GET("u/getUsePeoples")
-    Observable<WordPeopleResult> getWorkInfo(@Query("pageNum") int pageNum);
-
+    @GET("u/getPeoples")
+    Observable<WordPeopleResult> getWorkInfo(@Query("pageNum") int pageNum, @Query("jobTypeId") String jobTypeId, @Query("userState") String userState);
 
 
     @GET("task/releaseTask")
-    Observable<OrdinalResultEntity> releaseTask(@Query("userId") String userId ,@Query("areaId") String areaId ,@Query("jobTypeId") String jobTypeId ,@Query("recruitNum") int recruitNum ,@Query("price") String price ,@Query("name") String name ,@Query("desc") String desc ,@Query("detailAddress") String detailAddress ,@Query("imgs") String imgs ,@Query("pointLat") double pointLat, @Query("pointLon") double pointLon );
+    Observable<OrdinalResultEntity> releaseTask(@Query("userId") String userId, @Query("areaId") String areaId, @Query("jobTypeId") String jobTypeId, @Query("recruitNum") int recruitNum, @Query("price") String price, @Query("name") String name, @Query("desc") String desc, @Query("detailAddress") String detailAddress, @Query("imgs") String imgs, @Query("pointLat") double pointLat, @Query("pointLon") double pointLon);
 
 
     @GET("task/editTask")
-    Observable<OrdinalResultEntity> modifyTask(@Query("taskId") String taskId ,@Query("userId") String userId ,@Query("areaId") String areaId ,@Query("jobTypeId") String jobTypeId ,@Query("recruitNum") int recruitNum ,@Query("price") String price ,@Query("name") String name ,@Query("desc") String desc ,@Query("detailAddress") String detailAddress ,@Query("imgs") String imgs ,@Query("pointLat") double pointLat, @Query("pointLon") double pointLon );
-
+    Observable<OrdinalResultEntity> modifyTask(@Query("taskId") String taskId, @Query("userId") String userId, @Query("areaId") String areaId, @Query("jobTypeId") String jobTypeId, @Query("recruitNum") int recruitNum, @Query("price") String price, @Query("name") String name, @Query("desc") String desc, @Query("detailAddress") String detailAddress, @Query("imgs") String imgs, @Query("pointLat") double pointLat, @Query("pointLon") double pointLon);
 
 
     //获取自己发布的职位
     @GET("task/getTaskesByUser")
-    Observable<WorkResult> getMyWorkResult(@Query("userId") String userId,@Query("pageNum") int pageNum);
+    Observable<WorkResult> getMyWorkResult(@Query("userId") String userId, @Query("pageNum") int pageNum);
 
 
 //    //获取孩子

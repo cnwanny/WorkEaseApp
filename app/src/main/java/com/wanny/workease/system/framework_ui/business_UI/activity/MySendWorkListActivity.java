@@ -63,7 +63,7 @@ public class MySendWorkListActivity extends MvpActivity<MySendWorkPresenter> imp
         userId = PreferenceUtil.getInstance(mContext).getString("bususerId","");
         ButterKnife.bind(this);
         initView();
-        upLoad();
+
     }
 
     private int pageSize = 10;
@@ -101,6 +101,7 @@ public class MySendWorkListActivity extends MvpActivity<MySendWorkPresenter> imp
     @Override
     protected void onResume() {
         super.onResume();
+        upLoad();
     }
 
     private boolean hasRunnin = false;
@@ -138,6 +139,8 @@ public class MySendWorkListActivity extends MvpActivity<MySendWorkPresenter> imp
             hasRunnin = true;
         }
     }
+
+
 
 
 //    //

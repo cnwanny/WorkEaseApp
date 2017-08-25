@@ -114,7 +114,7 @@ public class BusMainFragment extends MvpFragment<BusMainPresenter> implements Bu
         flag = AppContent.MODE_UPLOAD;
         pageIndex = 1;
         if (mvpPresenter != null) {
-            mvpPresenter.getWorkList(pageIndex, "正在加载");
+            mvpPresenter.getWorkList(pageIndex,"","", "正在加载");
             hasRunnin = true;
         }
     }
@@ -151,7 +151,7 @@ public class BusMainFragment extends MvpFragment<BusMainPresenter> implements Bu
         hasRunnin = true;
         flag = AppContent.MODE_LOADMORE;
         if (mvpPresenter != null) {
-            mvpPresenter.getWorkList(pageIndex, "正在加载");
+            mvpPresenter.getWorkList(pageIndex,"","", "正在加载");
             hasRunnin = true;
         }
     }
@@ -161,7 +161,7 @@ public class BusMainFragment extends MvpFragment<BusMainPresenter> implements Bu
         super.onActivityCreated(savedInstanceState);
         initView();
         if(mvpPresenter != null){
-            mvpPresenter.getWorkList(1,"正在加载");
+            mvpPresenter.getWorkList(1,"","","正在加载");
         }
     }
 

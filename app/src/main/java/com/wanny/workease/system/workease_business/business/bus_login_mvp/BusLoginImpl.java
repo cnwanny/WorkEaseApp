@@ -11,4 +11,5 @@ import com.wanny.workease.system.workease_business.customer.login_mvp.LoginResul
  * 时间： 20:02 2017/8/9
  */
 public interface BusLoginImpl extends BaseOperateImp<LoginResult> {
+    void getServicePhone(ServicePhoneResult entity);
 }

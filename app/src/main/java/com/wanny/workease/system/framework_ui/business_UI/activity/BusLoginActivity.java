@@ -1,6 +1,10 @@
 package com.wanny.workease.system.framework_ui.business_UI.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,18 +13,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wanny.workease.system.R;
+import com.wanny.workease.system.framework_basicutils.NewPremissionUtils;
 import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
 import com.wanny.workease.system.framework_care.ActivityStackManager;
+import com.wanny.workease.system.framework_care.AppContent;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
 import com.wanny.workease.system.framework_ui.customer_UI.activity.HomeManagerActivity;
 import com.wanny.workease.system.framework_ui.customer_UI.activity.LoginActivity;
 import com.wanny.workease.system.framework_ui.customer_UI.activity.RegisterActivity;
 import com.wanny.workease.system.framework_uikite.dialog.HiFoToast;
+import com.wanny.workease.system.framework_uikite.dialog.IOSDialogView;
 import com.wanny.workease.system.workease_business.business.bus_login_mvp.BusLoginImpl;
 import com.wanny.workease.system.workease_business.business.bus_login_mvp.BusLoginPresenter;
+import com.wanny.workease.system.workease_business.business.bus_login_mvp.ServicePhoneResult;
 import com.wanny.workease.system.workease_business.customer.login_mvp.LoginPresenter;
 import com.wanny.workease.system.workease_business.customer.login_mvp.LoginResult;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +68,9 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
             Intent intent = new Intent(BusLoginActivity.this,BusHomeManagerActivity.class);
             startActivity(intent);
         }
+        if(mvpPresenter != null){
+            mvpPresenter.getServicePhone();
+        }
     }
 
     @OnClick(R.id.start_login)
@@ -71,7 +84,7 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
             return;
         }
         if (mvpPresenter != null) {
-            mvpPresenter.login(loginUsername.getText().toString(), loginPassword.getText().toString(), "正在登录");
+            mvpPresenter.login(loginUsername.getText().toString(), loginPassword.getText().toString(),"1", "正在登录");
         }
     }
 
@@ -133,4 +146,128 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
     protected BusLoginPresenter createPresenter() {
         return new BusLoginPresenter(this);
     }
+
+    private ArrayList<String > servicePhone = new ArrayList<>();
+
+    @Override
+    public void getServicePhone(ServicePhoneResult entity) {
+        if(entity.isSuccess()){
+            servicePhone.clear();
+            servicePhone.addAll(entity.getData());
+        }
+
+    }
+
+    @OnClick(R.id.login_forget_password)
+    void forgetPsd(View view){
+        if(hasPhone){
+            startPhone();
+        }else{
+            requsetPhone();
+        }
+    }
+
+    private NewPremissionUtils newPremissionUtils;
+
+    private boolean hasNeed = false;
+    private boolean hasPhone = false;
+
+    private void requsetPhone() {
+        if (newPremissionUtils == null) {
+            newPremissionUtils = new NewPremissionUtils(mActivity);
+        }
+        hasNeed = newPremissionUtils.hasNeedReqset();
+        if (hasNeed) {
+            hasPhone = newPremissionUtils.requesCallPhonePermissions(AppContent.PHONE_REQUESTCODE);
+            if (hasPhone) {
+                startPhone();
+            }
+        } else {
+            startPhone();
+        }
+    }
+
+    private IOSDialogView iosDialogView;
+    //创建对话框
+    private void createIOS(ArrayList<String> data, String titlename) {
+        if (iosDialogView == null) {
+            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, data, titlename);
+            iosDialogView.setIosDialogSelectListener(iosDialogSelectListener);
+            iosDialogView.setOnCancelListener(onCancelListener);
+            iosDialogView.show();
+        } else {
+            if (!iosDialogView.isShowing()) {
+                iosDialogView.show();
+            }
+        }
+    }
+
+    private Dialog.OnCancelListener onCancelListener = new Dialog.OnCancelListener() {
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            if (iosDialogView != null) {
+                if (iosDialogView.isShowing()) {
+                    iosDialogView.dismiss();
+                    iosDialogView = null;
+                }
+            }
+        }
+    };
+
+    private IOSDialogView.IosDialogSelectListener iosDialogSelectListener = new IOSDialogView.IosDialogSelectListener() {
+        @Override
+        public void onItemClick(int position) {
+            if (iosDialogView != null) {
+                if (iosDialogView.isShowing()) {
+                    iosDialogView.dismiss();
+                    iosDialogView = null;
+                }
+            }
+            try{
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + servicePhone.get(position)));
+                startActivity(intent);
+            }catch (SecurityException e){
+                e.printStackTrace();
+            }
+        }
+        @Override
+        public void cancel() {
+            if (iosDialogView != null) {
+                if (iosDialogView.isShowing()) {
+                    iosDialogView.dismiss();
+                    iosDialogView = null;
+                }
+            }
+        }
+    };
+
+
+    private void startPhone() {
+        createIOS(servicePhone,"拨打客服电话");
+
+
+        if (hasPhone) {
+            try {
+
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] paramArrayOfInt) {
+        super.onRequestPermissionsResult(requestCode, permissions, paramArrayOfInt);
+        if (requestCode == AppContent.PHONE_REQUESTCODE) {
+            if (paramArrayOfInt[0] == PackageManager.PERMISSION_GRANTED) {
+                hasPhone = true;
+                startPhone();
+            } else {
+                new HiFoToast(mActivity, "请手动授权打电话权限");
+            }
+        }
+    }
+
+
 }

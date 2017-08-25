@@ -155,15 +155,15 @@
                 android:id="@+id/bus_usercenter_modifyinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5_dp"
-                android:layout_marginRight="@dimen/margin_5_dp"
-                android:layout_marginTop="@dimen/margin_30_dp"
-                android:background="@drawable/but_selected_drawable"
+                android:layout_marginLeft="@dimen/margin_24_dp"
+                android:layout_marginRight="@dimen/margin_24_dp"
+                android:layout_marginTop="@dimen/margin_72_dp"
                 android:gravity="center"
                 android:paddingBottom="@dimen/margin_10_dp"
                 android:paddingTop="@dimen/margin_10_dp"
                 android:text="修改用户信息"
-                android:textColor="@color/white"
+                android:background="@drawable/but_notselect_drawable"
+                android:textColor="@color/low_blue"
                 android:textSize="@dimen/font_size_18" />
 
 
@@ -172,15 +172,16 @@
                 android:id="@+id/bus_usercenter_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5_dp"
-                android:layout_marginRight="@dimen/margin_5_dp"
-                android:layout_marginTop="@dimen/margin_30_dp"
-                android:background="@drawable/but_notselect_drawable"
+                android:layout_marginLeft="@dimen/margin_24_dp"
+                android:layout_marginRight="@dimen/margin_24_dp"
+                android:layout_marginTop="@dimen/margin_24_dp"
                 android:gravity="center"
                 android:paddingBottom="@dimen/margin_10_dp"
                 android:paddingTop="@dimen/margin_10_dp"
                 android:text="退出账号"
-                android:textColor="@color/low_blue"
+                android:background="@drawable/but_selected_drawable"
+                android:textColor="@color/white"
+
                 android:textSize="@dimen/font_size_18" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

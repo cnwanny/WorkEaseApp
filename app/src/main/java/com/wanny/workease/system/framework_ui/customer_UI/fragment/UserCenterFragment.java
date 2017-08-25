@@ -101,15 +101,18 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
         if (titleLeft != null) {
             AppUtils.notShowView(titleLeft);
         }
-//        if (mvpPresenter != null) {
-//            mvpPresenter.getWorkType();
-//        }
-//        if (mvpPresenter != null) {
-//            mvpPresenter.getCityValue();
-//        }
         if (titleTitle != null) {
             titleTitle.setText("我的");
         }
+//        if (mvpPresenter != null) {
+//            mvpPresenter.getUserInfo(userId, "", "正在加载");
+//        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (mvpPresenter != null) {
             mvpPresenter.getUserInfo(userId, "", "正在加载");
         }

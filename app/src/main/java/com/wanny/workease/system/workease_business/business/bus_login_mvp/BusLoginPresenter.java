@@ -20,12 +20,12 @@ public class BusLoginPresenter extends BasePresenter<BusLoginImpl> {
     public BusLoginPresenter(BusLoginImpl veiw){
         attachView(veiw);
     }
-    public void login(String phone , String password , final String loading) {
+    public void login(String phone , String password ,String type, final String loading) {
         //执行网络请求的回调
         if(!TextUtils.isEmpty(loading)){
             mvpView.loadIng(loading);
         }
-        addSubscription(apiStores.login(phone,password),new SubscribCallBack<>(new ApiCallback<LoginResult>() {
+        addSubscription(apiStores.login(phone,password,type),new SubscribCallBack<>(new ApiCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult model) {
                 if(!TextUtils.isEmpty(loading)){
@@ -44,5 +44,27 @@ public class BusLoginPresenter extends BasePresenter<BusLoginImpl> {
             }
         }));
     }
+
+
+    public void getServicePhone() {
+        //执行网络请求的回调
+
+        addSubscription(apiStores.getServicePhone(),new SubscribCallBack<>(new ApiCallback<ServicePhoneResult>() {
+            @Override
+            public void onSuccess(ServicePhoneResult model) {
+                mvpView.getServicePhone(model);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mvpView.hide();
+            }
+            @Override
+            public void onCompleted() {
+
+            }
+        }));
+    }
+
 
 }

@@ -71,6 +71,22 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
 
     @Override
     public void success(CustomerInofResult customerInofResult) {
+        if(customerInofResult.isSuccess()){
+           PreferenceUtil.getInstance(mContext).saveString("busmobile", customerInofResult.getData().getMobile());
+           PreferenceUtil.getInstance(mContext).saveString("busname",  customerInofResult.getData().getUserName());
+            mobile = PreferenceUtil.getInstance(mContext).getString("busmobile", "");
+            userId = PreferenceUtil.getInstance(mContext).getString("bususerId", "");
+            name = PreferenceUtil.getInstance(mContext).getString("busname", "");
+            if(!TextUtils.isEmpty(name)){
+                busUsercenterName.setText(name);
+            }
+            if(!TextUtils.isEmpty(mobile)){
+                tvMoblieValue.setText(mobile);
+            }
+            if(!TextUtils.isEmpty(customerInofResult.getData().getCityName())){
+                tvAreaValue.setText(customerInofResult.getData().getCityName());
+            }
+        }
 
     }
 
@@ -83,7 +99,6 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
         if(!TextUtils.isEmpty(name)){
             busUsercenterName.setText(name);
         }
-
         if(!TextUtils.isEmpty(mobile)){
             tvMoblieValue.setText(mobile);
         }

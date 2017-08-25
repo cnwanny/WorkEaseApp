@@ -73,8 +73,8 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
     @BindView(R.id.title_title)
     TextView titleTitle;
 
-    @BindView(R.id.title_right_image)
-    ImageView titleRightImage;
+    @BindView(R.id.title_right_text)
+    TextView titleRightText;
 
     @BindView(R.id.send_work_projectname_edit)
     TextView sendWorkProjectNameEdit;
@@ -126,6 +126,8 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
             AppUtils.notShowView(titleLeft);
         }
         titleTitle.setText("用工信息发布");
+        AppUtils.showView(titleRightText);
+        titleRightText.setText("清空数据");
     }
 
     @Override
@@ -278,6 +280,20 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
         }
 
     }
+
+
+    @OnClick(R.id.title_right_text)
+    void startClearData(View view){
+        sendWorkPriceEdit.setText("");
+        sendWorkProjectNameEdit.setText("");
+        sendWorkDetail.setText("");
+        selectAreaId = "";
+        selectWorkTypeId = "";
+        sendWorkAreaselect.setText("请选择城市");
+        sendWorkWorktypeselect.setText("请选择工种");
+    }
+
+
 
     @Override
     public void fail(String errorMessage) {
@@ -453,6 +469,26 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
     @OnClick(R.id.send_work)
     void startSend(View view) {
         //启动发布
+        if(TextUtils.isEmpty(sendWorkProjectNameEdit.getText().toString())){
+            new HiFoToast(mContext,"请先输入项目名称");
+            return;
+        }
+        if(TextUtils.isEmpty(sendWorkPriceEdit.getText().toString())){
+            new HiFoToast(mContext,"请先输入工种对应的价格");
+            return;
+        }
+        if(TextUtils.isEmpty(sendWorkLocationEdit.getText().toString())){
+            new HiFoToast(mContext,"请先选定项目位置");
+            return;
+        }
+        if(TextUtils.isEmpty(sendWorkDetail.getText().toString())){
+            new HiFoToast(mContext,"请先描述项目详情");
+            return;
+        }
+        if(TextUtils.isEmpty(selectWorkTypeId)){
+            new HiFoToast(mContext,"请先选择工种");
+            return;
+        }
         if (mvpPresenter != null) {
             String userId = PreferenceUtil.getInstance(mContext).getString("bususerId", "");
             int number = 0;

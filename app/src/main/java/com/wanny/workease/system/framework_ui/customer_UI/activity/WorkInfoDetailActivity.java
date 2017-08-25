@@ -6,8 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.model.LatLng;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.wanny.workease.system.R;
 import com.wanny.workease.system.framework_basicutils.NewPremissionUtils;
@@ -15,6 +17,7 @@ import com.wanny.workease.system.framework_care.ActivityStackManager;
 import com.wanny.workease.system.framework_care.AppContent;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
+import com.wanny.workease.system.framework_ui.business_UI.activity.LocationActivity;
 import com.wanny.workease.system.framework_uikite.dialog.HiFoToast;
 import com.wanny.workease.system.framework_uikite.dialog.MyDialog;
 import com.wanny.workease.system.workease_business.customer.main_mvp.WorkInfoEntity;
@@ -70,7 +73,7 @@ public class WorkInfoDetailActivity extends MvpActivity<WorkDetailPresenter> imp
     TextView workContactPhone;
     //
     @BindView(R.id.work_detail_callwork)
-    TextView workDetailCallwork;
+    LinearLayout workDetailCallwork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +110,7 @@ public class WorkInfoDetailActivity extends MvpActivity<WorkDetailPresenter> imp
                 }
             }
             if (!TextUtils.isEmpty(entity.getDesc())) {
-                workDetailLocation.setText("项目描述：" + entity.getDesc());
+                workProjectDetail.setText("项目描述：" + entity.getDesc());
             }
 
             if (!TextUtils.isEmpty(entity.getDetailAddress())) {
@@ -121,7 +124,7 @@ public class WorkInfoDetailActivity extends MvpActivity<WorkDetailPresenter> imp
             }
             if (entity.getUser() != null) {
                 if (!TextUtils.isEmpty(entity.getUser().getUserName())) {
-                    workdContactName.setText(entity.getUser().getUserName());
+                    workdContactName.setText(entity.getUser().getUserName().substring(0,1) + "先生");
                 }
                 if (!TextUtils.isEmpty(entity.getUser().getMobile())) {
                     workContactPhone.setText(entity.getUser().getMobile());
@@ -146,7 +149,7 @@ public class WorkInfoDetailActivity extends MvpActivity<WorkDetailPresenter> imp
     void startCall(View view){
         if(entity != null && entity.getUser() != null){
             if(!TextUtils.isEmpty(entity.getUser().getMobile())){
-                createCallphoneDialog("确定要给<" + entity.getUser().getMobile() + ">打电话吗");
+                createCallphoneDialog("确定要给" + entity.getUser().getMobile() + "打电话吗");
             }else{
                 new HiFoToast(mContext,"电话号码不能为空");
             }
@@ -256,6 +259,16 @@ public class WorkInfoDetailActivity extends MvpActivity<WorkDetailPresenter> imp
     @Override
     public void hide() {
 
+    }
+
+
+    @OnClick(R.id.work_detail_location)
+    void startLocation(View view){
+        Intent intent = new Intent(WorkInfoDetailActivity.this, LocationActivity.class);
+        intent.putExtra("isScan",true);
+        LatLng latLng = new LatLng(entity.getPointLat(),entity.getPointLon());
+        intent.putExtra("location",latLng);
+        startActivity(intent);
     }
 
     @Override

@@ -64,6 +64,10 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
     LatLng propertyLocation = null;
     //待查勘对象ID
     private BaiduMap mBaiduMap;
+    public static final int MODE_SHOW = 0x0001;
+    public static final int MODE_EDIT = 0x0002;
+    private  int mode  = MODE_EDIT;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +82,11 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
         if (getIntent().hasExtra("isScan")) {
             titleRightText.setText("定位");
             AppUtils.notShowView(titleRightText);
+            mode = MODE_SHOW ;
         } else {
             titleRightText.setText("定位");
             AppUtils.showView(titleRightText);
+            mode =   MODE_EDIT ;
         }
         if (titleTitleText != null) {
             titleTitleText.setText("工地定位");
@@ -115,21 +121,36 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
         } else {
             //已有地理位置，直接标注，当点击重新定位，则标注在中心点（）
             //1.重新设置地图中心点
-            MapStatus mapStatus = new MapStatus.Builder().target(propertyLocation).zoom(18)
-                    .build();
-            MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory
-                    .newMapStatus(mapStatus);
-            mBaiduMap.setMapStatus(mapStatusUpdate);
-            //2.构建Marker图标  //定义Maker坐标点
-            BitmapDescriptor bitmap = BitmapDescriptorFactory
-                    .fromResource(R.mipmap.icon_property_location);
-            //构建MarkerOption，用于在地图上添加Marker
-            OverlayOptions ooption = new MarkerOptions()
-                    .position(propertyLocation)
-                    .icon(bitmap);
-            //在地图上添加Marker，并显示
-            mBaiduMap.addOverlay(ooption);
-            titleRightText.setText("重新选定");
+            if(mode == MODE_SHOW){
+                MapStatus mapStatus = new MapStatus.Builder().target(propertyLocation).zoom(18)
+                        .build();
+                MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory
+                        .newMapStatus(mapStatus);
+                mBaiduMap.setMapStatus(mapStatusUpdate);
+                //2.构建Marker图标  //定义Maker坐标点
+                BitmapDescriptor bitmap = BitmapDescriptorFactory
+                        .fromResource(R.mipmap.icon_property_location);
+                //构建MarkerOption，用于在地图上添加Marker
+                OverlayOptions ooption = new MarkerOptions()
+                        .position(propertyLocation)
+                        .icon(bitmap);
+                //在地图上添加Marker，并显示
+                mBaiduMap.addOverlay(ooption);
+                titleRightText.setText("重新选定");
+            }else{
+                //缩放地图等级，将地图移动到当前传递过来的位置
+                MapStatus mapStatus = new MapStatus.Builder().target(propertyLocation).zoom(18)
+                        .build();
+                MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory
+                        .newMapStatus(mapStatus);
+                mBaiduMap.setMapStatus(mapStatusUpdate);
+                titleRightText.setText("定位");
+                //setMapStatusChangeListener();
+                //清除当前maker
+                mBaiduMap.clear();
+                // 开启定位图标
+                openLocationMarker();
+            }
         }
     }
 
@@ -306,28 +327,42 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
      */
     @OnClick(R.id.title_right_text)
     protected void propertyLocation(View view) {
-        if ("定位".equals(titleRightText.getText().toString())) {
-            if (mBaiduMap != null) {
-                propertyLocation = mBaiduMap.getMapStatus().target;
-            }
-            if (propertyLocation != null) {
-                Intent intent = new Intent();
-                if (propertyLocation != null) {
-                    intent.putExtra("location", propertyLocation);
-                }
-                setResult(0x0002, intent);
-                ActivityStackManager.getInstance().exitActivity(mActivity);
-            } else {
-                new HiFoToast(getApplicationContext(), "请先等待定位或者手动修改定位。");
-            }
-        } else if ("重新选定".equals(titleRightText.getText().toString())) {
-            titleRightText.setText("定位");
-            //setMapStatusChangeListener();
-            //清除当前maker
-            mBaiduMap.clear();
-            // 开启定位图标
-            openLocationMarker();
+        if (mBaiduMap != null) {
+            propertyLocation = mBaiduMap.getMapStatus().target;
         }
+        if (propertyLocation != null) {
+            Intent intent = new Intent();
+            if (propertyLocation != null) {
+                intent.putExtra("location", propertyLocation);
+            }
+            setResult(0x0002, intent);
+            ActivityStackManager.getInstance().exitActivity(mActivity);
+        } else {
+            new HiFoToast(getApplicationContext(), "请先等待定位或者手动修改定位。");
+        }
+
+//        if ("定位".equals(titleRightText.getText().toString())) {
+//            if (mBaiduMap != null) {
+//                propertyLocation = mBaiduMap.getMapStatus().target;
+//            }
+//            if (propertyLocation != null) {
+//                Intent intent = new Intent();
+//                if (propertyLocation != null) {
+//                    intent.putExtra("location", propertyLocation);
+//                }
+//                setResult(0x0002, intent);
+//                ActivityStackManager.getInstance().exitActivity(mActivity);
+//            } else {
+//                new HiFoToast(getApplicationContext(), "请先等待定位或者手动修改定位。");
+//            }
+//        } else if ("重新选定".equals(titleRightText.getText().toString())) {
+//            titleRightText.setText("定位");
+//            //setMapStatusChangeListener();
+//            //清除当前maker
+//            mBaiduMap.clear();
+//            // 开启定位图标
+//            openLocationMarker();
+//        }
     }
 
     //开启定位图标

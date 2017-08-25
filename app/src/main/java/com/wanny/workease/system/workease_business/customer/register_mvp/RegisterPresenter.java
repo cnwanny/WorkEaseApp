@@ -52,9 +52,9 @@ public class RegisterPresenter extends BasePresenter<RegisterImpl> {
 //    }
 
 
-    public void register(String mobile,String password,String type,String userName,String areaId,String jobTypeId,String senior) {
+    public void register(String mobile,String password,String type,String userName,String areaId,String jobTypeId,String workyear , String senior) {
         //执行网络请求的回调
-        addSubscription(apiStores.register(mobile,password,type,userName,areaId,jobTypeId,senior), new SubscribCallBack<>(new ApiCallback<RegisterResult>() {
+        addSubscription(apiStores.register(mobile,password,type,userName,areaId,jobTypeId,workyear,senior), new SubscribCallBack<>(new ApiCallback<RegisterResult>() {
             @Override
             public void onSuccess(RegisterResult model) {
                 mvpView.registerSuccess(model);

@@ -1,20 +1,21 @@
-package com.wanny.workease.system.workease_business.business.bus_main_mvp;
+package com.wanny.workease.system.workease_business.business.modify_psd_mvp;
 
 import android.text.TextUtils;
 
+import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.BasePresenter;
 import com.wanny.workease.system.framework_net.rxjava.ApiCallback;
 import com.wanny.workease.system.framework_net.rxjava.SubscribCallBack;
+import com.wanny.workease.system.workease_business.customer.login_mvp.LoginResult;
 
 /**
- * 文件名： BusMainPresenter
- * 功能：
+ * 文件名： ModifyPsdPresenter
+ * 功能： 修改密码
  * 作者： wanny
- * 时间： 20:03 2017/8/9
+ * 时间： 10:37 2017/8/23
  */
-public class BusMainPresenter extends BasePresenter<BusMainImpl> {
-
-    public BusMainPresenter(BusMainImpl view){
+public class ModifyPsdPresenter extends BasePresenter<ModifyPsdImpl> {
+    public ModifyPsdPresenter(ModifyPsdImpl view){
         attachView(view);
     }
 
@@ -22,14 +23,17 @@ public class BusMainPresenter extends BasePresenter<BusMainImpl> {
 
 
 
-    public void getWorkList(int  number ,String workTypeId,String userState, final String loading) {
+
+
+     //修改密码
+    public void modifypsd(String userId , String oldpsd ,String newpsd, final String loading) {
         //执行网络请求的回调
         if(!TextUtils.isEmpty(loading)){
             mvpView.loadIng(loading);
         }
-        addSubscription(apiStores.getWorkInfo(number,workTypeId,userState),new SubscribCallBack<>(new ApiCallback<WordPeopleResult>() {
+        addSubscription(apiStores.modifyPsd(userId,oldpsd,newpsd),new SubscribCallBack<>(new ApiCallback<OrdinalResultEntity>() {
             @Override
-            public void onSuccess(WordPeopleResult model) {
+            public void onSuccess(OrdinalResultEntity model) {
                 if(!TextUtils.isEmpty(loading)){
                     mvpView.hide();
                 }
@@ -48,6 +52,5 @@ public class BusMainPresenter extends BasePresenter<BusMainImpl> {
     }
 
 
-
-
 }
+

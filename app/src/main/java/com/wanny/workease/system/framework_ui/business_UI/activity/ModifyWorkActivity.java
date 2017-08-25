@@ -414,15 +414,28 @@ public class ModifyWorkActivity extends MvpActivity<ModifyWorkPresenter> impleme
     @OnClick(R.id.send_work)
     void startSend(View view) {
         //启动发布
+
+        if(TextUtils.isEmpty(sendWorkProjectnameEdit.getText().toString())){
+            new HiFoToast(mContext,"请先输入项目名称");
+            return;
+        }
+        if(TextUtils.isEmpty(sendWorkPriceEdit.getText().toString())){
+            new HiFoToast(mContext,"请先输入工种对应的价格");
+            return;
+        }
+        if(TextUtils.isEmpty(sendWorkLocationEdit.getText().toString())){
+            new HiFoToast(mContext,"请先选定项目位置");
+            return;
+        }
+        if(TextUtils.isEmpty(sendWorkDetail.getText().toString())){
+            new HiFoToast(mContext,"请先描述项目详情");
+            return;
+        }
+        if(TextUtils.isEmpty(selectWorkTypeId)){
+            new HiFoToast(mContext,"请先选择工种");
+            return;
+        }
         if (mvpPresenter != null) {
-            if(TextUtils.isEmpty(sendWorkLocationEdit.getText().toString())){
-                new HiFoToast(mContext,"请输入位置或者地址");
-                return;
-            }
-            if(TextUtils.isEmpty(selectWorkTypeId)){
-                new HiFoToast(mContext,"请选择工钟");
-                return;
-            }
             String userId = PreferenceUtil.getInstance(mContext).getString("bususerId", "");
             int number = 0;
             if (!TextUtils.isEmpty(sendWorkNeednumber.getText().toString())) {

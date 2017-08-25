@@ -69,24 +69,21 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
+
         <TextView
-            android:id="@+id/register_area_provice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_10_dp"
-            android:layout_marginStart="@dimen/margin_10_dp"
-            android:drawableEnd="@mipmap/icon_body_upper"
-            android:drawablePadding="@dimen/margin_5_dp"
-            android:drawableRight="@mipmap/icon_body_upper"
-            android:padding="@dimen/margin_10_dp"
-            android:text="请选择省/市："
+            android:layout_marginLeft="@dimen/margin_20_dp"
+            android:layout_marginStart="@dimen/margin_20_dp"
+            android:text="区域："
             android:textSize="@dimen/font_size_16" />
 
+
         <TextView
-            android:id="@+id/register_area"
+            android:id="@+id/modify_user_areaselect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -97,10 +94,9 @@
             android:drawableEnd="@mipmap/icon_body_upper"
             android:drawablePadding="@dimen/margin_5_dp"
             android:drawableRight="@mipmap/icon_body_upper"
+            android:hint="请选择城市"
             android:padding="@dimen/margin_10_dp"
-            android:text="请选择市/区："
             android:textSize="@dimen/font_size_16" />
-
 
     </RelativeLayout>
 
@@ -115,7 +111,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/boss_register_username"
+            android:id="@+id/modify_user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -124,12 +120,34 @@
             android:layout_marginLeft="@dimen/margin_10_dp"
             android:layout_marginStart="@dimen/margin_10_dp"
             android:background="@null"
-            android:text="修改密码"
             android:drawableEnd="@mipmap/icon_right_arrow"
             android:drawableRight="@mipmap/icon_right_arrow"
             android:padding="@dimen/margin_10_dp"
+            android:text="修改密码"
             android:textSize="@dimen/font_size_16" />
     </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/modify_user_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存修改"
+        android:textSize="@dimen/font_size_18"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/but_selected_drawable"
+        android:layout_marginTop="@dimen/margin_72_dp"
+        android:layout_marginLeft="@dimen/margin_24_dp"
+        android:layout_marginRight="@dimen/margin_24_dp"
+        android:layout_marginStart="@dimen/margin_24_dp"
+        android:layout_marginEnd="@dimen/margin_24_dp"
+        android:paddingTop="@dimen/margin_8_dp"
+        android:paddingBottom="@dimen/margin_8_dp"
+        android:textColor="@color/white"
+        />
+
+
 </LinearLayout>
 
 

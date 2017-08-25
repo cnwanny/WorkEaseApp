@@ -188,8 +188,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_10_dp"
-                android:textColor="@color/grey_helf"
-                android:textSize="@dimen/font_size_14" />
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/font_size_16" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1_dp"
+                android:background="@color/half_white" />
+
 
             <TextView
                 android:id="@+id/work_detail_location"
@@ -197,13 +202,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_10_dp"
                 android:layout_marginLeft="@dimen/margin_10_dp"
+                android:layout_marginTop="@dimen/margin_10_dp"
                 android:layout_marginRight="@dimen/margin_10_dp"
                 android:layout_marginStart="@dimen/margin_10_dp"
-                android:drawableEnd="@mipmap/icon_right_arrow"
-                android:drawableRight="@mipmap/icon_right_arrow"
+                android:layout_marginBottom="@dimen/margin_10_dp"
                 android:text="项目位置"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/font_size_18" />
+                android:textColor="@color/low_blue"
+                android:textSize="@dimen/font_size_14" />
         </LinearLayout>
     </ScrollView>
 
@@ -225,7 +230,6 @@
                android:id="@+id/workd_contact_name"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="颜值才"
                android:textSize="@dimen/font_size_12"
                android:textColor="@color/text_half_black"/>
             <TextView
@@ -241,6 +245,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/work_detail_callwork"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -257,7 +262,7 @@
                 />
 
             <TextView
-                android:id="@+id/work_detail_callwork"
+
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center_horizontal"

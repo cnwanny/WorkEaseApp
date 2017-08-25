@@ -281,7 +281,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
         }
         if (mvpPresenter != null) {
-            mvpPresenter.register(registerPhone.getText().toString(),registerPassword.getText().toString(),"0",registerUsername.getText().toString() ,selectAreaId,selectWorkTypeId,registerSkilllevelselect.getText().toString());
+            mvpPresenter.register(registerPhone.getText().toString(),registerPassword.getText().toString(),"0",registerUsername.getText().toString() ,selectAreaId,selectWorkTypeId,registerWorkertime.getText().toString() ,registerSkilllevelselect.getText().toString());
         }
     }
 
@@ -344,7 +344,6 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
     private ArrayList<String> currentList = new ArrayList<>();
     private WaitDialog waitDialog;
-
     private void waitDialog(String loading) {
         waitDialog = new WaitDialog(mActivity, R.style.wait_dialog, loading);
         if(!mActivity.isFinishing()){

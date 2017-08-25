@@ -288,14 +288,14 @@
         android:layout_marginRight="@dimen/margin_24_dp"
         android:layout_marginStart="@dimen/margin_24_dp"
         android:layout_marginTop="@dimen/margin_72_dp"
-        android:background="@drawable/but_selected_drawable"
         android:gravity="center"
         android:paddingBottom="@dimen/margin_5_dp"
         android:paddingTop="@dimen/margin_5_dp"
         android:paddingLeft="@dimen/margin_36_dp"
         android:paddingRight="@dimen/margin_36_dp"
         android:text="修改个人信息"
-        android:textColor="@color/white"
+        android:background="@drawable/but_notselect_drawable"
+        android:textColor="@color/low_blue"
         android:textSize="@dimen/font_size_18" />
 
     <TextView
@@ -308,14 +308,12 @@
         android:layout_marginRight="@dimen/margin_24_dp"
         android:layout_marginStart="@dimen/margin_24_dp"
         android:layout_marginTop="@dimen/margin_24_dp"
-        android:background="@drawable/but_notselect_drawable"
         android:gravity="center"
+        android:background="@drawable/but_selected_drawable"
+        android:textColor="@color/white"
         android:paddingBottom="@dimen/margin_5_dp"
         android:paddingTop="@dimen/margin_5_dp"
-        android:paddingLeft="@dimen/margin_36_dp"
-        android:paddingRight="@dimen/margin_36_dp"
         android:text="退出账号"
-        android:textColor="@color/low_blue"
         android:textSize="@dimen/font_size_18" />
 
 </LinearLayout>

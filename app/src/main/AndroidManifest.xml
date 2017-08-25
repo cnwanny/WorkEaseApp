@@ -129,12 +129,15 @@
             android:name=".framework_ui.business_UI.activity.ModifyWorkActivity"
             android:theme="@style/ImageTranslucentTheme" />
 
+        <activity
+            android:name=".framework_ui.business_UI.activity.ModifyPsdActivity"
+            android:theme="@style/ImageTranslucentTheme" />
+
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="sTsANGvogiVQ7olV7Ta3gZWcDlx3w4ET" />
 
-        ///
     </application>
 
 </manifest>

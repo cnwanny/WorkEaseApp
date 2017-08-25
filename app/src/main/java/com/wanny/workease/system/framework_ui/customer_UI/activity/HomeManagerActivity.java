@@ -34,7 +34,7 @@ public class HomeManagerActivity  extends MvpActivity<HomePresenter> implements 
 
 
     //当前页面菜单栏只有三个
-    private final static int TABCOUNT = 3;
+    private final static int TABCOUNT = 2;
     //
     @BindView(R.id.realtabcontent)
     FrameLayout realtabcontent;
@@ -47,8 +47,8 @@ public class HomeManagerActivity  extends MvpActivity<HomePresenter> implements 
 
     //底部 tab-首页
     private HiFoFragmentTableItem mainTab = null;
-    //底部 tab-通讯录
-    private HiFoFragmentTableItem contactTab = null;
+//    //底部 tab-通讯录
+//    private HiFoFragmentTableItem contactTab = null;
     //底部tab-我的
     private HiFoFragmentTableItem youselfTab = null;
 
@@ -94,10 +94,10 @@ public class HomeManagerActivity  extends MvpActivity<HomePresenter> implements 
         switch (tabIndex) {
             case 0:
                 return getMainTab();
+//            case 1:
+//                return getSendMessageTab();
+////                return getReplyPriceTab();
             case 1:
-                return getSendMessageTab();
-//                return getReplyPriceTab();
-            case 2:
                 return getUserCenterTab();
             default:
                 break;
@@ -123,15 +123,15 @@ public class HomeManagerActivity  extends MvpActivity<HomePresenter> implements 
      * 设置fragment
      * @return
      */
-    private HiFoFragmentTableItem getSendMessageTab() {
-        if (contactTab == null) {
-            contactTab = new HiFoFragmentTableItem();
-            contactTab.setName("信息发布");
-            contactTab.setFragment(SendMessageFragment.class);
-            contactTab.setIconResourceId(R.drawable.icon_find_drawable);
-        }
-        return contactTab;
-    }
+//    private HiFoFragmentTableItem getSendMessageTab() {
+//        if (contactTab == null) {
+//            contactTab = new HiFoFragmentTableItem();
+//            contactTab.setName("信息发布");
+//            contactTab.setFragment(SendMessageFragment.class);
+//            contactTab.setIconResourceId(R.drawable.icon_find_drawable);
+//        }
+//        return contactTab;
+//    }
 
 
 

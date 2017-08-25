@@ -302,6 +302,7 @@
             android:layout_toEndOf="@+id/register_workertime_lab"
             android:background="@null"
             android:hint="请输入工龄"
+            android:inputType="number"
             android:padding="@dimen/margin_10_dp"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/font_size_16" />

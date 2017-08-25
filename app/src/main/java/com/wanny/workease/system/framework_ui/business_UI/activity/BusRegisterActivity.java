@@ -89,6 +89,9 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
     private ArrayList<City> areadList;
 
     private void initView() {
+        if(titleTitle != null){
+            titleTitle.setText("注册");
+        }
         if (proviceList == null) {
             proviceList = new ArrayList<>();
         }
@@ -169,6 +172,7 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
     }
 
     private ArrayList<String> currentList = new ArrayList<>();
+
     private WaitDialog waitDialog;
 
     private void waitDialog(String loading) {
@@ -226,7 +230,7 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
             return;
         }
         if (mvpPresenter != null) {
-            mvpPresenter.register(busRegisterPhone.getText().toString(), busRegisterPassword.getText().toString(), "1", busRegisterUsername.getText().toString(), selectAreaId, "", "");
+            mvpPresenter.register(busRegisterPhone.getText().toString(), busRegisterPassword.getText().toString(), "1", busRegisterUsername.getText().toString(), selectAreaId, "" , "", "");
         }
     }
 
