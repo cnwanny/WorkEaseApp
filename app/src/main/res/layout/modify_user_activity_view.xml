@@ -253,6 +253,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10_dp"
             android:layout_marginStart="@dimen/margin_10_dp"
+            android:inputType="number"
             android:layout_toEndOf="@+id/cus_modify_workertime_lab"
             android:layout_toLeftOf="@+id/cus_modify_workertime_index"
             android:layout_toRightOf="@+id/cus_modify_workertime_lab"

@@ -1,5 +1,8 @@
 package com.wanny.workease.system.framework_ui.business_UI.fragment;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,15 +14,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wanny.workease.system.R;
+import com.wanny.workease.system.framework_basicutils.NewPremissionUtils;
 import com.wanny.workease.system.framework_care.AppContent;
 import com.wanny.workease.system.framework_mvpbasic.MvpFragment;
+import com.wanny.workease.system.framework_ui.business_UI.activity.SearchWokerActivity;
 import com.wanny.workease.system.framework_uikite.dialog.HiFoToast;
+import com.wanny.workease.system.framework_uikite.dialog.MyDialog;
 import com.wanny.workease.system.framework_uikite.recycler.ListViewItemDecotion;
 import com.wanny.workease.system.workease_business.business.bus_main_mvp.BusMainAdapter;
 import com.wanny.workease.system.workease_business.business.bus_main_mvp.BusMainImpl;
 import com.wanny.workease.system.workease_business.business.bus_main_mvp.BusMainPresenter;
 import com.wanny.workease.system.workease_business.business.bus_main_mvp.WordPeopleResult;
 import com.wanny.workease.system.workease_business.business.bus_main_mvp.WorkPeopleEntity;
+import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
+
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -191,6 +199,19 @@ public class BusMainFragment extends MvpFragment<BusMainPresenter> implements Bu
             dataList.addAll(addinfo);
         }
     }
+
+
+    @OnClick(R.id.main_search)
+    void startSearch(View view){
+        Intent intent = new Intent(getActivity(), SearchWokerActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void workType(WorkTypeResult entity) {
+
+    }
+
     //获取重复的数据
     private ArrayList<WorkPeopleEntity> getRepertData(ArrayList<WorkPeopleEntity> olddata, ArrayList<WorkPeopleEntity> newdata) {
         ArrayList<WorkPeopleEntity> listdata = new ArrayList<>();
@@ -211,11 +232,12 @@ public class BusMainFragment extends MvpFragment<BusMainPresenter> implements Bu
 
 
 
-
+   private String currentPhone = "";
     private BusMainAdapter.WorkListListener workListListener = new BusMainAdapter.WorkListListener() {
         @Override
         public void click(int position) {
-
+            currentPhone = dataList.get(position).getMobile();
+            requsetPhone();
         }
     };
 
@@ -231,6 +253,89 @@ public class BusMainFragment extends MvpFragment<BusMainPresenter> implements Bu
             }
         }
     }
+
+
+
+    private NewPremissionUtils newPremissionUtils;
+
+    private boolean hasNeed = false;
+    private boolean hasPhone = false;
+
+    private void requsetPhone() {
+        if (newPremissionUtils == null) {
+            newPremissionUtils = new NewPremissionUtils(mActivity);
+        }
+        hasNeed = newPremissionUtils.hasNeedReqset();
+        if (hasNeed) {
+            hasPhone = newPremissionUtils.requesCallPhonePermissions(AppContent.PHONE_REQUESTCODE);
+            if (hasPhone) {
+                startPhone();
+            }
+        } else {
+            startPhone();
+        }
+    }
+
+    boolean dialogMode = false;
+
+    private void startPhone() {
+        createMyDialog();
+    }
+
+    private MyDialog myDialog;
+
+
+    private void createMyDialog() {
+        if (myDialog == null) {
+            myDialog = new MyDialog(mActivity, R.style.dialog, "确定拨打该电话吗", "", mActivity);
+        }
+        myDialog.setClickListener(clickListenerInterface);
+        myDialog.show();
+    }
+
+
+    private MyDialog.ClickListenerInterface clickListenerInterface = new MyDialog.ClickListenerInterface() {
+        @Override
+        public void cancel() {
+            if (myDialog != null) {
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                    myDialog = null;
+                }
+            }
+        }
+
+        @Override
+        public void sure(String editdata, String pricecallback) {
+            if (myDialog != null) {
+                if (myDialog.isShowing()) {
+                    myDialog.dismiss();
+                    myDialog = null;
+                }
+            }
+            try {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + currentPhone));
+                startActivity(intent);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] paramArrayOfInt) {
+        super.onRequestPermissionsResult(requestCode, permissions, paramArrayOfInt);
+        if (requestCode == AppContent.PHONE_REQUESTCODE) {
+            if (paramArrayOfInt[0] == PackageManager.PERMISSION_GRANTED) {
+                hasPhone = true;
+                startPhone();
+            } else {
+                new HiFoToast(mActivity, "请手动授权打电话权限");
+            }
+        }
+    }
+
 
     @Override
     public void success(WordPeopleResult wordPeopleResult) {

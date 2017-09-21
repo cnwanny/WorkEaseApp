@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wanny.workease.system.R;
+import com.wanny.workease.system.framework_basicutils.AppUtils;
 import com.wanny.workease.system.framework_basicutils.LogUtil;
 import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
 import com.wanny.workease.system.framework_care.ActivityStackManager;
@@ -274,6 +275,14 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
             hasRunning = false;
             return;
         }
+
+        if (!AppUtils.isMobile(registerPhone.getText().toString())) {
+            new HiFoToast(mContext, "请输入正确的电话号码");
+            hasRunning = false;
+            return;
+        }
+
+
         if (TextUtils.isEmpty(registerPassword.getText().toString())) {
             new HiFoToast(mContext, "请输入密码");
             hasRunning = false;
@@ -455,4 +464,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
             }
         }
     };
+
+
+
 }

@@ -154,6 +154,11 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
         ActivityStackManager.getInstance().exitActivity(mActivity);
     }
 
+
+
+
+
+
     @Override
     public void modifySuccess(OrdinalResultEntity ordinalResultEntity) {
 

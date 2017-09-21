@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wanny.workease.system.R;
+import com.wanny.workease.system.framework_basicutils.AppUtils;
 import com.wanny.workease.system.framework_care.ActivityStackManager;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
@@ -219,6 +220,11 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
             hasRunning = false;
             return;
         }
+        if (!AppUtils.isMobile(busRegisterPhone.getText().toString())) {
+            new HiFoToast(mContext, "请输入正确的电话号码");
+            hasRunning = false;
+            return;
+        }
         if (TextUtils.isEmpty(busRegisterPassword.getText().toString())) {
             new HiFoToast(mContext, "请输入密码");
             hasRunning = false;
@@ -298,4 +304,9 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
             }
         }
     };
+
+    @OnClick(R.id.title_left)
+    void backActivity(View view){
+        ActivityStackManager.getInstance().exitActivity(mActivity);
+    }
 }

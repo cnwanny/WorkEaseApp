@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wanny.workease.system.R;
+import com.wanny.workease.system.framework_basicutils.AppUtils;
 import com.wanny.workease.system.framework_basicutils.NewPremissionUtils;
 import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
 import com.wanny.workease.system.framework_care.ActivityStackManager;
@@ -79,6 +80,12 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
             new HiFoToast(mContext, "请输入账号");
             return;
         }
+
+        if (!AppUtils.isMobile(loginUsername.getText().toString())) {
+            new HiFoToast(mContext, "请输入正确的电话号码");
+            return;
+        }
+
         if (TextUtils.isEmpty(loginPassword.getText().toString())) {
             new HiFoToast(mContext, "请输入密码");
             return;
@@ -154,8 +161,10 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
         if(entity.isSuccess()){
             servicePhone.clear();
             servicePhone.addAll(entity.getData());
+            if(dialogMode){
+                createIOS(servicePhone,"拨打客服电话");
+            }
         }
-
     }
 
     @OnClick(R.id.login_forget_password)
@@ -241,17 +250,13 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
         }
     };
 
-
+    boolean dialogMode  = false;
     private void startPhone() {
-        createIOS(servicePhone,"拨打客服电话");
-
-
-        if (hasPhone) {
-            try {
-
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            }
+        if(servicePhone != null && servicePhone.size() > 0){
+            createIOS(servicePhone,"拨打客服电话");
+        }else{
+            mvpPresenter.getServicePhone();
+            dialogMode = true;
         }
     }
 
