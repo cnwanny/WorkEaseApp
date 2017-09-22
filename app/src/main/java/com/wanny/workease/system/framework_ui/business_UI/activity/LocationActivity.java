@@ -1,8 +1,11 @@
 package com.wanny.workease.system.framework_ui.business_UI.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -30,8 +33,12 @@ import com.wanny.workease.system.framework_care.AppContent;
 import com.wanny.workease.system.framework_mvpbasic.BasePresenter;
 import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
 import com.wanny.workease.system.framework_uikite.dialog.HiFoToast;
+import com.wanny.workease.system.framework_uikite.dialog.IOSDialogView;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,9 +61,16 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
     //mapView
     @BindView(R.id.bmapView)
     MapView bmapView;
+
+
+    //导航
+    @BindView(R.id.location_daohang)
+    ImageView locationDaohang;
+
     //位置信息
     @BindView(R.id.location_view_RelativeLayout)
     RelativeLayout propertyLocationViewRelativeLayout;
+
 
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
@@ -66,7 +80,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
     private BaiduMap mBaiduMap;
     public static final int MODE_SHOW = 0x0001;
     public static final int MODE_EDIT = 0x0002;
-    private  int mode  = MODE_EDIT;
+    private int mode = MODE_EDIT;
 
 
     @Override
@@ -82,11 +96,11 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
         if (getIntent().hasExtra("isScan")) {
             titleRightText.setText("定位");
             AppUtils.notShowView(titleRightText);
-            mode = MODE_SHOW ;
+            mode = MODE_SHOW;
         } else {
             titleRightText.setText("定位");
             AppUtils.showView(titleRightText);
-            mode =   MODE_EDIT ;
+            mode = MODE_EDIT;
         }
         if (titleTitleText != null) {
             titleTitleText.setText("工地定位");
@@ -121,7 +135,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
         } else {
             //已有地理位置，直接标注，当点击重新定位，则标注在中心点（）
             //1.重新设置地图中心点
-            if(mode == MODE_SHOW){
+            if (mode == MODE_SHOW) {
                 MapStatus mapStatus = new MapStatus.Builder().target(propertyLocation).zoom(18)
                         .build();
                 MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory
@@ -137,7 +151,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
                 //在地图上添加Marker，并显示
                 mBaiduMap.addOverlay(ooption);
                 titleRightText.setText("重新选定");
-            }else{
+            } else {
                 //缩放地图等级，将地图移动到当前传递过来的位置
                 MapStatus mapStatus = new MapStatus.Builder().target(propertyLocation).zoom(18)
                         .build();
@@ -364,6 +378,97 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
 //            openLocationMarker();
 //        }
     }
+
+
+    @OnClick(R.id.location_daohang)
+    void startDaohang(View view) {
+        createIosDialog();
+    }
+
+
+    public static boolean isAvilible(Context context, String packageName) {
+        //获取packagemanager
+        final PackageManager packageManager = context.getPackageManager();
+        //获取所有已安装程序的包信息
+        List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
+        //用于存储所有已安装程序的包名
+        List<String> packageNames = new ArrayList<String>();
+        //从pinfo中将包名字逐一取出，压入pName list中
+        if (packageInfos != null) {
+            for (int i = 0; i < packageInfos.size(); i++) {
+                String packName = packageInfos.get(i).packageName;
+                packageNames.add(packName);
+            }
+        }
+        //判断packageNames中是否有目标程序的包名，有TRUE，没有FALSE
+        return packageNames.contains(packageName);
+    }
+
+
+    private IOSDialogView iosDialogView;
+    private ArrayList<String> mapArray;
+
+    private void createIosDialog() {
+        if (mapArray == null) {
+            mapArray = new ArrayList<>();
+        } else {
+            mapArray.clear();
+        }
+        if (isAvilible(mContext, "com.baidu.BaiduMap")) {
+            mapArray.add("百度地图");
+        }
+        if (isAvilible(mContext, "com.autonavi.minimap")) {
+            mapArray.add("高德地图");
+        }
+        if (iosDialogView == null && mapArray.size() > 0) {
+            iosDialogView = new IOSDialogView(mActivity, mapArray, "选择地图");
+        } else {
+            new HiFoToast(mContext, "请先安装地图软件再试");
+        }
+        iosDialogView.setIosDialogSelectListener(new IOSDialogView.IosDialogSelectListener() {
+            @Override
+            public void onItemClick(int position) {
+                if (iosDialogView != null) {
+                    if (iosDialogView.isShowing()) {
+                        iosDialogView.dismiss();
+                        iosDialogView = null;
+                    }
+                }
+                if (mapArray.get(position).equals("百度地图")) {
+                    try {
+//                          intent = Intent.getIntent("intent://map/direction?origin=latlng:34.264642646862,108.95108518068|name:我家&destination=大雁塔&mode=driving®ion=西安&src=yourCompanyName|yourAppName#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
+                        Intent intent = Intent.parseUri("intent://map/direction?" +
+                                //"origin=latlng:"+"34.264642646862,108.95108518068&" +   //起点  此处不传值默认选择当前位置
+                                "destination=latlng:" + propertyLocation.latitude + "," + propertyLocation.longitude + "|name:我的目的地" +        //终点
+                                "&mode=driving&" +          //导航路线方式
+                                "region=北京" +           //
+                                "&src=慧医#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end",Intent.URI_ANDROID_APP_SCHEME);
+                        startActivity(intent); //启动调用
+                    } catch (URISyntaxException e) {
+                        Log.e("intent", e.getMessage());
+                    }
+                } else if (mapArray.get(position).equals("高德地图")) {
+                    try {
+                        Intent intent = Intent.parseUri("androidamap://navi?sourceApplication=易知工&poiname=我的目的地&lat=" + propertyLocation.latitude + "&lon=" + propertyLocation.longitude + "&dev=0",Intent.URI_ANDROID_APP_SCHEME);
+                        startActivity(intent);
+                    } catch (URISyntaxException e) {
+                        Log.e("intent", e.getMessage());
+                    }
+                }
+            }
+            @Override
+            public void cancel() {
+                if (iosDialogView != null) {
+                    if (iosDialogView.isShowing()) {
+                        iosDialogView.dismiss();
+                        iosDialogView = null;
+                    }
+                }
+            }
+        });
+        iosDialogView.show();
+    }
+
 
     //开启定位图标
     private void openLocationMarker() {

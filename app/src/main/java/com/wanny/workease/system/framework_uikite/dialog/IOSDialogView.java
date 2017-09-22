@@ -48,6 +48,7 @@ public class IOSDialogView extends Dialog {
 	private void setWindows(){
 		WindowManager.LayoutParams params = this.getWindow().getAttributes();
 		params.width =(int)(AppUtils.getScreenHeight(context) * 0.7);
+		params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 		this.getWindow().setAttributes(params);
 		Window window = this.getWindow();
 		window.setGravity(Gravity.BOTTOM);

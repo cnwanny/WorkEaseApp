@@ -32,7 +32,7 @@ public interface ApiStores {
     //登录
 //
     @GET("u/login")
-    Observable<LoginResult> login(@Query("mobile") String mobile, @Query("password") String password, @Query("type") String type);
+    Observable<LoginResult> login(@Query("mobile") String mobile, @Query("password") String password, @Query("type") String type ,@Query("pushToken") String pushToken);
 
     //获取客服热线
     @GET("comm/getCustomers")
@@ -78,6 +78,11 @@ public interface ApiStores {
     //获取用户信息
     @GET("u/userInformation")
     Observable<CustomerInofResult> getUserInfo(@Query("userId") String userId, @Query("userName") String userName);
+
+
+
+    @GET("u/logout")
+    Observable<OrdinalResultEntity> logout(@Query("pushToken") String pushToken);
 
     //userId
     // userName

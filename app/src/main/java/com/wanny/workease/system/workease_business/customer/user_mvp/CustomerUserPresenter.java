@@ -48,7 +48,37 @@ public class CustomerUserPresenter extends BasePresenter<CustomerUserImpl> {
         }));
     }
 
-//    //修改个人信息
+    //退出登录
+    public void logout(String pushToken, final String loading) {
+        //执行网络请求的回调
+        if (!TextUtils.isEmpty(loading)) {
+            mvpView.loadIng(loading);
+        }
+        addSubscription(apiStores.logout(pushToken), new SubscribCallBack<>(new ApiCallback<OrdinalResultEntity>() {
+            @Override
+            public void onSuccess(OrdinalResultEntity model) {
+                if (!TextUtils.isEmpty(loading)) {
+                    mvpView.hide();
+                }
+                mvpView.logout(model);
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                mvpView.hide();
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+        }));
+    }
+
+
+
+
+    //    //修改个人信息
 //    public void modifyUserInfo(String userId, String name, String mobile, String userState, String areaId, String jobTypeId, String senor, final String loading) {
 //        //执行网络请求的回调
 //        if (!TextUtils.isEmpty(loading)) {

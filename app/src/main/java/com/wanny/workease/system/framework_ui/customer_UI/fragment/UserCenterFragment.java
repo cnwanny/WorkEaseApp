@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.wanny.workease.system.R;
@@ -18,6 +17,8 @@ import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpFragment;
 import com.wanny.workease.system.framework_ui.customer_UI.activity.LoginActivity;
 import com.wanny.workease.system.framework_ui.customer_UI.activity.ModifyUserActivity;
+import com.wanny.workease.system.framework_uikite.WaitDialog;
+import com.wanny.workease.system.framework_uikite.dialog.MyDialog;
 import com.wanny.workease.system.workease_business.customer.register_mvp.CityResult;
 import com.wanny.workease.system.workease_business.customer.register_mvp.WorkTypeResult;
 import com.wanny.workease.system.workease_business.customer.user_mvp.CustomerInfo;
@@ -164,17 +165,27 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
 
     @Override
     public void fail(String errorMessage) {
-
+        if(waitDialog != null){
+            if(!waitDialog.isShowing()){
+                waitDialog.dismiss();
+                waitDialog = null;
+            }
+        }
     }
 
     @Override
     public void loadIng(String title) {
-
+        createWait(title);
     }
 
     @Override
     public void hide() {
-
+        if(waitDialog != null){
+            if(!waitDialog.isShowing()){
+                waitDialog.dismiss();
+                waitDialog = null;
+            }
+        }
     }
 
     @Override
@@ -198,6 +209,84 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
 
     }
 
+
+
+
+
+    private MyDialog myDialog;
+
+
+    private void createMyDialog() {
+        if (myDialog == null) {
+            myDialog = new MyDialog(mActivity, R.style.dialog, "确定退出该账号吗？", "", mActivity);
+            myDialog.setClickListener(clickListenerInterface);
+            myDialog.show();
+        } else {
+            if (!myDialog.isShowing()) {
+                myDialog.show();
+            }
+        }
+
+    }
+
+
+    @Override
+    public void logout(OrdinalResultEntity entity) {
+        if(entity.isSuccess()){
+            PreferenceUtil.getInstance(mContext).saveString("mobile", "");
+            PreferenceUtil.getInstance(mContext).saveString("name","");
+            PreferenceUtil.getInstance(mContext).saveString("userId", "");
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            ActivityStackManager.getInstance().exitActivity(mActivity);
+        }
+    }
+
+    private MyDialog.ClickListenerInterface clickListenerInterface = new MyDialog.ClickListenerInterface() {
+        @Override
+        public void cancel() {
+            if (myDialog != null) {
+                if (!myDialog.isShowing()) {
+                    myDialog.dismiss();
+                    myDialog = null;
+                }
+            }
+        }
+
+        @Override
+        public void sure(String editdata, String pricecallback) {
+            if (myDialog != null) {
+                if (!myDialog.isShowing()) {
+                    myDialog.dismiss();
+                    myDialog = null;
+                }
+            }
+            String pushToken = PreferenceUtil.getInstance(mContext).getString("channId","");
+            if (!TextUtils.isEmpty(pushToken)) {
+                mvpPresenter.logout(pushToken,"请稍等");
+            }else{
+                PreferenceUtil.getInstance(mContext).saveString("mobile", "");
+                PreferenceUtil.getInstance(mContext).saveString("name","");
+                PreferenceUtil.getInstance(mContext).saveString("userId", "");
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                ActivityStackManager.getInstance().exitActivity(mActivity);
+            }
+        }
+    };
+
+    private WaitDialog waitDialog;
+    private void createWait(String  titlename){
+        if(waitDialog == null){
+            waitDialog = new WaitDialog(mActivity,R.style.wait_dialog,titlename);
+            waitDialog.show();
+        }
+        if(waitDialog != null){
+            waitDialog.show();
+        }
+    }
+
+
     @OnClick(R.id.user_info_modify)
     void startSave(View view) {
         Intent intent = new Intent(getActivity(), ModifyUserActivity.class);
@@ -208,11 +297,6 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
 
     @OnClick(R.id.user_info_logout)
     void logout(View view) {
-        PreferenceUtil.getInstance(mContext).saveString("mobile", "");
-        PreferenceUtil.getInstance(mContext).saveString("name","");
-        PreferenceUtil.getInstance(mContext).saveString("userId", "");
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        startActivity(intent);
-        ActivityStackManager.getInstance().exitActivity(mActivity);
+        createMyDialog();
     }
 }

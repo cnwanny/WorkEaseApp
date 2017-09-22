@@ -88,8 +88,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginI
             new HiFoToast(mContext, "请输入密码");
             return;
         }
+        String pushToken = PreferenceUtil.getInstance(mContext).getString("channId","");
         if (mvpPresenter != null) {
-            mvpPresenter.login(loginUsername.getText().toString(), loginPassword.getText().toString(),"0", "正在登录");
+            mvpPresenter.login(loginUsername.getText().toString(), loginPassword.getText().toString(),"0",pushToken, "正在登录");
         }
     }
 

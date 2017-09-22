@@ -20,12 +20,12 @@ public class LoginPresenter extends BasePresenter<LoginImpl> {
         attachView(view);
     }
 
-    public void login(String phone , String password ,String type , final String loading) {
+    public void login(String phone , String password ,String type ,String pushToken, final String loading) {
         //执行网络请求的回调
         if(!TextUtils.isEmpty(loading)){
             mvpView.loadIng(loading);
         }
-        addSubscription(apiStores.login(phone,password,type),new SubscribCallBack<>(new ApiCallback<LoginResult>() {
+        addSubscription(apiStores.login(phone,password,type,pushToken),new SubscribCallBack<>(new ApiCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult model) {
                 if(!TextUtils.isEmpty(loading)){

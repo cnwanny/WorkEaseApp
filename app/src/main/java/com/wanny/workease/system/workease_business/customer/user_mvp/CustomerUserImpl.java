@@ -17,5 +17,6 @@ public interface CustomerUserImpl extends BaseOperateImp<CustomerInofResult>{
     void modifySuccess(OrdinalResultEntity ordinalResultEntity);
     void workType(WorkTypeResult entity);
     void getCityValue(CityResult cityResult);
+    void logout(OrdinalResultEntity entity);
 }
 

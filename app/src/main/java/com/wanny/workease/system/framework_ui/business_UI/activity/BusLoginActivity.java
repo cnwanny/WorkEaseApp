@@ -90,8 +90,9 @@ public class BusLoginActivity extends MvpActivity<BusLoginPresenter> implements 
             new HiFoToast(mContext, "请输入密码");
             return;
         }
+        String pushToken = PreferenceUtil.getInstance(mContext).getString("channId","");
         if (mvpPresenter != null) {
-            mvpPresenter.login(loginUsername.getText().toString(), loginPassword.getText().toString(),"1", "正在登录");
+            mvpPresenter.login(loginUsername.getText().toString(), loginPassword.getText().toString(),"1",pushToken, "正在登录");
         }
     }
 

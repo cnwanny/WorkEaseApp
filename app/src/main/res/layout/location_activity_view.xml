@@ -21,4 +21,15 @@
             android:layout_height="match_parent"
             android:clickable="true" />
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/location_daohang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_24_dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@mipmap/icon_daohang"
+        />
 </RelativeLayout>
