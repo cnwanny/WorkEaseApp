@@ -16,7 +16,6 @@
     android:layout_marginStart="@dimen/margin_5_dp" 
     android:layout_marginTop="@dimen/margin_5_dp"
     android:layout_marginBottom="@dimen/margin_5_dp"
-    android:src="@mipmap/ic_launcher"
     android:contentDescription="@null"
     android:scaleType="center"
     />

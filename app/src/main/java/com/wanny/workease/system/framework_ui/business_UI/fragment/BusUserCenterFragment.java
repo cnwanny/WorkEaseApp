@@ -53,7 +53,6 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
     @BindView(R.id.bus_usercenter_modifyinfo)
     TextView busUsercenterModifyinfo;
 
-
     @BindView(R.id.bus_usercenter_logout)
     TextView busUsercenterLogout;
 
@@ -124,7 +123,7 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
     @Override
     public void fail(String errorMessage) {
         if(waitDialog != null){
-            if(!waitDialog.isShowing()){
+            if(waitDialog.isShowing()){
                 waitDialog.dismiss();
                 waitDialog = null;
             }
@@ -139,10 +138,10 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
     @Override
     public void hide() {
         if(waitDialog != null){
-            if(!waitDialog.isShowing()){
-                waitDialog.dismiss();
-                waitDialog = null;
-            }
+                if(waitDialog.isShowing()){
+                    waitDialog.dismiss();
+                    waitDialog = null;
+                }
         }
     }
 
@@ -179,6 +178,12 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
 
     @Override
     public void logout(OrdinalResultEntity entity) {
+        if(waitDialog != null){
+            if(waitDialog.isShowing()){
+                waitDialog.dismiss();
+                waitDialog = null;
+            }
+        }
         if(entity.isSuccess()){
             PreferenceUtil.getInstance(mContext).saveString("busmobile", "");
             PreferenceUtil.getInstance(mContext).saveString("busname", "");
@@ -193,7 +198,7 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
         @Override
         public void cancel() {
             if (myDialog != null) {
-                if (!myDialog.isShowing()) {
+                if (myDialog.isShowing()) {
                     myDialog.dismiss();
                     myDialog = null;
                 }
@@ -203,7 +208,7 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
         @Override
         public void sure(String editdata, String pricecallback) {
             if (myDialog != null) {
-                if (!myDialog.isShowing()) {
+                if (myDialog.isShowing()) {
                     myDialog.dismiss();
                     myDialog = null;
                 }

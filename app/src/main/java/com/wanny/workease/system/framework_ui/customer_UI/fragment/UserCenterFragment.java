@@ -127,6 +127,12 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
 
     @Override
     public void success(CustomerInofResult customerInfo) {
+        if(waitDialog != null){
+            if(waitDialog.isShowing()){
+                waitDialog.dismiss();
+                waitDialog = null;
+            }
+        }
         if (customerInfo.isSuccess()) {
             if (customerInfo.getData() != null) {
                 entity = customerInfo.getData();
@@ -166,7 +172,7 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Override
     public void fail(String errorMessage) {
         if(waitDialog != null){
-            if(!waitDialog.isShowing()){
+            if(waitDialog.isShowing()){
                 waitDialog.dismiss();
                 waitDialog = null;
             }
@@ -181,7 +187,7 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Override
     public void hide() {
         if(waitDialog != null){
-            if(!waitDialog.isShowing()){
+            if(waitDialog.isShowing()){
                 waitDialog.dismiss();
                 waitDialog = null;
             }
@@ -232,6 +238,12 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
 
     @Override
     public void logout(OrdinalResultEntity entity) {
+        if(waitDialog != null){
+            if(waitDialog.isShowing()){
+                waitDialog.dismiss();
+                waitDialog = null;
+            }
+        }
         if(entity.isSuccess()){
             PreferenceUtil.getInstance(mContext).saveString("mobile", "");
             PreferenceUtil.getInstance(mContext).saveString("name","");
@@ -246,7 +258,7 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
         @Override
         public void cancel() {
             if (myDialog != null) {
-                if (!myDialog.isShowing()) {
+                if (myDialog.isShowing()) {
                     myDialog.dismiss();
                     myDialog = null;
                 }
@@ -256,7 +268,7 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
         @Override
         public void sure(String editdata, String pricecallback) {
             if (myDialog != null) {
-                if (!myDialog.isShowing()) {
+                if (myDialog.isShowing()) {
                     myDialog.dismiss();
                     myDialog = null;
                 }

@@ -44,8 +44,10 @@ public class MainFragment extends MvpFragment<MainPresenter> implements MainImpl
 
     @BindView(R.id.city_name)
     TextView cityName;
+
     @BindView(R.id.main_search)
     TextView mainSearch;
+
     @BindView(R.id.ordinal_recycler)
     RecyclerView ordinalRecycler;
     @BindView(R.id.ordinal_refresh)

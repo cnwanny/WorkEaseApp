@@ -50,11 +50,13 @@ public class BusMainAdapter extends RecyclerView.Adapter<BusMainAdapter.BusWorkV
                     holder.busMainItemName.setText("姓名：--");
                 }
                 if (!TextUtils.isEmpty(entity.getMobile())) {
-                    if(entity.getMobile().length() >= 11){
-                        holder.busMainItemPhone.setText(entity.getMobile().substring(0,3) + "****" + entity.getMobile().substring(7,entity.getMobile().length()));
-                    }else{
-                        holder.busMainItemPhone.setText(entity.getMobile());
-                    }
+                    holder.busMainItemPhone.setText(entity.getMobile());
+//                    if(entity.getMobile().length() >= 11){
+//
+//                        holder.busMainItemPhone.setText(entity.getMobile().substring(0,3) + "****" + entity.getMobile().substring(7,entity.getMobile().length()));
+//                    }else{
+//                        holder.busMainItemPhone.setText(entity.getMobile());
+//                    }
                 }else{
                     holder.busMainItemPhone.setText("电话号码：--");
                 }
