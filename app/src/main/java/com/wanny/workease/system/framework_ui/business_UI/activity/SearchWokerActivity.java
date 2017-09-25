@@ -344,7 +344,7 @@ public class SearchWokerActivity extends MvpActivity<BusMainPresenter> implement
 
     private void createIOS(ArrayList<String> data, String titlename) {
         if (iosDialogView == null) {
-            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, data, titlename);
+            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, data, titlename,0);
             iosDialogView.setIosDialogSelectListener(iosDialogSelectListener);
             iosDialogView.setOnCancelListener(onCancelListener);
             iosDialogView.show();

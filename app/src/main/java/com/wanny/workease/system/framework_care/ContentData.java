@@ -19,6 +19,7 @@ public class ContentData {
     public static String token = "";
     public static String yiping = "";
 
+
 //    //
 //    public static String setPostYiping(Object object) {
 //        Gson gson = new Gson();

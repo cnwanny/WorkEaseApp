@@ -81,6 +81,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
     public static final int MODE_SHOW = 0x0001;
     public static final int MODE_EDIT = 0x0002;
     private int mode = MODE_EDIT;
+    private String objectAddress = "";
 
 
     @Override
@@ -194,7 +195,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
     private void startAction() {
         new HiFoToast(getApplicationContext(), "系统正在定位，请稍等");
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);    //注册监听函数
+        mLocationClient.registerNotifyLocationListener(myListener);    //注册监听函数
         initLocation();
         mLocationClient.start();
     }
@@ -202,6 +203,9 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
     private void initData() {
         if (getIntent().hasExtra("location")) {
             propertyLocation = getIntent().getParcelableExtra("location");
+        }
+        if (getIntent().hasExtra("address")) {
+            objectAddress = getIntent().getStringExtra("address");
         }
     }
 
@@ -382,7 +386,10 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
 
     @OnClick(R.id.location_daohang)
     void startDaohang(View view) {
-        createIosDialog();
+        Intent intent = new Intent(LocationActivity.this, BusLineActivity.class);
+        intent.putExtra("objectAddress", objectAddress);
+        startActivity(intent);
+//        createIosDialog();
     }
 
 
@@ -421,9 +428,13 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
             mapArray.add("高德地图");
         }
         if (iosDialogView == null && mapArray.size() > 0) {
-            iosDialogView = new IOSDialogView(mActivity, mapArray, "选择地图");
+            int height = AppUtils.getScreenHeight(mContext) / 4;
+            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, mapArray, "选择地图", height);
         } else {
-            new HiFoToast(mContext, "请先安装地图软件再试");
+            Intent intent = new Intent(LocationActivity.this, BusLineActivity.class);
+            intent.putExtra("objectAddress", objectAddress);
+            startActivity(intent);
+            return;
         }
         iosDialogView.setIosDialogSelectListener(new IOSDialogView.IosDialogSelectListener() {
             @Override
@@ -436,26 +447,27 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
                 }
                 if (mapArray.get(position).equals("百度地图")) {
                     try {
-//                          intent = Intent.getIntent("intent://map/direction?origin=latlng:34.264642646862,108.95108518068|name:我家&destination=大雁塔&mode=driving®ion=西安&src=yourCompanyName|yourAppName#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
+//intent = Intent.getIntent("intent://map/direction?origin=latlng:34.264642646862,108.95108518068|name:我家&destination=大雁塔&mode=driving®ion=西安&src=yourCompanyName|yourAppName#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
                         Intent intent = Intent.parseUri("intent://map/direction?" +
                                 //"origin=latlng:"+"34.264642646862,108.95108518068&" +   //起点  此处不传值默认选择当前位置
                                 "destination=latlng:" + propertyLocation.latitude + "," + propertyLocation.longitude + "|name:我的目的地" +        //终点
                                 "&mode=driving&" +          //导航路线方式
                                 "region=北京" +           //
-                                "&src=慧医#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end",Intent.URI_ANDROID_APP_SCHEME);
+                                "&src=慧医#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end", Intent.URI_ANDROID_APP_SCHEME);
                         startActivity(intent); //启动调用
                     } catch (URISyntaxException e) {
                         Log.e("intent", e.getMessage());
                     }
                 } else if (mapArray.get(position).equals("高德地图")) {
                     try {
-                        Intent intent = Intent.parseUri("androidamap://navi?sourceApplication=易知工&poiname=我的目的地&lat=" + propertyLocation.latitude + "&lon=" + propertyLocation.longitude + "&dev=0",Intent.URI_ANDROID_APP_SCHEME);
+                        Intent intent = Intent.parseUri("androidamap://navi?sourceApplication=易知工&poiname=我的目的地&lat=" + propertyLocation.latitude + "&lon=" + propertyLocation.longitude + "&dev=0", Intent.URI_ANDROID_APP_SCHEME);
                         startActivity(intent);
                     } catch (URISyntaxException e) {
                         Log.e("intent", e.getMessage());
                     }
                 }
             }
+
             @Override
             public void cancel() {
                 if (iosDialogView != null) {
@@ -468,7 +480,6 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
         });
         iosDialogView.show();
     }
-
 
     //开启定位图标
     private void openLocationMarker() {

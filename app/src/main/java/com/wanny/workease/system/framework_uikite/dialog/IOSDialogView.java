@@ -32,11 +32,13 @@ public class IOSDialogView extends Dialog {
 		this.titleName = titleName;
 	}
 
-	public IOSDialogView(Context context, int theme, ArrayList<String> dataList, String titleName) {
+	private int height;
+	public IOSDialogView(Context context, int theme, ArrayList<String> dataList, String titleName,int height) {
 		super(context, theme);
 		this.context = context;
 		this.dataList = dataList;
 		this.titleName = titleName;
+		this.height = height;
 	}
 
 	@Override
@@ -48,7 +50,11 @@ public class IOSDialogView extends Dialog {
 	private void setWindows(){
 		WindowManager.LayoutParams params = this.getWindow().getAttributes();
 		params.width =(int)(AppUtils.getScreenHeight(context) * 0.7);
-		params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+		if(height > 0){
+			params.height = height;
+		}else{
+			params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+		}
 		this.getWindow().setAttributes(params);
 		Window window = this.getWindow();
 		window.setGravity(Gravity.BOTTOM);
