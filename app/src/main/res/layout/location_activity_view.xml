@@ -30,5 +30,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:src="@mipmap/icon_daohang"
+        android:visibility="gone"
         />
 </RelativeLayout>

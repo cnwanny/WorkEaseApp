@@ -1,9 +1,16 @@
 package com.wanny.workease.system.framework_ui.business_UI.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -11,30 +18,44 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.route.BikingRouteResult;
 import com.baidu.mapapi.search.route.DrivingRouteResult;
 import com.baidu.mapapi.search.route.IndoorRouteResult;
+import com.baidu.mapapi.search.route.MassTransitRouteLine;
 import com.baidu.mapapi.search.route.MassTransitRoutePlanOption;
 import com.baidu.mapapi.search.route.MassTransitRouteResult;
 import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
 import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
+import com.baidu.mapapi.search.route.SuggestAddrInfo;
 import com.baidu.mapapi.search.route.TransitRouteLine;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.wanny.workease.system.R;
+import com.wanny.workease.system.framework_basicutils.AppUtils;
 import com.wanny.workease.system.framework_basicutils.NewPremissionUtils;
+import com.wanny.workease.system.framework_care.ActivityStackManager;
 import com.wanny.workease.system.framework_care.AppContent;
 import com.wanny.workease.system.framework_mvpbasic.BasePresenter;
 import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
+import com.wanny.workease.system.framework_ui.business_UI.baimap.MassTransitRouteOverlay;
 import com.wanny.workease.system.framework_ui.business_UI.baimap.TransitRouteOverlay;
 import com.wanny.workease.system.framework_ui.business_UI.fragment.BusSendInfoFragment;
+import com.wanny.workease.system.framework_uikite.dialog.IOSDialogView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 文件名： BusLineActivity
@@ -54,12 +75,18 @@ public class BusLineActivity extends MvpActivity<BasePresenter> {
     @BindView(R.id.bus_line_map)
     MapView busLineMap;
 
+
+    @BindView(R.id.bus_line_guidance)
+    TextView busLineGuidance;
+
     private String objectAddress;
     private RoutePlanSearch mSearch;
 
     private BaiduMap mBaidumap;
 
     private String currentCity = "";
+    private LatLng location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +97,11 @@ public class BusLineActivity extends MvpActivity<BasePresenter> {
         mSearch.setOnGetRoutePlanResultListener(routeListener);
         mBaidumap = busLineMap.getMap();
         mBaidumap.getUiSettings().setZoomGesturesEnabled(true);
+        MapStatus mapStatus = new MapStatus.Builder().target(location).zoom(18)
+                .build();
+        MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory
+                .newMapStatus(mapStatus);
+        mBaidumap.setMapStatus(mapStatusUpdate);
         requesetLocation();
     }
 
@@ -83,20 +115,76 @@ public class BusLineActivity extends MvpActivity<BasePresenter> {
         }
         if (getIntent() != null) {
             objectAddress = getIntent().getStringExtra("objectAddress");
+            location = getIntent().getParcelableExtra("location");
         }
     }
 
-    private void startShow(){
-        PlanNode stMassNode = PlanNode.withCityNameAndPlaceName(currentCity, currentAddres);
-        PlanNode enMassNode = PlanNode.withCityNameAndPlaceName(currentCity,objectAddress);
+    private void startShow() {
+        PlanNode stMassNode = PlanNode.withCityNameAndPlaceName(currentCity.replace("市", ""), currentAddres);
+        PlanNode enMassNode = PlanNode.withCityNameAndPlaceName(currentCity.replace("市", ""), objectAddress);
         mSearch.masstransitSearch(new MassTransitRoutePlanOption().from(stMassNode).to(enMassNode));
     }
 
+
+    private ArrayList<PoiInfo> currentPoi = new ArrayList<>();
 
     OnGetRoutePlanResultListener routeListener = new OnGetRoutePlanResultListener() {
         @Override
         public void onGetMassTransitRouteResult(MassTransitRouteResult result) {
             //获取跨城综合公共交通线路规划结果
+            if (result == null) {
+                //未找到结果
+                return;
+            }
+            if (result.error == SearchResult.ERRORNO.AMBIGUOUS_ROURE_ADDR) {
+                AppUtils.notShowView(busLineGuidance);
+                //起终点或途经点地址有岐义，通过以下接口获取建议查询信息
+                SuggestAddrInfo suggestAddrInfo = result.getSuggestAddrInfo();
+                if (suggestAddrInfo != null) {
+                    if (suggestAddrInfo.getSuggestEndNode() != null && suggestAddrInfo.getSuggestEndNode().size() > 0) {
+                        currentPoi.clear();
+                        currentPoi.addAll(suggestAddrInfo.getSuggestEndNode());
+                        ArrayList<String> value = new ArrayList<>();
+                        for (PoiInfo entity : currentPoi) {
+                            value.add(entity.name);
+                        }
+                        createIOS(value, "请选择一个对应地址再查询");
+                    }
+                }
+                return;
+            }
+            if (result.error == SearchResult.ERRORNO.NO_ERROR) {
+                AppUtils.showView(busLineGuidance);
+                StringBuffer stringBuffer = new StringBuffer();
+                MassTransitRouteLine route = result.getRouteLines().get(0);
+                if (route != null) {
+                    List<List<MassTransitRouteLine.TransitStep>> value = route.getNewSteps();
+                    for(List<MassTransitRouteLine.TransitStep> entity : value){
+                        for(MassTransitRouteLine.TransitStep data : entity){
+                            if(!TextUtils.isEmpty(data.getInstructions())){
+                                stringBuffer.append(data.getInstructions()).append(",");
+                            }
+                        }
+                    }
+                }
+//                for (MassTransitRouteLine.TransitStep value : route.getAllStep()) {
+//                    stringBuffer.append(value.getName()).append(",");
+//                }
+                if (!TextUtils.isEmpty(stringBuffer.toString())) {
+                    busLineGuidance.setText(stringBuffer.toString());
+                }
+                //创建公交路线规划线路覆盖物
+//                TransitRouteOverlay overlay = new MyTransitRouteOverlay(mBaidumap);
+//                //设置公交路线规划数据
+//                overlay.setData(route);
+
+                MyMassTransitRouteOverlay overlay = new MyMassTransitRouteOverlay(mBaidumap);
+                //设置公交路线规划数据
+                overlay.setData(route);
+                //将公交路线规划覆盖物添加到地图中
+                overlay.addToMap();
+                overlay.zoomToSpan();
+            }
         }
 
         @Override
@@ -144,6 +232,30 @@ public class BusLineActivity extends MvpActivity<BasePresenter> {
     };
 
 
+    @OnClick(R.id.title_left)
+    void backActivity(View view){
+        ActivityStackManager.getInstance().exitActivity(mActivity);
+    }
+
+
+    private class MyMassTransitRouteOverlay extends MassTransitRouteOverlay {
+        public MyMassTransitRouteOverlay(BaiduMap baiduMap) {
+            super(baiduMap);
+        }
+
+        @Override
+        public BitmapDescriptor getStartMarker() {
+            return BitmapDescriptorFactory.fromResource(R.mipmap.icon_st);
+        }
+
+        @Override
+        public BitmapDescriptor getTerminalMarker() {
+            return BitmapDescriptorFactory.fromResource(R.mipmap.icon_en);
+        }
+
+
+    }
+
     @Override
     protected BasePresenter createPresenter() {
         return new BasePresenter();
@@ -189,13 +301,13 @@ public class BusLineActivity extends MvpActivity<BasePresenter> {
     }
 
     public LocationClient mLocationClient = null;
-    public BDLocationListener myListener = new MyLocationListener();
+    public BDAbstractLocationListener myListener = new MyLocationListener();
     //当前定位到的位置信息
     String currentAddres = "";
 
     private void startAction() {
         mLocationClient = new LocationClient(mContext);     //声明LocationClient类
-        mLocationClient.registerNotifyLocationListener(myListener);    //注册监听函数
+        mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
         mLocationClient.start();
     }
@@ -222,7 +334,7 @@ public class BusLineActivity extends MvpActivity<BasePresenter> {
     /**
      * 定位成功后将定位点设置为中心点，如果未成功，则默认中心点
      */
-    public class MyLocationListener implements BDLocationListener {
+    public class MyLocationListener extends BDAbstractLocationListener {
         boolean isSuccessForLocation = false;
 
         @Override
@@ -273,9 +385,9 @@ public class BusLineActivity extends MvpActivity<BasePresenter> {
                     currentAddres = location.getAddrStr().toString();
                 }
             }
-            if(!TextUtils.isEmpty(location.getCity())){
+            if (!TextUtils.isEmpty(location.getCity())) {
                 currentCity = location.getCity();
-            }else{
+            } else {
                 currentCity = "重庆";
             }
             startShow();
@@ -325,4 +437,59 @@ public class BusLineActivity extends MvpActivity<BasePresenter> {
     protected void onStart() {
         super.onStart();
     }
+
+
+    private IOSDialogView iosDialogView;
+
+    //创建对话框
+    private void createIOS(ArrayList<String> data, String titlename) {
+        if (iosDialogView == null) {
+            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, data, titlename, 0);
+            iosDialogView.setIosDialogSelectListener(iosDialogSelectListener);
+            iosDialogView.setOnCancelListener(onCancelListener);
+            iosDialogView.show();
+        } else {
+            if (!iosDialogView.isShowing()) {
+                iosDialogView.show();
+            }
+        }
+    }
+
+    private Dialog.OnCancelListener onCancelListener = new Dialog.OnCancelListener() {
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            if (iosDialogView != null) {
+                if (iosDialogView.isShowing()) {
+                    iosDialogView.dismiss();
+                    iosDialogView = null;
+                }
+            }
+
+        }
+    };
+
+    private IOSDialogView.IosDialogSelectListener iosDialogSelectListener = new IOSDialogView.IosDialogSelectListener() {
+        @Override
+        public void onItemClick(int position) {
+            if (iosDialogView != null) {
+                if (iosDialogView.isShowing()) {
+                    iosDialogView.dismiss();
+                    iosDialogView = null;
+                }
+            }
+            objectAddress = currentPoi.get(position).name;
+            startShow();
+        }
+
+        @Override
+        public void cancel() {
+            if (iosDialogView != null) {
+                if (iosDialogView.isShowing()) {
+                    iosDialogView.dismiss();
+                    iosDialogView = null;
+                }
+            }
+        }
+    };
+
 }

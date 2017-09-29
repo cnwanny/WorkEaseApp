@@ -10,7 +10,7 @@ import android.util.Log;
  */
 public abstract class LogUtil {
 
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	public static void log( String msg) {
 		if (DEBUG) {
 			Log.i("wanny","====" + msg);

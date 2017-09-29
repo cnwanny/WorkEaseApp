@@ -197,6 +197,13 @@ public class SearchWokerActivity extends MvpActivity<BusMainPresenter> implement
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hasRunnin = false;
+    }
+
+
     private boolean hasRunnin = false;
     //滚动监听
     private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
@@ -271,7 +278,6 @@ public class SearchWokerActivity extends MvpActivity<BusMainPresenter> implement
             if (adapter != null) {
                 adapter.notifyDataSetChanged();
             }
-
         } else {
             if (!TextUtils.isEmpty(wordPeopleResult.getMsg())) {
                 new HiFoToast(mContext, wordPeopleResult.getMsg());
@@ -282,10 +288,13 @@ public class SearchWokerActivity extends MvpActivity<BusMainPresenter> implement
 
     // 分页查询数据 首先返回一个总的数目,首先判断是不是数据有重复的情况
     private void operateData(ArrayList<WorkPeopleEntity> addinfo) {
-        if (flag == AppContent.MODE_UPLOAD) {
+        if (flag.equals(AppContent.MODE_UPLOAD)) {
+            if(dataList.size() > 0){
+                ordinalRecycler.scrollToPosition(0);
+            }
             dataList.clear();
             dataList.addAll(0, addinfo);
-        } else if (flag == AppContent.MODE_LOADMORE) {
+        } else if (flag.equals(AppContent.MODE_LOADMORE)) {
             addinfo.removeAll(getRepertData(dataList, addinfo));
             dataList.addAll(dataList.size(), addinfo);
         } else {
@@ -386,6 +395,12 @@ public class SearchWokerActivity extends MvpActivity<BusMainPresenter> implement
                         selectWorkTypeId = workTypeList.get(position).getId();
                     }
                 }
+                if (!hasRunnin) {
+                    pageIndex = 1 ;
+                    dataList.clear();
+                    hasRunnin = true;
+                    getValue();
+                }
             } else if (mode == MODE_STATE) {
                 if (searchWorkerStateeselect != null) {
                     if (!TextUtils.isEmpty(workerStateArray.get(position))) {
@@ -396,6 +411,12 @@ public class SearchWokerActivity extends MvpActivity<BusMainPresenter> implement
                             state = "0";
                         }
                     }
+                }
+                if (!hasRunnin) {
+                    pageIndex = 1 ;
+                    dataList.clear();
+                    hasRunnin = true;
+                    getValue();
                 }
             }
         }
@@ -465,6 +486,8 @@ public class SearchWokerActivity extends MvpActivity<BusMainPresenter> implement
     @OnClick(R.id.search_worker_check)
     void startCheck(View view) {
         if (!hasRunnin) {
+            pageIndex = 1 ;
+            dataList.clear();
             hasRunnin = true;
             getValue();
         }

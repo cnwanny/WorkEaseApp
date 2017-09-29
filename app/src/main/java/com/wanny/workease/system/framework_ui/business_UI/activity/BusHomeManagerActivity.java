@@ -184,7 +184,7 @@ public class BusHomeManagerActivity extends MvpActivity<HomePresenter> implement
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 800) {// 如果两次按键时间间隔大于800毫秒，则不退出
-                new HiFoToast(mContext, "再按一次退出app");
+                new HiFoToast(mContext, "再按一次退出易知工");
                 firstTime = secondTime;// 更新firstTime
                 return true;
             } else {

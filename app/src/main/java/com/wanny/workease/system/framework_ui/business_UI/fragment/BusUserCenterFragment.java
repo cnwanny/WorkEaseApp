@@ -68,7 +68,7 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
-
+    private String cityName = "";
     @Override
     public void success(CustomerInofResult customerInofResult) {
         if (customerInofResult.isSuccess()) {
@@ -77,6 +77,7 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
             mobile = PreferenceUtil.getInstance(mContext).getString("busmobile", "");
             userId = PreferenceUtil.getInstance(mContext).getString("bususerId", "");
             name = PreferenceUtil.getInstance(mContext).getString("busname", "");
+            cityName = customerInofResult.getData().getCityName();
             if (!TextUtils.isEmpty(name)) {
                 busUsercenterName.setText(name);
             }
@@ -111,6 +112,9 @@ public class BusUserCenterFragment extends MvpFragment<CustomerUserPresenter> im
     @OnClick(R.id.bus_usercenter_modifyinfo)
     void startModify(View view) {
         Intent intent = new Intent(getActivity(), ModifyInfoActivity.class);
+        intent.putExtra("moblie",mobile);
+        intent.putExtra("name",name);
+        intent.putExtra("cityName",cityName);
         startActivityForResult(intent, 0x0001);
     }
 

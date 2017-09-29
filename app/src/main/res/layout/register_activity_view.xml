@@ -168,7 +168,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
-        <TextView
+     <!--   <TextView
             android:id="@+id/register_area_provice"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -183,16 +183,16 @@
             android:textSize="@dimen/font_size_16"
             android:layout_marginLeft="@dimen/margin_10_dp"
             android:layout_marginStart="@dimen/margin_10_dp"
-            />
+            />-->
 
-        <TextView
+      <!--  <TextView
             android:id="@+id/register_area"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:text="请选择市/区："
+            android:text="请选择省/市："
             android:padding="@dimen/margin_10_dp"
             android:drawableRight="@mipmap/icon_body_upper"
             android:drawableEnd="@mipmap/icon_body_upper"
@@ -201,6 +201,22 @@
             android:layout_marginLeft="@dimen/margin_10_dp"
             android:layout_marginStart="@dimen/margin_10_dp" />
 
+-->
+        <TextView
+            android:id="@+id/register_area_provice"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:text="请选择省/市："
+            android:padding="@dimen/margin_10_dp"
+            android:drawableRight="@mipmap/icon_body_upper"
+            android:drawableEnd="@mipmap/icon_body_upper"
+            android:drawablePadding="@dimen/margin_5_dp"
+            android:textSize="@dimen/font_size_16"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp" />
 
     </RelativeLayout>
 

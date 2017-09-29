@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -73,7 +74,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
 
 
     public LocationClient mLocationClient = null;
-    public BDLocationListener myListener = new MyLocationListener();
+    public BDAbstractLocationListener myListener = new MyLocationListener();
     //物业定位地址
     LatLng propertyLocation = null;
     //待查勘对象ID
@@ -137,6 +138,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
             //已有地理位置，直接标注，当点击重新定位，则标注在中心点（）
             //1.重新设置地图中心点
             if (mode == MODE_SHOW) {
+                AppUtils.showView(locationDaohang);
                 MapStatus mapStatus = new MapStatus.Builder().target(propertyLocation).zoom(18)
                         .build();
                 MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory
@@ -153,6 +155,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
                 mBaiduMap.addOverlay(ooption);
                 titleRightText.setText("重新选定");
             } else {
+                AppUtils.showView(locationDaohang);
                 //缩放地图等级，将地图移动到当前传递过来的位置
                 MapStatus mapStatus = new MapStatus.Builder().target(propertyLocation).zoom(18)
                         .build();
@@ -195,7 +198,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
     private void startAction() {
         new HiFoToast(getApplicationContext(), "系统正在定位，请稍等");
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
-        mLocationClient.registerNotifyLocationListener(myListener);    //注册监听函数
+        mLocationClient.registerLocationListener(myListener);    //注册监听函数
         initLocation();
         mLocationClient.start();
     }
@@ -271,7 +274,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
     /**
      * 定位成功后将定位点设置为中心点，如果未成功，则默认中心点
      */
-    public class MyLocationListener implements BDLocationListener {
+    public class MyLocationListener extends BDAbstractLocationListener {
         boolean isSuccessForLocation = false;
 
         @Override
@@ -281,7 +284,6 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
             if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
                 sb.append("gps定位成功");
                 isSuccessForLocation = true;
-
             } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
                 sb.append("网络定位成功");
                 isSuccessForLocation = true;
@@ -333,7 +335,6 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
             propertyLocation = loc;
             mLocationClient.stop();
             new HiFoToast(getApplicationContext(), sb.toString());
-
         }
     }
 
@@ -386,10 +387,11 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
 
     @OnClick(R.id.location_daohang)
     void startDaohang(View view) {
-        Intent intent = new Intent(LocationActivity.this, BusLineActivity.class);
-        intent.putExtra("objectAddress", objectAddress);
-        startActivity(intent);
-//        createIosDialog();
+//        Intent intent = new Intent(LocationActivity.this, BusLineActivity.class);
+//        intent.putExtra("objectAddress", objectAddress);
+//        intent.putExtra("location", propertyLocation);
+//        startActivity(intent);
+        createIosDialog();
     }
 
 
@@ -433,6 +435,7 @@ public class LocationActivity extends MvpActivity<BasePresenter> {
         } else {
             Intent intent = new Intent(LocationActivity.this, BusLineActivity.class);
             intent.putExtra("objectAddress", objectAddress);
+            intent.putExtra("location", propertyLocation);
             startActivity(intent);
             return;
         }

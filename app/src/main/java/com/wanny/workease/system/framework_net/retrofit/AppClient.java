@@ -1,6 +1,7 @@
 package com.wanny.workease.system.framework_net.retrofit;
 
 import com.wanny.workease.system.BuildConfig;
+import com.wanny.workease.system.framework_net.rxjava.AddCookieInternal;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -43,7 +44,7 @@ public class AppClient {
                 //设置 Debug Log 模式
                 builder.addInterceptor(loggingInterceptor);
             }
-//            builder.addInterceptor(new AddCookieInternal(object,method));//
+            builder.addInterceptor(new AddCookieInternal());//
             OkHttpClient okHttpClient = builder.build();
             mRetrofit = new Retrofit.Builder()
                     .baseUrl(ApiStores.API_SERVER_URL)

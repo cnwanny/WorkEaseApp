@@ -62,8 +62,8 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     @BindView(R.id.register_area_provice)
     TextView registerProvice;
     //市选择
-    @BindView(R.id.register_area)
-    TextView registerArea;
+//    @BindView(R.id.register_area)
+//    TextView registerArea;
 
     @BindView(R.id.register_typeselect)
     TextView registerTypeselect;
@@ -185,22 +185,22 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
     private String selectCityId = "";
 
-    @OnClick(R.id.register_area)
-    void startSelectArea(View view){
-        mode = MODE_AREA;
-        areas.clear();
-        areadList.clear();
-        for(CityEntity entity : proviceList){
-            if(entity.getId().equals(selectCityId)){
-                  areadList.addAll(entity.getSubCitys());
-                break;
-            }
-        }
-        for(City  entity : areadList){
-            areas.add(entity.getName());
-        }
-        createIOS(areas,"选择市/区");
-    }
+//    @OnClick(R.id.register_area)
+//    void startSelectArea(View view){
+//        mode = MODE_AREA;
+//        areas.clear();
+//        areadList.clear();
+//        for(CityEntity entity : proviceList){
+//            if(entity.getId().equals(selectCityId)){
+//                  areadList.addAll(entity.getSubCitys());
+//                break;
+//            }
+//        }
+//        for(City  entity : areadList){
+//            areas.add(entity.getName());
+//        }
+//        createIOS(areas,"选择市/区");
+//    }
 
 
 
@@ -290,7 +290,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
         }
         if (mvpPresenter != null) {
-            mvpPresenter.register(registerPhone.getText().toString(),registerPassword.getText().toString(),"0",registerUsername.getText().toString() ,selectAreaId,selectWorkTypeId,registerWorkertime.getText().toString() ,registerSkilllevelselect.getText().toString());
+            mvpPresenter.register(registerPhone.getText().toString(),registerPassword.getText().toString(),"0",registerUsername.getText().toString() ,selectCityId,selectWorkTypeId,registerWorkertime.getText().toString() ,registerSkilllevelselect.getText().toString());
         }
     }
 
@@ -388,7 +388,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     public static final int MODE_AREA = 0x0004;
 
 
-   private String selectAreaId = "";
+//   private String selectAreaId = "";
     private int mode = MODE_WORKTYPE;
     private void createIOS(ArrayList<String> data, String titlename) {
         if (iosDialogView == null) {
@@ -437,14 +437,18 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
                         selectWorkTypeId = workTypeList.get(position).getId();
                     }
                 }
-            }else if(mode == MODE_AREA){
-                if (registerArea != null) {
-                    if (!TextUtils.isEmpty(areas.get(position))) {
-                        registerArea.setText(areas.get(position));
-                        selectAreaId = areadList.get(position).getId();
-                    }
-                }
-            }else if(mode == MODE_PROVICE ){
+            }
+//            else if(mode == MODE_AREA){
+//                if (registerArea != null) {
+//                    if (!TextUtils.isEmpty(areas.get(position))) {
+//                        registerArea.setText(areas.get(position));
+//                        selectAreaId = areadList.get(position).getId();
+//                    }
+//                }
+//            }
+//
+//
+            else if(mode == MODE_PROVICE ){
                 if (registerProvice != null) {
                     if (!TextUtils.isEmpty(provices.get(position))) {
                         registerProvice.setText(provices.get(position));

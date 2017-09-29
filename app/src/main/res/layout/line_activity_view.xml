@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
-    <include layout="@layout/title_view"/>
+    <include layout="@layout/title_view"
+        android:id="@+id/bus_lin_title"/>
 
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bus_line_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bus_lin_title"
+        />
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bus_line_guidance"
+        android:textColor="@color/white"
+        android:background="@color/trans_bg4"
+        android:textSize="@dimen/font_size_16"
+        android:padding="@dimen/margin_10_dp"
+        android:lineSpacingExtra="10dp"
+        />
+</RelativeLayout>

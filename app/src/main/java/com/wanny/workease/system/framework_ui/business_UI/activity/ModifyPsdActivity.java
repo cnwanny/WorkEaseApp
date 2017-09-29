@@ -49,9 +49,7 @@ public class ModifyPsdActivity extends MvpActivity<ModifyPsdPresenter> implement
     TextView modifyPsdSave;
 
     public static final int MODE_CUSTOMRE = 0x0001;
-
     public static final int MODE_BUSINESS = 0x0002;
-
     private int mode ;
     private String userId = "";
 
@@ -69,6 +67,9 @@ public class ModifyPsdActivity extends MvpActivity<ModifyPsdPresenter> implement
             userId = PreferenceUtil.getInstance(mContext).getString("userId","");
         }
         modifyPsdSure.addTextChangedListener(textWatcher);
+        if(titleTitle != null){
+            titleTitle.setText("修改密码");
+        }
     }
 
     private TextWatcher textWatcher = new TextWatcher() {

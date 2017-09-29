@@ -114,6 +114,21 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginI
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0x0001 && resultCode == 0x0003){
+            if(data != null){
+                if(data.hasExtra("phone")){
+                    loginUsername.setText(data.getStringExtra("phone"));
+                    loginUsername.setSelection(data.getStringExtra("phone").length());
+                }
+            }
+        }
+    }
+
+
+
 
     @OnClick(R.id.start_register)
     void startRegiseter(View view) {

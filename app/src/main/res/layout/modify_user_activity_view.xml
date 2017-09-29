@@ -85,7 +85,7 @@
         android:background="@color/line_color" />
 
 
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="wrap_content">
@@ -123,7 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_1_dp"
         android:background="@color/line_color" />
-
+-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -131,7 +131,6 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/cus_modify_provice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -139,15 +138,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_10_dp"
             android:layout_marginStart="@dimen/margin_10_dp"
-            android:drawableEnd="@mipmap/icon_body_upper"
-            android:drawablePadding="@dimen/margin_5_dp"
-            android:drawableRight="@mipmap/icon_body_upper"
+            android:text="省/市"
             android:padding="@dimen/margin_10_dp"
-            android:text="请选择省/市："
             android:textSize="@dimen/font_size_16" />
 
         <TextView
-            android:id="@+id/cus_modify_area"
+            android:id="@+id/cus_modify_provice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -159,7 +155,7 @@
             android:drawablePadding="@dimen/margin_5_dp"
             android:drawableRight="@mipmap/icon_body_upper"
             android:padding="@dimen/margin_10_dp"
-            android:text="请选择市/区："
+            android:text="请选择省/市："
             android:textSize="@dimen/font_size_16" />
 
 
@@ -308,6 +304,32 @@
             android:padding="@dimen/margin_10_dp"
             android:textSize="@dimen/font_size_16" />
 
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1_dp"
+        android:background="@color/line_color" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/cus_modify_user_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10_dp"
+            android:layout_marginStart="@dimen/margin_10_dp"
+            android:background="@null"
+            android:drawableEnd="@mipmap/icon_right_arrow"
+            android:drawableRight="@mipmap/icon_right_arrow"
+            android:padding="@dimen/margin_10_dp"
+            android:text="修改密码"
+            android:textSize="@dimen/font_size_16" />
     </RelativeLayout>
 
 

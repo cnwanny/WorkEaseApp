@@ -12,8 +12,8 @@
         <TextView
             android:id="@+id/search_work_provice"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:text="请选择省/市："
@@ -22,11 +22,11 @@
             android:drawableEnd="@mipmap/icon_body_upper"
             android:drawablePadding="@dimen/margin_5_dp"
             android:textSize="@dimen/font_size_16"
-            android:layout_marginLeft="@dimen/margin_10_dp"
-            android:layout_marginStart="@dimen/margin_10_dp"
+            android:layout_marginRight="@dimen/margin_10_dp"
+            android:layout_marginEnd="@dimen/margin_10_dp"
             />
 
-        <TextView
+      <!--  <TextView
             android:id="@+id/search_work_area"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -40,7 +40,7 @@
             android:drawablePadding="@dimen/margin_5_dp"
             android:textSize="@dimen/font_size_16"
             android:layout_marginLeft="@dimen/margin_10_dp"
-            android:layout_marginStart="@dimen/margin_10_dp" />
+            android:layout_marginStart="@dimen/margin_10_dp" />-->
 
 
     </RelativeLayout>

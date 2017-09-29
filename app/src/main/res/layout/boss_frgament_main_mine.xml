@@ -16,7 +16,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:background="#52C4FF">
 
                 <LinearLayout
@@ -24,38 +23,25 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/margin_48_dp"
+                    android:layout_marginTop="@dimen/margin_64_dp"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:src="@mipmap/icon_avatar" />
+                    <com.wanny.workease.system.framework_uikite.CircleImageView
+                        android:layout_width="@dimen/margin_96_dp"
+                        android:layout_height="@dimen/margin_96_dp"
+                        android:src="@mipmap/icon_boss_defaultheader" />
 
                     <TextView
                         android:id="@+id/bus_usercenter_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_7_dp"
+                        android:layout_marginTop="@dimen/margin_10_dp"
                         android:text="昵称"
                         android:textColor="@color/color_232323"
                         android:textSize="16sp" />
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="#22000000"
-                    android:paddingBottom="@dimen/margin_6_dp"
-                    android:paddingLeft="@dimen/margin_10_dp"
-                    android:paddingStart="@dimen/margin_10_dp"
-                    android:paddingTop="@dimen/margin_6_dp"
-                    android:text="个人资料"
-                    android:textColor="@color/color_232323"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -181,7 +167,6 @@
                 android:text="退出账号"
                 android:background="@drawable/but_selected_drawable"
                 android:textColor="@color/white"
-
                 android:textSize="@dimen/font_size_18" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

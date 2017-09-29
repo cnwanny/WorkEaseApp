@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import com.wanny.workease.system.R;
 import com.wanny.workease.system.framework_basicutils.LogUtil;
 import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
+import com.wanny.workease.system.framework_ui.customer_UI.activity.HomeManagerActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,12 +56,11 @@ public class MyReceiver extends BroadcastReceiver {
 			} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
 				LogUtil.log(TAG, "[MyReceiver] 用户点击打开了通知");
 				//打开自定义的Activity
-//				Intent i = new Intent(context, YiPingHomeActivity.class);
-//				i.putExtras(bundle);
-//				//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-//				context.startActivity(i);
-				operateNotication(context ,bundle);
+				Intent i = new Intent(context, HomeManagerActivity.class);
+				i.putExtras(bundle);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
+				context.startActivity(i);
+//				operateNotication(context ,bundle);
 			} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 				LogUtil.log(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
 				//在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..

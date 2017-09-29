@@ -69,13 +69,31 @@ public class ModifyInfoActivity extends MvpActivity<ModifyInfoPresenter> impleme
     }
 
     private ArrayList<CityEntity> proviceList;
-
+    private String moblie = "";
+    private String name = "";
+    private String cityName = "";
     private void init() {
+        if(getIntent() != null){
+            moblie = getIntent().getStringExtra("moblie");
+            name = getIntent().getStringExtra("name");
+            cityName = getIntent().getStringExtra("cityName");
+        }
         if (proviceList == null) {
             proviceList = new ArrayList<>();
         }
         if (titleTitle != null) {
             titleTitle.setText("修改个人信息");
+        }
+        if(!TextUtils.isEmpty(moblie)){
+            registerPhone.setText(moblie);
+            registerPhone.setSelection(moblie.length());
+        }
+        if(!TextUtils.isEmpty(name)){
+            registerUsername.setText(name);
+            registerUsername.setSelection(name.length());
+        }
+        if(!TextUtils.isEmpty(cityName)){
+            modifyUserAreaselect.setText(cityName);
         }
     }
 

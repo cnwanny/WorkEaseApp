@@ -303,10 +303,10 @@ public class BusMainFragment extends MvpFragment<BusMainPresenter> implements Bu
 
     // 分页查询数据 首先返回一个总的数目,首先判断是不是数据有重复的情况
     private void operateData(ArrayList<WorkPeopleEntity> addinfo) {
-        if (flag == AppContent.MODE_UPLOAD) {
+        if (flag.equals(AppContent.MODE_UPLOAD)) {
             dataList.clear();
             dataList.addAll(0, addinfo);
-        } else if (flag == AppContent.MODE_LOADMORE) {
+        } else if (flag.equals(AppContent.MODE_LOADMORE)) {
             addinfo.removeAll(getRepertData(dataList, addinfo));
             dataList.addAll(dataList.size(), addinfo);
         } else {

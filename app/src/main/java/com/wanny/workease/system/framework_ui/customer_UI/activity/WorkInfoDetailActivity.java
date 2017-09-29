@@ -268,6 +268,7 @@ public class WorkInfoDetailActivity extends MvpActivity<WorkDetailPresenter> imp
         intent.putExtra("isScan",true);
         LatLng latLng = new LatLng(entity.getPointLat(),entity.getPointLon());
         intent.putExtra("location",latLng);
+        intent.putExtra("address",entity.getDetailAddress());
         startActivity(intent);
     }
 

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -160,10 +161,9 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
     }
 
     public LocationClient mLocationClient = null;
-    public BDLocationListener myListener = new MyLocationListener();
+    public BDAbstractLocationListener  myListener = new MyLocationListener();
     //当前定位到的位置信息
     LatLng curretnLocation = null;
-
     private void startAction() {
         mLocationClient = new LocationClient(getActivity());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
@@ -175,7 +175,7 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
+//        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
         //int span = 1000;
         //option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
@@ -203,9 +203,8 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
     /**
      * 定位成功后将定位点设置为中心点，如果未成功，则默认中心点
      */
-    public class MyLocationListener implements BDLocationListener {
+    public class MyLocationListener extends BDAbstractLocationListener {
         boolean isSuccessForLocation = false;
-
         @Override
         public void onReceiveLocation(BDLocation location) {
             StringBuffer sb = new StringBuffer(256);
@@ -270,6 +269,7 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
             }
         }
         if (ordinalResultEntity.isSuccess()) {
+            clearData();
             //跳转到对应的
             Intent intent = new Intent(getActivity(),MySendWorkListActivity.class);
             startActivity(intent);
@@ -284,15 +284,22 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
 
     @OnClick(R.id.title_right_text)
     void startClearData(View view){
+        clearData();
+    }
+
+
+   //清除数据
+    private void clearData(){
         sendWorkPriceEdit.setText("");
         sendWorkProjectNameEdit.setText("");
         sendWorkDetail.setText("");
         selectAreaId = "";
         selectWorkTypeId = "";
         sendWorkAreaselect.setText("请选择城市");
+        sendWorkNeednumber.setText("");
+        sendWorkLocationEdit.setText("");
         sendWorkWorktypeselect.setText("请选择工种");
     }
-
 
 
     @Override
@@ -320,6 +327,9 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        if(mLocationClient != null){
+            mLocationClient.stop();
+        }
     }
 
     //工种
@@ -529,6 +539,7 @@ public class BusSendInfoFragment extends MvpFragment<BusSendinfoPresenter> imple
         }
 
     }
+
 
 
     @Override

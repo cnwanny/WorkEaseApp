@@ -14,6 +14,9 @@ import com.wanny.workease.system.framework_basicutils.PreferenceUtil;
 import com.wanny.workease.system.framework_care.ActivityStackManager;
 import com.wanny.workease.system.framework_care.OrdinalResultEntity;
 import com.wanny.workease.system.framework_mvpbasic.MvpActivity;
+import com.wanny.workease.system.framework_ui.business_UI.activity.ModifyInfoActivity;
+import com.wanny.workease.system.framework_ui.business_UI.activity.ModifyPsdActivity;
+import com.wanny.workease.system.framework_ui.business_UI.activity.ModifyWorkActivity;
 import com.wanny.workease.system.framework_uikite.WaitDialog;
 import com.wanny.workease.system.framework_uikite.dialog.HiFoToast;
 import com.wanny.workease.system.framework_uikite.dialog.IOSDialogView;
@@ -52,18 +55,24 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
     EditText cusModifyNameEdit;
     @BindView(R.id.cus_modify_phone_edit)
     EditText cusModifyPhoneEdit;
-    @BindView(R.id.cus_modify_state_select)
-    TextView cusModifyStateSelect;
+//    @BindView(R.id.cus_modify_state_select)
+//    TextView cusModifyStateSelect;
     @BindView(R.id.cus_modify_provice)
     TextView cusModifyProvice;
-    @BindView(R.id.cus_modify_area)
-    TextView cusModifyArea;
+//    @BindView(R.id.cus_modify_area)
+//    TextView cusModifyArea;
     @BindView(R.id.cus_modify_typeselect)
     TextView cusModifyTypeselect;
     @BindView(R.id.register_workertime)
     EditText registerWorkertime;
     @BindView(R.id.cus_modify_skilllevelselect)
     TextView cusModifySkilllevelselect;
+
+
+
+    @BindView(R.id.cus_modify_user_password)
+    TextView cusModifyUserPassword;
+
     @BindView(R.id.cus_modify_save)
     TextView cusModifySave;
 
@@ -98,11 +107,11 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
             if (!TextUtils.isEmpty(entity.getJobTypeName())) {
                 cusModifyTypeselect.setText(entity.getJobTypeName());
             }
-            if (entity.getUserState() == 1) {
-                cusModifyStateSelect.setText("忙碌");
-            } else if (entity.getUserState() == 0) {
-                cusModifyStateSelect.setText("空闲");
-            }
+//            if (entity.getUserState() == 1) {
+//                cusModifyStateSelect.setText("忙碌");
+//            } else if (entity.getUserState() == 0) {
+//                cusModifyStateSelect.setText("空闲");
+//            }
             if (!TextUtils.isEmpty(entity.getSenior())) {
                 cusModifySkilllevelselect.setText(entity.getSenior());
             }
@@ -112,6 +121,9 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
             }
             if (!TextUtils.isEmpty(entity.getMobile())) {
                 cusModifyPhoneEdit.setText(entity.getMobile());
+            }
+            if (!TextUtils.isEmpty(entity.getCityName())) {
+                cusModifyProvice.setText(entity.getCityName());
             }
         }
         if (workTypeList == null) {
@@ -198,24 +210,34 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
         createIOS(provices, "选择省/市");
     }
 
+
+    @OnClick(R.id.cus_modify_user_password)
+    void modifyPsd(View view) {
+        Intent intent = new Intent(ModifyUserActivity.this , ModifyPsdActivity.class);
+        intent.putExtra("mode", ModifyPsdActivity.MODE_CUSTOMRE);
+        startActivity(intent);
+        ActivityStackManager.getInstance().exitActivity(mActivity);
+    }
+
+
     private String selectCityId = "";
 
-    @OnClick(R.id.cus_modify_area)
-    void startSelectArea(View view) {
-        mode = MODE_AREA;
-        areas.clear();
-        areadList.clear();
-        for (CityEntity entity : proviceList) {
-            if (entity.getId().equals(selectCityId)) {
-                areadList.addAll(entity.getSubCitys());
-                break;
-            }
-        }
-        for (City entity : areadList) {
-            areas.add(entity.getName());
-        }
-        createIOS(areas, "选择市/区");
-    }
+//    @OnClick(R.id.cus_modify_area)
+//    void startSelectArea(View view) {
+//        mode = MODE_AREA;
+//        areas.clear();
+//        areadList.clear();
+//        for (CityEntity entity : proviceList) {
+//            if (entity.getId().equals(selectCityId)) {
+//                areadList.addAll(entity.getSubCitys());
+//                break;
+//            }
+//        }
+//        for (City entity : areadList) {
+//            areas.add(entity.getName());
+//        }
+//        createIOS(areas, "选择市/区");
+//    }
 
 
     //点击选择工种
@@ -238,14 +260,14 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
     }
 
 
-    //既能熟练程度选择
-    @OnClick(R.id.cus_modify_state_select)
-    void selectStatus(View view) {
-        mode = MODE_STATE;
-        currentList.clear();
-        currentList.addAll(statList);
-        createIOS(currentList, "选择当前的用工状态");
-    }
+//    //既能熟练程度选择
+//    @OnClick(R.id.cus_modify_state_select)
+//    void selectStatus(View view) {
+//        mode = MODE_STATE;
+//        currentList.clear();
+//        currentList.addAll(statList);
+//        createIOS(currentList, "选择当前的用工状态");
+//    }
 
 
     private ArrayList<CityEntity> proviceList;
@@ -304,7 +326,7 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
     //用工状态
     public static final int MODE_STATE = 0x0005;
 
-    private String selectAreaId = "";
+//    private String selectAreaId = "";
     private int mode = MODE_WORKTYPE;
 
     private void createIOS(ArrayList<String> data, String titlename) {
@@ -356,14 +378,16 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
                         selectWorkTypeId = workTypeList.get(position).getId();
                     }
                 }
-            } else if (mode == MODE_AREA) {
-                if (cusModifyArea != null) {
-                    if (!TextUtils.isEmpty(areas.get(position))) {
-                        cusModifyArea.setText(areas.get(position));
-                        selectAreaId = areadList.get(position).getId();
-                    }
-                }
-            } else if (mode == MODE_PROVICE) {
+            }
+//            else if (mode == MODE_AREA) {
+//                if (cusModifyArea != null) {
+//                    if (!TextUtils.isEmpty(areas.get(position))) {
+//                        cusModifyArea.setText(areas.get(position));
+//                        selectAreaId = areadList.get(position).getId();
+//                    }
+//                }
+//            }
+            else if (mode == MODE_PROVICE) {
                 if (cusModifyProvice != null) {
                     if (!TextUtils.isEmpty(provices.get(position))) {
                         cusModifyProvice.setText(provices.get(position));
@@ -371,11 +395,11 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
                     }
                 }
             } else if (mode == MODE_STATE) {
-                if (cusModifyStateSelect != null) {
-                    if (!TextUtils.isEmpty(statList.get(position))) {
-                        cusModifyStateSelect.setText(statList.get(position));
-                    }
-                }
+//                if (cusModifyStateSelect != null) {
+//                    if (!TextUtils.isEmpty(statList.get(position))) {
+//                        cusModifyStateSelect.setText(statList.get(position));
+//                    }
+//                }
             }
         }
 
@@ -406,14 +430,14 @@ public class ModifyUserActivity extends MvpActivity<ModifyUserinfoPresenter> imp
     void save(View view) {
         if (mvpPresenter != null) {
             String state = "0";
-            if (!TextUtils.isEmpty(cusModifyStateSelect.getText().toString())) {
-                if (cusModifyStateSelect.getText().toString().equals("空闲")) {
-                    state = "0";
-                } else {
-                    state = "1";
-                }
-            }
-            mvpPresenter.modifyUserInfo(entity.getUserId(), cusModifyNameEdit.getText().toString(), cusModifyPhoneEdit.getText().toString(), state, selectAreaId, selectWorkTypeId, cusModifySkilllevelselect.getText().toString(), registerWorkertime.getText().toString(), "正在保存");
+//            if (!TextUtils.isEmpty(cusModifyStateSelect.getText().toString())) {
+//                if (cusModifyStateSelect.getText().toString().equals("空闲")) {
+//                    state = "0";
+//                } else {
+//                    state = "1";
+//                }
+//            }
+            mvpPresenter.modifyUserInfo(entity.getUserId(), cusModifyNameEdit.getText().toString(), cusModifyPhoneEdit.getText().toString(), state, selectCityId, selectWorkTypeId, cusModifySkilllevelselect.getText().toString(), registerWorkertime.getText().toString(), "正在保存");
         }
     }
 }

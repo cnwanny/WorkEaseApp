@@ -10,12 +10,11 @@
         android:id="@+id/login_app_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_48_dp"
         android:scaleType="center"
-        android:src="@mipmap/ic_launcher"
-        />
+        android:src="@mipmap/ic_launcher" />
 
     <RelativeLayout
         android:id="@+id/login_one_rel"
@@ -136,28 +135,40 @@
         android:textSize="@dimen/font_size_18" />
 
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start_register"
+        android:layout_marginEnd="@dimen/margin_24_dp"
+        android:layout_marginLeft="@dimen/margin_24_dp"
+        android:layout_marginRight="@dimen/margin_24_dp"
+        android:layout_marginStart="@dimen/margin_24_dp"
+        android:lineSpacingMultiplier="1.5"
+        android:layout_marginTop="@dimen/margin_10_dp"
+        android:text="无责申明：\n本平台仅为用户提供信息参考，具体信息真伪需用户自行判定，若用户因本平台提供的信息而产生安全、财产等损失，均与本平台无关。"
+        android:textColor="@color/grey_helf"
+        android:textSize="@dimen/font_size_10" />
 
     <TextView
         android:id="@+id/login_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="客服热线13220286010"
         android:layout_above="@+id/login_copyright"
-        android:textColor="@color/low_blue"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/font_size_11"
-        android:layout_marginBottom="-5dp"/>
+        android:layout_marginBottom="-5dp"
+        android:text="客服热线13220286010"
+        android:textColor="@color/low_blue"
+        android:textSize="@dimen/font_size_11" />
 
     <TextView
         android:id="@+id/login_copyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/margin_10_dp"
-        android:textColor="@color/low_blue"
-        android:text="copyright2017重庆易知工网络科技有限公司"
         android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/margin_10_dp"
+        android:text="copyright2017重庆易知工网络科技有限公司"
+        android:textColor="@color/low_blue"
         android:textSize="@dimen/font_size_11" />
 
 </RelativeLayout>

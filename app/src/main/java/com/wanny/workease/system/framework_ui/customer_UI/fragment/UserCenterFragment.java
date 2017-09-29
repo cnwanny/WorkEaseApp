@@ -40,19 +40,16 @@ import butterknife.Unbinder;
 public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> implements CustomerUserImpl {
 
 
-    @BindView(R.id.title_left)
-    TextView titleLeft;
-    @BindView(R.id.title_title)
-    TextView titleTitle;
+
     //昵称
     @BindView(R.id.user_center_name)
     TextView userCenterName;
     //电话号码
     @BindView(R.id.user_center_phone)
     TextView userCenterPhone;
-    //用工状态
-    @BindView(R.id.user_center_state)
-    TextView userCenterState;
+//    //用工状态
+//    @BindView(R.id.user_center_state)
+//    TextView userCenterState;
     //城市
     @BindView(R.id.user_center_city)
     TextView userCenterCity;
@@ -99,12 +96,7 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (titleLeft != null) {
-            AppUtils.notShowView(titleLeft);
-        }
-        if (titleTitle != null) {
-            titleTitle.setText("我的");
-        }
+
 //        if (mvpPresenter != null) {
 //            mvpPresenter.getUserInfo(userId, "", "正在加载");
 //        }
@@ -149,11 +141,11 @@ public class UserCenterFragment extends MvpFragment<CustomerUserPresenter> imple
             if (!TextUtils.isEmpty(entity.getMobile())) {
                 userCenterPhone.setText(entity.getMobile());
             }
-            if (entity.getUserState() == 0) {
-                userCenterState.setText("空闲");
-            } else {
-                userCenterState.setText("忙碌");
-            }
+//            if (entity.getUserState() == 0) {
+//                userCenterState.setText("空闲");
+//            } else {
+//                userCenterState.setText("忙碌");
+//            }
             if (!TextUtils.isEmpty(entity.getSenior())) {
                 userCenterSkill.setText(entity.getSenior());
             }

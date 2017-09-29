@@ -2,6 +2,7 @@ package com.wanny.workease.system.framework_ui.customer_UI.activity;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,7 +48,7 @@ import static com.wanny.workease.system.framework_ui.customer_UI.activity.Regist
  * 作者： wanny
  * 时间： 16:06 2017/7/21
  */
-public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> implements SearchWorkImpl,SwipeRefreshLayout.OnRefreshListener {
+public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> implements SearchWorkImpl, SwipeRefreshLayout.OnRefreshListener {
 
 
     @BindView(R.id.title_left)
@@ -56,8 +57,8 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
     TextView titleTitle;
     @BindView(R.id.search_work_provice)
     TextView searchWorkProvice;
-    @BindView(R.id.search_work_area)
-    TextView searchWorkArea;
+//    @BindView(R.id.search_work_area)
+//    TextView searchWorkArea;
     @BindView(R.id.search_work_typeselect)
     TextView searchWorkTypeselect;
     @BindView(R.id.search_work_check)
@@ -84,9 +85,9 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
     }
 
 
-
     private LinearLayoutManager layoutManager;
     private int pageSize = 10;
+
     private void initViewRecyclerView() {
         if (dataList == null) {
             dataList = new ArrayList<>();
@@ -99,10 +100,22 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
         if (adapter != null) {
             ordinalRecycler.setAdapter(adapter);
         }
-//        adapter.setPriceListeListener(this);
+        adapter.setWorkClickListener(workClickListener);
         ordinalRecycler.addOnScrollListener(onScrollListener);
         ordinalRecycler.addItemDecoration(new ListViewItemDecotion(mContext, ListViewItemDecotion.ORIVATION_VERCAL, R.drawable.listview_itemdec_drawable));
     }
+
+
+
+    private WordListAdapter.WorkClickListener workClickListener = new WordListAdapter.WorkClickListener() {
+        @Override
+        public void click(int position) {
+            Intent intent = new Intent(SearchWorkActivity.this, WorkInfoDetailActivity.class);
+            intent.putExtra("entity",dataList.get(position));
+            startActivity(intent);
+        }
+    };
+
 
     private boolean hasRunnin = false;
     //滚动监听
@@ -119,7 +132,7 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
             int totalItemCount = layoutManager.getItemCount();
             //lastVisibleItem >= totalItemCount - 2 表示剩下4个item自动加载，各位自由选择 ,总数大于已经显示的条数的话
 //            // dy>0 表示向下滑动、
-            if(totalItemCount >= pageSize){
+            if (totalItemCount >= pageSize) {
                 if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
                     if (!hasRunnin) {
                         //加载更多
@@ -131,6 +144,7 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
         }
     };
     private int pageIndex = 1;
+
     //    private int pageSize = 10;
     private void upLoad() {
         flag = AppContent.MODE_UPLOAD;
@@ -161,6 +175,7 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
 
 
     private String flag = "";
+
     private void loadMoreData() {
         hasRunnin = true;
         flag = AppContent.MODE_LOADMORE;
@@ -184,19 +199,20 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
     @Override
     public void success(WorkResult workResult) {
         hasRunnin = false;
-        if(ordinalRefresh != null){
-            if(ordinalRefresh.isRefreshing()){
+        if (ordinalRefresh != null) {
+            if (ordinalRefresh.isRefreshing()) {
                 ordinalRefresh.setRefreshing(false);
             }
         }
         if (workResult.isSuccess()) {
             if (workResult.getData() != null) {
                 operateData(workResult.getData());
+            }else{
+                dataList.clear();
             }
             if (adapter != null) {
                 adapter.notifyDataSetChanged();
             }
-
         } else {
             if (!TextUtils.isEmpty(workResult.getMsg())) {
                 new HiFoToast(mContext, workResult.getMsg());
@@ -207,16 +223,17 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
 
     // 分页查询数据 首先返回一个总的数目,首先判断是不是数据有重复的情况
     private void operateData(ArrayList<WorkInfoEntity> addinfo) {
-        if (flag == AppContent.MODE_UPLOAD) {
+        if (flag.equals(AppContent.MODE_UPLOAD)) {
             dataList.clear();
             dataList.addAll(0, addinfo);
-        } else if (flag == AppContent.MODE_LOADMORE) {
+        } else if (flag.equals(AppContent.MODE_LOADMORE)) {
             addinfo.removeAll(getRepertData(dataList, addinfo));
             dataList.addAll(dataList.size(), addinfo);
         } else {
             dataList.addAll(addinfo);
         }
     }
+
     //获取重复的数据
     private ArrayList<WorkInfoEntity> getRepertData(ArrayList<WorkInfoEntity> olddata, ArrayList<WorkInfoEntity> newdata) {
         ArrayList<WorkInfoEntity> listdata = new ArrayList<>();
@@ -236,17 +253,15 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
     }
 
 
-
     @Override
     public void fail(String errorMessage) {
         hasRunnin = false;
-        if(ordinalRefresh != null){
-            if(ordinalRefresh.isRefreshing()){
+        if (ordinalRefresh != null) {
+            if (ordinalRefresh.isRefreshing()) {
                 ordinalRefresh.setRefreshing(false);
             }
         }
     }
-
 
 
     @Override
@@ -260,8 +275,6 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
     }
 
 
-
-
     @Override
     protected SearchWorkPresenter createPresenter() {
         return new SearchWorkPresenter(this);
@@ -271,52 +284,53 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
     private int mode = MODE_PROVICE;
 
     @OnClick(R.id.search_work_provice)
-    void startSelectProvice(View view){
+    void startSelectProvice(View view) {
         mode = MODE_PROVICE;
         provices.clear();
-        for(CityEntity entity : proviceList){
+        for (CityEntity entity : proviceList) {
             provices.add(entity.getName());
         }
-        createIOS(provices,"选择省/市");
+        createIOS(provices, "选择省/市");
     }
 
     private String selectCityId = "";
 
-    @OnClick(R.id.search_work_area)
-    void startSelectArea(View view){
-        mode = MODE_AREA;
-        areas.clear();
-        areadList.clear();
-        for(CityEntity entity : proviceList){
-            if(entity.getId().equals(selectCityId)){
-                areadList.addAll(entity.getSubCitys());
-                break;
-            }
-        }
-        for(City entity : areadList){
-            areas.add(entity.getName());
-        }
-        createIOS(areas,"选择市/区");
-    }
-
+//    @OnClick(R.id.search_work_area)
+//    void startSelectArea(View view) {
+//        mode = MODE_AREA;
+//        areas.clear();
+//        areadList.clear();
+//        for (CityEntity entity : proviceList) {
+//            if (entity.getId().equals(selectCityId)) {
+//                areadList.addAll(entity.getSubCitys());
+//                break;
+//            }
+//        }
+//        for (City entity : areadList) {
+//            areas.add(entity.getName());
+//        }
+//        createIOS(areas, "选择市/区");
+//    }
 
 
     private ArrayList<CityEntity> proviceList;
     private ArrayList<City> areadList;
+
     @Override
     public void getCityValue(CityResult cityResult) {
-        if(cityResult.isSuccess()){
-            if(cityResult.getData() != null && cityResult.getData().size() > 0){
+        if (cityResult.isSuccess()) {
+            if (cityResult.getData() != null && cityResult.getData().size() > 0) {
                 proviceList.addAll(cityResult.getData());
 
             }
         }
     }
+
     private IOSDialogView iosDialogView;
 
     private void createIOS(ArrayList<String> data, String titlename) {
         if (iosDialogView == null) {
-            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, data, titlename,0);
+            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, data, titlename, 0);
             iosDialogView.setIosDialogSelectListener(iosDialogSelectListener);
             iosDialogView.setOnCancelListener(onCancelListener);
             iosDialogView.show();
@@ -326,6 +340,7 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
             }
         }
     }
+
     private ArrayList<String> work_type = new ArrayList<>();
     private ArrayList<String> provices = new ArrayList<>();
     private ArrayList<String> areas = new ArrayList<>();
@@ -359,19 +374,34 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
                         selectWorkTypeId = workTypeList.get(position).getId();
                     }
                 }
-            }else if(mode == MODE_AREA){
-                if (searchWorkArea != null) {
-                    if (!TextUtils.isEmpty(areas.get(position))) {
-                        searchWorkArea.setText(areas.get(position));
-                        selectAreaId = areadList.get(position).getId();
-                    }
+                if (!hasRunnin) {
+                    pageIndex = 1 ;
+                    dataList.clear();
+                    hasRunnin = true;
+                    getValue();
                 }
-            }else if(mode == MODE_PROVICE ){
+            }
+//            else if (mode == MODE_AREA) {
+//                if (searchWorkArea != null) {
+//                    if (!TextUtils.isEmpty(areas.get(position))) {
+//                        searchWorkArea.setText(areas.get(position));
+//                        selectAreaId = areadList.get(position).getId();
+//                    }
+//                }
+//            }
+            else if (mode == MODE_PROVICE) {
                 if (searchWorkProvice != null) {
                     if (!TextUtils.isEmpty(provices.get(position))) {
                         searchWorkProvice.setText(provices.get(position));
                         selectCityId = proviceList.get(position).getId();
+                        selectAreaId = "";
                     }
+                }
+                if (!hasRunnin) {
+                    pageIndex = 1 ;
+                    dataList.clear();
+                    hasRunnin = true;
+                    getValue();
                 }
             }
         }
@@ -387,72 +417,89 @@ public class SearchWorkActivity extends MvpActivity<SearchWorkPresenter> impleme
         }
     };
 
-    private void initView(){
-         if(titleTitle != null){
-             titleTitle.setText("用工检索");
-         }
-        if(workTypeList == null){
+
+
+    private void initView() {
+        if (titleTitle != null) {
+            titleTitle.setText("用工检索");
+        }
+        if (workTypeList == null) {
             workTypeList = new ArrayList<>();
         }
-        if(proviceList == null){
+        if (proviceList == null) {
             proviceList = new ArrayList<>();
         }
-        if(areadList == null){
+        if (areadList == null) {
             areadList = new ArrayList<>();
         }
-        if(mvpPresenter != null){
+        if (mvpPresenter != null) {
             mvpPresenter.getWorkType();
         }
-        if(mvpPresenter != null){
+        if (mvpPresenter != null) {
             mvpPresenter.getCityValue();
         }
     }
+
     //点击选择工种
     @OnClick(R.id.search_work_typeselect)
-    void setWorkTypeSelect(View view){
+    void setWorkTypeSelect(View view) {
         mode = MODE_WORKTYPE;
         currentList.clear();
         currentList.addAll(work_type);
-        createIOS(currentList,"选择工种");
+        createIOS(currentList, "选择工种");
     }
 
     @Override
     public void workType(WorkTypeResult entity) {
-        if(entity.isSuccess()){
+        if (entity.isSuccess()) {
             workTypeList.clear();
             work_type.clear();
             workTypeList.addAll(entity.getData());
-            for(WoryTypeEntity value : workTypeList){
+            for (WoryTypeEntity value : workTypeList) {
                 work_type.add(value.getName());
             }
         }
     }
 
     private ArrayList<WoryTypeEntity> workTypeList;
+
     //点击查询操作
     @OnClick(R.id.search_work_check)
-    void startCheck(View view){
-        if(!hasRunnin){
+    void startCheck(View view) {
+        if (!hasRunnin) {
+            pageIndex = 1 ;
+            dataList.clear();
             hasRunnin = true;
             getValue();
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hasRunnin = false;
+    }
 
-
-    private void getValue(){
-        if(TextUtils.isEmpty(selectAreaId) && TextUtils.isEmpty(selectWorkTypeId)){
-            new HiFoToast(mContext,"请输入查询关键字");
+    private void getValue() {
+        if (TextUtils.isEmpty(selectAreaId) && TextUtils.isEmpty(selectWorkTypeId) && TextUtils.isEmpty(selectCityId)) {
+            new HiFoToast(mContext, "请输入查询条件");
             hasRunnin = false;
             return;
         }
-        if(mvpPresenter != null){
-            mvpPresenter.getWorkByAreaIdAndrWorkType(selectAreaId,selectWorkTypeId,pageIndex,"正在查询");
+        String value = "";
+        if (!TextUtils.isEmpty(selectCityId)) {
+            value = selectCityId;
+        }
+        if (!TextUtils.isEmpty(selectAreaId)) {
+            value = selectAreaId;
+        }
+        if (mvpPresenter != null) {
+            mvpPresenter.getWorkByAreaIdAndrWorkType(value, selectWorkTypeId, pageIndex, "正在查询");
         }
     }
 
     @OnClick(R.id.title_left)
-    void backActivity(View view){
+    void backActivity(View view) {
         ActivityStackManager.getInstance().exitActivity(mActivity);
     }
 

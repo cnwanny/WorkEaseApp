@@ -60,9 +60,9 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
     //省份
     @BindView(R.id.bus_register_area_provice)
     TextView busRegisterAreaProvice;
-    //区域
-    @BindView(R.id.bus_register_area)
-    TextView busRegisterArea;
+    //    //区域
+//    @BindView(R.id.bus_register_area)
+//    TextView busRegisterArea;
     //注册
     @BindView(R.id.bus_start_register)
     TextView busStartRegister;
@@ -90,7 +90,7 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
     private ArrayList<City> areadList;
 
     private void initView() {
-        if(titleTitle != null){
+        if (titleTitle != null) {
             titleTitle.setText("注册");
         }
         if (proviceList == null) {
@@ -117,23 +117,23 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
         createIOS(provices, "选择省/市");
     }
 
-    @OnClick(R.id.bus_register_area)
-    void startSelectArea(View view) {
-        mode = MODE_AREA;
-        areas.clear();
-        areadList.clear();
-        for (CityEntity entity : proviceList) {
-            if (entity.getId().equals(selectCityId)) {
-                areadList.addAll(entity.getSubCitys());
-                break;
-            }
-        }
-        for (City entity : areadList) {
-            areas.add(entity.getName());
-        }
-        createIOS(areas, "选择市/区");
-    }
-
+//    @OnClick(R.id.bus_register_area)
+//    void startSelectArea(View view) {
+//        mode = MODE_AREA;
+//        areas.clear();
+//        areadList.clear();
+//        for (CityEntity entity : proviceList) {
+//            if (entity.getId().equals(selectCityId)) {
+//                areadList.addAll(entity.getSubCitys());
+//                break;
+//            }
+//        }
+//        for (City entity : areadList) {
+//            areas.add(entity.getName());
+//        }
+//        createIOS(areas, "选择市/区");
+//    }
+//
 
     @Override
     public void registerSuccess(RegisterResult entity) {
@@ -236,16 +236,16 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
             return;
         }
         if (mvpPresenter != null) {
-            mvpPresenter.register(busRegisterPhone.getText().toString(), busRegisterPassword.getText().toString(), "1", busRegisterUsername.getText().toString(), selectAreaId, "" , "", "");
+            mvpPresenter.register(busRegisterPhone.getText().toString(), busRegisterPassword.getText().toString(), "1", busRegisterUsername.getText().toString(), selectCityId, "", "", "");
         }
     }
 
-    private String selectAreaId = "";
+//    private String selectAreaId = "";
     private int mode = MODE_PROVICE;
 
     private void createIOS(ArrayList<String> data, String titlename) {
         if (iosDialogView == null) {
-            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, data, titlename,0);
+            iosDialogView = new IOSDialogView(mActivity, R.style.dialog, data, titlename, 0);
             iosDialogView.setIosDialogSelectListener(iosDialogSelectListener);
             iosDialogView.setOnCancelListener(onCancelListener);
             iosDialogView.show();
@@ -278,14 +278,16 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
                     iosDialogView = null;
                 }
             }
-            if (mode == MODE_AREA) {
-                if (busRegisterArea != null) {
-                    if (!TextUtils.isEmpty(areas.get(position))) {
-                        busRegisterArea.setText(areas.get(position));
-                        selectAreaId = areadList.get(position).getId();
-                    }
-                }
-            } else if (mode == MODE_PROVICE) {
+//            if (mode == MODE_AREA) {
+//                if (busRegisterArea != null) {
+//                    if (!TextUtils.isEmpty(areas.get(position))) {
+//                        busRegisterArea.setText(areas.get(position));
+//                        selectAreaId = areadList.get(position).getId();
+//                    }
+//                }
+//            } else
+
+            if (mode == MODE_PROVICE) {
                 if (busRegisterAreaProvice != null) {
                     if (!TextUtils.isEmpty(provices.get(position))) {
                         busRegisterAreaProvice.setText(provices.get(position));
@@ -294,6 +296,7 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
                 }
             }
         }
+
         @Override
         public void cancel() {
             if (iosDialogView != null) {
@@ -306,7 +309,7 @@ public class BusRegisterActivity extends MvpActivity<RegisterPresenter> implemen
     };
 
     @OnClick(R.id.title_left)
-    void backActivity(View view){
+    void backActivity(View view) {
         ActivityStackManager.getInstance().exitActivity(mActivity);
     }
 }
